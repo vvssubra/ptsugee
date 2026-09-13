@@ -14,8 +14,8 @@
 /build
 
 # local environment files
-.env.local
-.env*.local
+.env*
+!.env.example
 
 # miscellaneous
 .DS_Store
