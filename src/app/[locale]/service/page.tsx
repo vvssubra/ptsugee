@@ -11,9 +11,9 @@ import { Container } from "@/components/ui/container";
 import { routing, type Locale } from "@/i18n/routing";
 import { serviceSlugs } from "@/content/types";
 import { getProjectsByService, type ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
+import { buildLocalizedMetadata } from "@/lib/metadata";
 
 const messages = { en: enMessages, id: idMessages } as const;
-const siteUrl = "https://ptsugee.com";
 
 async function getAllProjects(locale: Locale): Promise<ProjectGalleryResult> {
   const results = await Promise.all(serviceSlugs.map((slug) => getProjectsByService(slug, locale)));
@@ -49,8 +49,7 @@ export function ServicesPage({ locale, gallery }: { locale: Locale; gallery: Pro
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
-  const metadata = messages[locale].servicesIndex.metadata;
-  return { title: metadata.title, description: metadata.description, alternates: { canonical: `${siteUrl}${locale === "en" ? "" : "/id"}/service`, languages: { en: `${siteUrl}/service`, id: `${siteUrl}/id/service`, "x-default": `${siteUrl}/service` } } };
+  return buildLocalizedMetadata(locale, "/service", messages[locale].servicesIndex.metadata);
 }
 
 export default async function ServiceIndex({ params }: { params: Promise<{ locale: string }> }) {

@@ -7,9 +7,9 @@ import { AboutSections } from "@/components/about-sections";
 import { ContactBoundary } from "@/components/contact-boundary";
 import { serviceSlugs } from "@/content/types";
 import { routing, type Locale } from "@/i18n/routing";
+import { buildLocalizedMetadata } from "@/lib/metadata";
 
 const messages = { en: enMessages, id: idMessages } as const;
-const siteUrl = "https://ptsugee.com";
 
 export function AboutPage({ locale }: { locale: Locale }) {
   const dictionary = messages[locale];
@@ -28,8 +28,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
-  const metadata = messages[locale].about.metadata;
-  return { title: metadata.title, description: metadata.description, alternates: { canonical: `${siteUrl}${locale === "en" ? "" : "/id"}/about`, languages: { en: `${siteUrl}/about`, id: `${siteUrl}/id/about`, "x-default": `${siteUrl}/about` } } };
+  return buildLocalizedMetadata(locale, "/about", messages[locale].about.metadata);
 }
 
 export default async function About({ params }: { params: Promise<{ locale: string }> }) {

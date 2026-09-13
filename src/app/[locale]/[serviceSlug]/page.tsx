@@ -8,9 +8,10 @@ import { isServiceSlug, services } from "@/content/services";
 import { serviceSlugs, type ServiceSlug } from "@/content/types";
 import { routing, type Locale } from "@/i18n/routing";
 import { getProjectsByService, type ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
+import { buildLocalizedMetadata } from "@/lib/metadata";
+import { buildServiceJsonLd, serializeJsonLd } from "@/lib/structured-data";
 
 const messages = { en: enMessages, id: idMessages } as const;
-const siteUrl = "https://ptsugee.com";
 
 const serviceAltKeys: Record<ServiceSlug, keyof typeof enMessages.images> = {
   "machinery-equipment-installation": "serviceMachineryInstallation",
@@ -26,7 +27,9 @@ export function ServiceDetailPage({ locale, serviceSlug, gallery }: { locale: Lo
   const service = services.find((item) => item.slug === serviceSlug);
   if (!service) notFound();
 
-  return <main><ServiceDetail
+  return <main>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildServiceJsonLd(locale, serviceSlug)) }} />
+    <ServiceDetail
     alt={dictionary.images[serviceAltKeys[serviceSlug]]}
     contact={dictionary.contact}
     copy={dictionary.services[serviceSlug] as ServicePageCopy}
@@ -46,16 +49,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; serviceSlug: string }> }): Promise<Metadata> {
   const { locale, serviceSlug } = await params;
   if (!hasLocale(routing.locales, locale) || !isServiceSlug(serviceSlug)) notFound();
-  const metadata = messages[locale].services[serviceSlug].metadata;
-  const prefix = locale === "en" ? "" : "/id";
-  return {
-    title: metadata.title,
-    description: metadata.description,
-    alternates: {
-      canonical: `${siteUrl}${prefix}/${serviceSlug}`,
-      languages: { en: `${siteUrl}/${serviceSlug}`, id: `${siteUrl}/id/${serviceSlug}`, "x-default": `${siteUrl}/${serviceSlug}` },
-    },
-  };
+  return buildLocalizedMetadata(locale, `/${serviceSlug}`, messages[locale].services[serviceSlug].metadata);
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ locale: string; serviceSlug: string }> }) {

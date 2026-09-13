@@ -1,5 +1,6 @@
 import enMessages from "../../../messages/en.json";
 import idMessages from "../../../messages/id.json";
+import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { ClientLogoStrip } from "@/components/client-logo-strip";
@@ -15,9 +16,16 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { routing, type Locale } from "@/i18n/routing";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { buildLocalizedMetadata } from "@/lib/metadata";
 import { getFeaturedProjects, type ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 
 const messages = { en: enMessages, id: idMessages } as const;
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  return buildLocalizedMetadata(locale, "/", messages[locale].home.metadata);
+}
 
 export function HomePage({ locale, gallery }: { locale: Locale; gallery: ProjectGalleryResult }) {
   const dictionary = messages[locale];
