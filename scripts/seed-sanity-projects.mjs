@@ -4,6 +4,7 @@ import {createHash} from "node:crypto";
 import {createReadStream, readFileSync, statSync} from "node:fs";
 import {extname, resolve} from "node:path";
 import {fileURLToPath} from "node:url";
+import {loadNextEnvironment} from "./load-next-env.mjs";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const seedFile = resolve(root, "content/seed-projects.json");
@@ -63,6 +64,8 @@ describePlan();
 if (!write) {
   process.exit(0);
 }
+
+loadNextEnvironment(root);
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";

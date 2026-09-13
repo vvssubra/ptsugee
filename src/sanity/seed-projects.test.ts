@@ -1,7 +1,9 @@
 import {createHash} from "node:crypto";
-import {existsSync, readFileSync} from "node:fs";
-import {resolve} from "node:path";
+import {existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from "node:fs";
+import {tmpdir} from "node:os";
+import {join, resolve} from "node:path";
 import {spawnSync} from "node:child_process";
+import {pathToFileURL} from "node:url";
 import seeds from "../../content/seed-projects.json";
 import {serviceSlugs} from "@/content/types";
 
@@ -78,5 +80,52 @@ describe("Sanity project seed data", () => {
 
     expect(result.status).not.toBe(0);
     expect(result.stderr).toContain("NEXT_PUBLIC_SANITY_PROJECT_ID is required with --write.");
+  });
+
+  it.each([
+    {
+      name: "loads values from .env.local",
+      processValues: {},
+      expected: {projectId: "from-env-file", token: "file-token"},
+    },
+    {
+      name: "keeps shell-exported values ahead of .env.local",
+      processValues: {
+        NEXT_PUBLIC_SANITY_PROJECT_ID: "from-process",
+        SANITY_WRITE_TOKEN: "process-token",
+      },
+      expected: {projectId: "from-process", token: "process-token"},
+    },
+  ])("$name", ({processValues, expected}) => {
+    const envDirectory = mkdtempSync(join(tmpdir(), "pt-sugee-seed-env-"));
+    const loaderUrl = pathToFileURL(resolve(process.cwd(), "scripts/load-next-env.mjs")).href;
+    writeFileSync(
+      join(envDirectory, ".env.local"),
+      "NEXT_PUBLIC_SANITY_PROJECT_ID=from-env-file\nSANITY_WRITE_TOKEN=file-token\n",
+    );
+
+    try {
+      const childEnv = {...process.env};
+      delete childEnv.NEXT_PUBLIC_SANITY_PROJECT_ID;
+      delete childEnv.SANITY_WRITE_TOKEN;
+      childEnv.NODE_ENV = "production";
+      Object.assign(childEnv, processValues);
+
+      const result = spawnSync(
+        process.execPath,
+        [
+          "--input-type=module",
+          "--eval",
+          `import {loadNextEnvironment} from ${JSON.stringify(loaderUrl)}; loadNextEnvironment(process.argv[1]); console.log(JSON.stringify({projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID, token: process.env.SANITY_WRITE_TOKEN}));`,
+          envDirectory,
+        ],
+        {encoding: "utf8", env: childEnv},
+      );
+
+      expect(result.status, result.stderr).toBe(0);
+      expect(JSON.parse(result.stdout.trim())).toEqual(expected);
+    } finally {
+      rmSync(envDirectory, {recursive: true, force: true});
+    }
   });
 });
