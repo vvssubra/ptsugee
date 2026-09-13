@@ -1,13 +1,66 @@
-import { useTranslations } from "next-intl";
+import enMessages from "../../../messages/en.json";
+import idMessages from "../../../messages/id.json";
+import { hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { ClientLogoStrip } from "@/components/client-logo-strip";
+import { FaqAccordion } from "@/components/faq-accordion";
+import { Hero } from "@/components/hero";
+import { MotionReveal } from "@/components/motion-reveal";
+import { ProjectGallery } from "@/components/project-gallery";
+import { ProofPoints } from "@/components/proof-points";
+import { QualitySection } from "@/components/quality-section";
+import { ServiceGrid } from "@/components/service-grid";
+import { ButtonLink } from "@/components/ui/button-link";
+import { Container } from "@/components/ui/container";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { routing, type Locale } from "@/i18n/routing";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { getFeaturedProjects, type ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 
-export default function Home() {
-  const t = useTranslations("home.hero");
+const messages = { en: enMessages, id: idMessages } as const;
+
+export function HomePage({ locale, gallery }: { locale: Locale; gallery: ProjectGalleryResult }) {
+  const dictionary = messages[locale];
+  const home = dictionary.home;
+  const routePrefix = locale === "en" ? "" : "/id";
 
   return (
     <main>
-      <p>{t("eyebrow")}</p>
-      <h1>{t("heading")}</h1>
-      <p>{t("body")}</p>
+      <Hero alt={dictionary.images.homeHero} body={home.hero.body} eyebrow={home.hero.eyebrow} heading={home.hero.heading} primaryCta={home.hero.primaryCta} secondaryCta={home.hero.secondaryCta} serviceHref={`${routePrefix}/service`} />
+      <MotionReveal>
+        <section className="section capabilities-section" aria-labelledby="capabilities-heading">
+          <Container><div className="capabilities-layout"><div>
+            <SectionHeading headingId="capabilities-heading" eyebrow={home.capabilities.eyebrow} heading={home.capabilities.heading} body={home.capabilities.body} />
+            <ButtonLink className="capabilities-cta" href={`${routePrefix}/service`}>{home.capabilities.cta}</ButtonLink>
+          </div><ServiceGrid locale={locale} services={dictionary.services} /></div></Container>
+        </section>
+      </MotionReveal>
+      <MotionReveal>
+        <section className="section project-section" id="projects" aria-labelledby="projects-heading">
+          <Container><SectionHeading headingId="projects-heading" eyebrow={home.featuredProjects.eyebrow} heading={home.featuredProjects.heading} body={home.featuredProjects.body} />
+            <ProjectGallery gallery={gallery} emptyMessage={home.featuredProjects.empty} unavailableMessage={dictionary.system.galleryUnavailable} previousLabel={home.featuredProjects.previous} nextLabel={home.featuredProjects.next} />
+          </Container>
+        </section>
+      </MotionReveal>
+      <MotionReveal><ProofPoints eyebrow={home.why.eyebrow} heading={home.why.heading} points={[home.why.experience, home.why.regional, home.why.capability, home.why.priority]} /></MotionReveal>
+      <MotionReveal><QualitySection alt={dictionary.images.qualityTeam} body={home.quality.body} eyebrow={home.quality.eyebrow} heading={home.quality.heading} points={home.quality.points} /></MotionReveal>
+      <MotionReveal><ClientLogoStrip altLabels={dictionary.images} body={home.clients.body} heading={home.clients.heading} /></MotionReveal>
+      <MotionReveal>
+        <section className="section faq-section" aria-labelledby="faq-heading"><Container className="faq-layout">
+          <div><p className="eyebrow">{home.faqIntro.eyebrow}</p><h2 id="faq-heading">{home.faqIntro.heading}</h2><p className="faq-intro__body">{home.faqIntro.body}</p><a className="text-link" href="#contact">{dictionary.navigation.contact}</a></div>
+          <FaqAccordion items={home.faq} />
+        </Container></section>
+      </MotionReveal>
+      <section className="section contact-boundary" id="contact" aria-labelledby="contact-heading"><Container className="contact-boundary__inner">
+        <div><p className="eyebrow">{dictionary.contact.eyebrow}</p><h2 id="contact-heading">{dictionary.contact.heading}</h2><p>{dictionary.contact.body}</p></div>
+        <ButtonLink href={buildWhatsAppUrl(locale)} target="_blank">{dictionary.contact.whatsappCta}</ButtonLink>
+      </Container></section>
     </main>
   );
+}
+
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  return <HomePage locale={locale} gallery={await getFeaturedProjects(locale)} />;
 }

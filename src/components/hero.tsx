@@ -1,0 +1,16 @@
+import Image from "next/image";
+import { heroAssets } from "@/content/assets";
+import { ButtonLink } from "@/components/ui/button-link";
+import { Container } from "@/components/ui/container";
+
+type HeroProps = { alt: string; eyebrow: string; heading: string; body: string; primaryCta: string; secondaryCta: string; serviceHref: string };
+
+export function Hero({ alt, eyebrow, heading, body, primaryCta, secondaryCta, serviceHref }: HeroProps) {
+  return <section className="home-hero" aria-labelledby="home-hero-heading">
+    <Image className="home-hero__image" src={heroAssets.home.src} alt={alt} fill priority sizes="100vw" style={{ objectFit: "cover" }} />
+    <div className="home-hero__overlay" />
+    <Container className="home-hero__content"><p className="eyebrow home-hero__eyebrow">{eyebrow}</p><h1 id="home-hero-heading">{heading}</h1><p className="home-hero__body">{body}</p>
+      <div className="home-hero__actions"><ButtonLink href="#contact">{primaryCta}</ButtonLink><ButtonLink href={serviceHref} variant="secondary">{secondaryCta}</ButtonLink></div>
+    </Container>
+  </section>;
+}
