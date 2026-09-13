@@ -38,13 +38,29 @@ export function HomePage({ locale, gallery }: { locale: Locale; gallery: Project
       <MotionReveal>
         <section className="section project-section" id="projects" aria-labelledby="projects-heading">
           <Container><SectionHeading headingId="projects-heading" eyebrow={home.featuredProjects.eyebrow} heading={home.featuredProjects.heading} body={home.featuredProjects.body} />
-            <ProjectGallery gallery={gallery} emptyMessage={home.featuredProjects.empty} unavailableMessage={dictionary.system.galleryUnavailable} previousLabel={home.featuredProjects.previous} nextLabel={home.featuredProjects.next} />
+            <ProjectGallery
+              gallery={gallery}
+              emptyMessage={home.featuredProjects.empty}
+              unavailableMessage={dictionary.system.galleryUnavailable}
+              previousLabel={home.featuredProjects.previous}
+              nextLabel={home.featuredProjects.next}
+              filtersLabel={home.featuredProjects.filtersLabel}
+              allServicesLabel={home.featuredProjects.allServices}
+              serviceLabels={{
+                "machinery-equipment-installation": dictionary.services["machinery-equipment-installation"].title,
+                "machinery-equipment-overhauling": dictionary.services["machinery-equipment-overhauling"].title,
+                epocast: dictionary.services.epocast.title,
+                "laser-alignment-service": dictionary.services["laser-alignment-service"].title,
+                "in-situ-machining": dictionary.services["in-situ-machining"].title,
+                "flange-management": dictionary.services["flange-management"].title,
+              }}
+            />
           </Container>
         </section>
       </MotionReveal>
       <MotionReveal><ProofPoints eyebrow={home.why.eyebrow} heading={home.why.heading} points={[home.why.experience, home.why.regional, home.why.capability, home.why.priority]} /></MotionReveal>
       <MotionReveal><QualitySection alt={dictionary.images.qualityTeam} body={home.quality.body} eyebrow={home.quality.eyebrow} heading={home.quality.heading} points={home.quality.points} /></MotionReveal>
-      <MotionReveal><ClientLogoStrip altLabels={dictionary.images} body={home.clients.body} heading={home.clients.heading} /></MotionReveal>
+      <MotionReveal><ClientLogoStrip altLabels={dictionary.images} body={home.clients.body} heading={home.clients.heading} marqueeLabel={home.clients.marqueeLabel} /></MotionReveal>
       <MotionReveal>
         <section className="section faq-section" aria-labelledby="faq-heading"><Container className="faq-layout">
           <div><p className="eyebrow">{home.faqIntro.eyebrow}</p><h2 id="faq-heading">{home.faqIntro.heading}</h2><p className="faq-intro__body">{home.faqIntro.body}</p><a className="text-link" href="#contact">{dictionary.navigation.contact}</a></div>

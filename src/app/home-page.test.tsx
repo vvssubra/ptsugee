@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Home, { HomePage } from "@/app/[locale]/page";
 import type { ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
@@ -27,6 +27,27 @@ const readyGallery: ProjectGalleryResult = {
             width: 1200,
             height: 800,
             aspectRatio: 1.5,
+          },
+        },
+      ],
+    },
+    {
+      id: "line-boring",
+      title: "On-site line boring",
+      serviceCategory: "in-situ-machining",
+      location: "Singapore",
+      displayOrder: 2,
+      featured: true,
+      images: [
+        {
+          key: "machining-image",
+          alt: "Portable line boring equipment in operation",
+          asset: {
+            id: "image-2",
+            url: "https://cdn.sanity.io/images/demo/production/machining.jpg",
+            width: 1000,
+            height: 1000,
+            aspectRatio: 1,
           },
         },
       ],
@@ -80,5 +101,48 @@ describe("HomePage", () => {
     expect(screen.getByRole("heading", { level: 3, name: "Propeller shaft alignment" })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "Laser alignment equipment measuring a propeller shaft" })).toBeInTheDocument();
     expect(screen.getByText("Batam, Indonesia · 2025")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Laser alignment equipment measuring a propeller shaft" })).not.toHaveAttribute("src", expect.stringContaining("https://cdn.sanity.io"));
+  });
+
+  it("filters ready projects by the localized service category", async () => {
+    const user = userEvent.setup();
+    render(<HomePage locale="id" gallery={readyGallery} />);
+
+    const filters = screen.getByRole("group", { name: "Filter proyek berdasarkan layanan" });
+    expect(within(filters).getByRole("button", { name: "Semua layanan" })).toHaveAttribute("aria-pressed", "true");
+
+    await user.click(within(filters).getByRole("button", { name: "Layanan Laser Alignment" }));
+    expect(screen.getByRole("heading", { level: 3, name: "Propeller shaft alignment" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { level: 3, name: "On-site line boring" })).not.toBeInTheDocument();
+  });
+
+  it("uses instant gallery navigation when reduced motion is requested", async () => {
+    const user = userEvent.setup();
+    const originalMatchMedia = window.matchMedia;
+    Object.defineProperty(window, "matchMedia", { configurable: true, value: vi.fn().mockReturnValue({
+      matches: true,
+      media: "(prefers-reduced-motion: reduce)",
+      onchange: null,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }) });
+    render(<HomePage locale="en" gallery={readyGallery} />);
+    const track = document.querySelector<HTMLElement>(".project-gallery__track");
+    const scrollBy = vi.fn();
+    Object.defineProperty(track, "clientWidth", { configurable: true, value: 1000 });
+    Object.defineProperty(track, "scrollBy", { configurable: true, value: scrollBy });
+
+    await user.click(screen.getByRole("button", { name: "Next projects" }));
+    expect(scrollBy).toHaveBeenCalledWith({ left: 720, behavior: "auto" });
+    Object.defineProperty(window, "matchMedia", { configurable: true, value: originalMatchMedia });
+  });
+
+  it("renders client logos once in a semantic list", () => {
+    render(<HomePage locale="en" gallery={emptyGallery} />);
+    const logos = screen.getByRole("list", { name: "Selected Companies We Have Supported" });
+    expect(within(logos).getAllByRole("img")).toHaveLength(8);
   });
 });
