@@ -160,6 +160,16 @@ p {
   color: #70c852;
 }
 
+.mobile-menu,
+.mobile-menu__controls {
+  align-items: center;
+  display: flex;
+}
+
+.mobile-menu__controls {
+  gap: 1rem;
+}
+
 .mobile-menu__toggle {
   align-items: center;
   background: transparent;
@@ -363,6 +373,10 @@ p {
     display: none;
   }
 
+  .mobile-menu__controls {
+    order: 2;
+  }
+
   .site-navigation,
   .site-navigation[data-open] {
     align-items: center;
@@ -371,6 +385,7 @@ p {
     inset: auto;
     padding: 0;
     position: static;
+    order: 1;
   }
 
   .site-navigation__links {

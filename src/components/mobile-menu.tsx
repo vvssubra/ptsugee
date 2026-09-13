@@ -61,17 +61,20 @@ export function MobileMenu({ locale, labels }: MobileMenuProps) {
 
   return (
     <div className="mobile-menu">
-      <button
-        aria-controls="site-navigation"
-        aria-expanded={open}
-        aria-label={open ? labels.closeMenu : labels.menu}
-        className="mobile-menu__toggle"
-        onClick={() => setOpen((current) => !current)}
-        ref={buttonRef}
-        type="button"
-      >
-        <span aria-hidden="true" className="mobile-menu__icon" />
-      </button>
+      <div className="mobile-menu__controls">
+        <LocaleSwitcher label={labels.language} locale={locale} />
+        <button
+          aria-controls="site-navigation"
+          aria-expanded={open}
+          aria-label={open ? labels.closeMenu : labels.menu}
+          className="mobile-menu__toggle"
+          onClick={() => setOpen((current) => !current)}
+          ref={buttonRef}
+          type="button"
+        >
+          <span aria-hidden="true" className="mobile-menu__icon" />
+        </button>
+      </div>
       <nav
         aria-label={labels.primaryNavigation}
         className="site-navigation"
@@ -88,7 +91,6 @@ export function MobileMenu({ locale, labels }: MobileMenuProps) {
             </li>
           ))}
         </ul>
-        <LocaleSwitcher label={labels.language} locale={locale} />
       </nav>
     </div>
   );

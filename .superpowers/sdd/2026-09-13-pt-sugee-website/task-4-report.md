@@ -30,3 +30,16 @@
 
 - The current public route set still contains only the scaffold home page; later page tasks must add the `projects` and `contact` targets used by the shared anchor navigation.
 - The root scaffold layout owns the document-level `<html lang="en">`; this task applies the verified locale to the shared localized shell. A later routing/metadata pass should move the locale to the document element if the root-layout structure is revised.
+
+## Review fix round 1
+
+- Moved the single locale control outside the collapsible primary navigation so it remains visible beside the closed mobile menu button. At desktop width CSS ordering keeps the primary links first and the same locale control second; no navigation or locale links are duplicated.
+- Added a focused regression assertion that the menu starts with `aria-expanded="false"`, controls the primary navigation by ID, and does not contain the locale group, while the equivalent-page Bahasa link remains `/id/about`.
+- RED: `node_modules/.bin/vitest run src/components/site-shell.test.tsx` - failed 1 of 4 tests because the primary navigation contained the locale group.
+- GREEN: `node_modules/.bin/vitest run src/components/site-shell.test.tsx` - passed: 1 file, 4 tests.
+- Focused final: `node_modules/.bin/vitest run src/components/site-shell.test.tsx src/lib/whatsapp.test.ts` - passed: 2 files, 7 tests.
+- Full final: `node_modules/.bin/vitest run` - passed: 8 files, 17 tests.
+- `node_modules/.bin/tsc --noEmit` - passed with no diagnostics.
+- `node_modules/.bin/eslint src` - passed with no diagnostics.
+- `node_modules/.bin/next build` - passed; Next.js 16.3.3 compiled, type-checked, generated static pages, and finalized successfully.
+- `git diff --check` - passed.

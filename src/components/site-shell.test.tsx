@@ -52,6 +52,24 @@ describe("SiteHeader", () => {
     expect(button).toHaveFocus();
   });
 
+  it("keeps the locale control available while the mobile menu is closed", () => {
+    render(<SiteHeader locale="en" labels={labels} />);
+
+    const button = screen.getByRole("button", { name: "Menu" });
+    const navigation = screen.getByRole("navigation", { name: "Primary" });
+    const localeControl = screen.getByRole("group", {
+      name: "English / Bahasa Indonesia",
+    });
+
+    expect(button).toHaveAttribute("aria-expanded", "false");
+    expect(button).toHaveAttribute("aria-controls", navigation.id);
+    expect(navigation).not.toContainElement(localeControl);
+    expect(screen.getByRole("link", { name: "Bahasa Indonesia" })).toHaveAttribute(
+      "href",
+      "/id/about",
+    );
+  });
+
   it("preserves the current pathname in both locale links", () => {
     pathname.value = "/laser-alignment-service";
     render(<SiteHeader locale="en" labels={labels} />);
