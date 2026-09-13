@@ -1,5 +1,5 @@
 {
-  "navigation": { "home": "Home", "about": "About", "services": "Services", "projects": "Projects", "contact": "Contact", "language": "English / Bahasa Indonesia", "whatsapp": "Chat on WhatsApp" },
+  "navigation": { "home": "Home", "about": "About", "services": "Services", "projects": "Projects", "contact": "Contact", "language": "English / Bahasa Indonesia", "whatsapp": "Chat on WhatsApp", "menu": "Menu", "closeMenu": "Close menu", "primaryNavigation": "Primary" },
   "images": {
     "homeHero": "Offshore oil and gas platform at sea", "aboutHero": "Engineering crew working on offshore equipment", "qualityTeam": "Technicians inspecting machinery in an industrial workspace",
     "serviceMachineryInstallation": "Heavy machinery being positioned for installation", "serviceMachineryOverhauling": "Technicians working on industrial machinery", "serviceEpocast": "Crew preparing heavy equipment for installation", "serviceLaserAlignment": "Laser alignment instrument used inside a machine bore", "serviceInSituMachining": "Technician performing in-situ bore machining", "serviceFlangeManagement": "Technicians preparing a flanged equipment connection",

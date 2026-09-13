@@ -1,5 +1,5 @@
 {
-  "navigation": { "home": "Beranda", "about": "Tentang Kami", "services": "Layanan", "projects": "Proyek", "contact": "Kontak", "language": "English / Bahasa Indonesia", "whatsapp": "Hubungi via WhatsApp" },
+  "navigation": { "home": "Beranda", "about": "Tentang Kami", "services": "Layanan", "projects": "Proyek", "contact": "Kontak", "language": "English / Bahasa Indonesia", "whatsapp": "Hubungi via WhatsApp", "menu": "Menu", "closeMenu": "Tutup menu", "primaryNavigation": "Utama" },
   "images": {
     "homeHero": "Anjungan minyak dan gas lepas pantai di laut", "aboutHero": "Tim engineering bekerja pada peralatan lepas pantai", "qualityTeam": "Teknisi memeriksa mesin di area kerja industri",
     "serviceMachineryInstallation": "Peralatan berat sedang diposisikan untuk instalasi", "serviceMachineryOverhauling": "Teknisi mengerjakan mesin industri", "serviceEpocast": "Tim menyiapkan peralatan berat untuk instalasi", "serviceLaserAlignment": "Instrumen laser alignment yang digunakan di dalam bore mesin", "serviceInSituMachining": "Teknisi melakukan bore machining di lokasi", "serviceFlangeManagement": "Teknisi menyiapkan sambungan peralatan berflange",
