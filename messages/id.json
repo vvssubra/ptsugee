@@ -1,5 +1,11 @@
 {
   "navigation": { "home": "Beranda", "about": "Tentang Kami", "services": "Layanan", "projects": "Proyek", "contact": "Kontak", "language": "English / Bahasa Indonesia", "whatsapp": "Hubungi via WhatsApp" },
+  "images": {
+    "homeHero": "Anjungan minyak dan gas lepas pantai di laut", "aboutHero": "Tim engineering bekerja pada peralatan lepas pantai", "qualityTeam": "Teknisi memeriksa mesin di area kerja industri",
+    "serviceMachineryInstallation": "Peralatan berat sedang diposisikan untuk instalasi", "serviceMachineryOverhauling": "Teknisi mengerjakan mesin industri", "serviceEpocast": "Tim menyiapkan peralatan berat untuk instalasi", "serviceLaserAlignment": "Instrumen laser alignment yang digunakan di dalam bore mesin", "serviceInSituMachining": "Teknisi melakukan bore machining di lokasi", "serviceFlangeManagement": "Teknisi menyiapkan sambungan peralatan berflange",
+    "projectMachineryInstallation": "Peralatan berat sedang diinstal di area industri", "projectMachineryOverhauling": "Peralatan perbaikan maritim di workshop", "projectEpocast": "Teknisi menerapkan resin chocking pada fondasi mesin", "projectLaserAlignment": "Peralatan laser alignment mengukur bore mesin", "projectInSituMachining": "Mesin in-situ machining portabel sedang digunakan", "projectFlangeManagement": "Hydraulic torqueing pada flange saat instalasi modul",
+    "clientAsl": "Logo ASL", "clientSiemens": "Logo Siemens", "clientStEngineering": "Logo ST Engineering", "clientKeppelFels": "Logo Keppel FELS", "clientSeadrill": "Logo Seadrill", "clientPaxOcean": "Logo PaxOcean", "clientShell": "Logo Shell", "clientSembcorpMarine": "Logo Sembcorp Marine"
+  },
   "home": {
     "metadata": { "title": "PT SUGEE - Solusi Engineering dan Maritim", "description": "Layanan engineering, perbaikan maritim, instalasi mesin, in-situ machining, laser alignment, EPOCAST 36, dan flange management di Indonesia dan Singapura." },
     "hero": { "eyebrow": "Dukungan engineering sejak tahun 2000", "heading": "Solusi Engineering dan Maritim Terdepan di Indonesia dan Singapura", "body": "PT SUGEE membantu pelaku industri Maritim, Minyak & Gas, serta Industri Berat dalam instalasi, perbaikan, alignment, dan pemulihan peralatan kritis sekaligus mengurangi waktu henti operasional.", "primaryCta": "Diskusikan Proyek Anda", "secondaryCta": "Lihat Layanan Kami" },

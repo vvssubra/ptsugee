@@ -1,5 +1,11 @@
 {
   "navigation": { "home": "Home", "about": "About", "services": "Services", "projects": "Projects", "contact": "Contact", "language": "English / Bahasa Indonesia", "whatsapp": "Chat on WhatsApp" },
+  "images": {
+    "homeHero": "Offshore oil and gas platform at sea", "aboutHero": "Engineering crew working on offshore equipment", "qualityTeam": "Technicians inspecting machinery in an industrial workspace",
+    "serviceMachineryInstallation": "Heavy machinery being positioned for installation", "serviceMachineryOverhauling": "Technicians working on industrial machinery", "serviceEpocast": "Crew preparing heavy equipment for installation", "serviceLaserAlignment": "Laser alignment instrument used inside a machine bore", "serviceInSituMachining": "Technician performing in-situ bore machining", "serviceFlangeManagement": "Technicians preparing a flanged equipment connection",
+    "projectMachineryInstallation": "Heavy machinery being installed at an industrial yard", "projectMachineryOverhauling": "Marine repair equipment in a workshop", "projectEpocast": "Technician applying resin chocking to a machinery foundation", "projectLaserAlignment": "Laser alignment equipment measuring a machine bore", "projectInSituMachining": "Portable in-situ machining machine in operation", "projectFlangeManagement": "Hydraulic torqueing on a flange during module installation",
+    "clientAsl": "ASL logo", "clientSiemens": "Siemens logo", "clientStEngineering": "ST Engineering logo", "clientKeppelFels": "Keppel FELS logo", "clientSeadrill": "Seadrill logo", "clientPaxOcean": "PaxOcean logo", "clientShell": "Shell logo", "clientSembcorpMarine": "Sembcorp Marine logo"
+  },
   "home": {
     "metadata": { "title": "PT SUGEE - Engineering and Marine Solutions", "description": "Engineering, marine repair, machinery installation, in-situ machining, laser alignment, EPOCAST 36, and flange management across Indonesia and Singapore." },
     "hero": { "eyebrow": "Engineering support since 2000", "heading": "Leading Engineering & Marine Solutions Across Indonesia and Singapore", "body": "PT SUGEE helps Marine, Oil & Gas, and Heavy Industry operators install, repair, align, and restore critical equipment while reducing operational downtime.", "primaryCta": "Discuss Your Project", "secondaryCta": "View Our Services" },

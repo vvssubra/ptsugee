@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image";
+import { serviceAssets, type LocalImageAsset } from "@/content/assets";
 import {
   serviceSlugs,
   type Locale,
@@ -9,12 +10,12 @@ import {
 
 export { serviceSlugs };
 
-const heroImage = (src: string): StaticImageData => ({ src, width: 1200, height: 800 });
+const heroImage = ({ src, width, height }: LocalImageAsset): StaticImageData => ({ src, width, height });
 
 export const services: ServiceContent[] = [
   {
     slug: "machinery-equipment-installation",
-    heroImage: heroImage("/images/services/machinery-equipment-installation.jpg"),
+    heroImage: heroImage(serviceAssets["machinery-equipment-installation"]),
     galleryCategory: "machinery-equipment-installation",
     capabilityKeys: ["foundationAssessment", "directInstallation", "precisionLeveling", "foundationDrilling", "mechanicalIntegration", "finalAlignment"],
     specificationGroups: [],
@@ -22,7 +23,7 @@ export const services: ServiceContent[] = [
   },
   {
     slug: "machinery-equipment-overhauling",
-    heroImage: heroImage("/images/services/machinery-equipment-overhauling.jpg"),
+    heroImage: heroImage(serviceAssets["machinery-equipment-overhauling"]),
     galleryCategory: "machinery-equipment-overhauling",
     capabilityKeys: ["inspectionDiagnostics", "controlledDismantling", "repairPlanning", "machiningSupport", "reassemblyAlignment", "performanceTesting"],
     specificationGroups: [],
@@ -30,7 +31,7 @@ export const services: ServiceContent[] = [
   },
   {
     slug: "epocast",
-    heroImage: heroImage("/images/services/epocast.jpg"),
+    heroImage: heroImage(serviceAssets.epocast),
     galleryCategory: "epocast",
     capabilityKeys: ["foundationIrregularities", "uniformLoadTransfer", "vibrationReduction", "corrosionResistance", "reducedMachining", "efficientInstallation"],
     specificationGroups: [],
@@ -38,7 +39,7 @@ export const services: ServiceContent[] = [
   },
   {
     slug: "laser-alignment-service",
-    heroImage: heroImage("/images/services/laser-alignment-service.jpg"),
+    heroImage: heroImage(serviceAssets["laser-alignment-service"]),
     galleryCategory: "laser-alignment-service",
     capabilityKeys: ["rotalignPro", "boralign", "levalign", "preAlignment", "correctionSupport", "measurementRecords"],
     specificationGroups: [],
@@ -46,7 +47,7 @@ export const services: ServiceContent[] = [
   },
   {
     slug: "in-situ-machining",
-    heroImage: heroImage("/images/services/in-situ-machining.jpg"),
+    heroImage: heroImage(serviceAssets["in-situ-machining"]),
     galleryCategory: "in-situ-machining",
     capabilityKeys: ["reducedLogistics", "criticalSurfaceAccess", "surfaceRestoration", "alignmentBoltingCoordination"],
     specificationGroups: [
@@ -58,7 +59,7 @@ export const services: ServiceContent[] = [
   },
   {
     slug: "flange-management",
-    heroImage: heroImage("/images/services/flange-management.jpg"),
+    heroImage: heroImage(serviceAssets["flange-management"]),
     galleryCategory: "flange-management",
     capabilityKeys: ["surfaceInspection", "onSiteFacing", "gasketPreparation", "boltSequence", "hydraulicTorqueing", "jointRecords"],
     specificationGroups: [],
