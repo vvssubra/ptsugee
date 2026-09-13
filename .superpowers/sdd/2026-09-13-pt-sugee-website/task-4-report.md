@@ -43,3 +43,14 @@
 - `node_modules/.bin/eslint src` - passed with no diagnostics.
 - `node_modules/.bin/next build` - passed; Next.js 16.3.3 compiled, type-checked, generated static pages, and finalized successfully.
 - `git diff --check` - passed.
+
+## Review fix round 2
+
+- Added `gap: clamp(1.5rem, 2.5vw, 2.75rem)` to the desktop `.mobile-menu` flex parent. This separates the last primary link from the adjacent locale controls while retaining the fix-round 1 ordering and unchanged mobile layout.
+- No source-text unit assertion was added for this declaration: such a test would verify CSS spelling rather than rendered spacing, while the existing shell test continues to protect the required DOM relationship and equivalent-page locale behavior.
+- Focused: `node_modules/.bin/vitest run src/components/site-shell.test.tsx src/lib/whatsapp.test.ts` - passed: 2 files, 7 tests.
+- Full: `node_modules/.bin/vitest run` - passed: 8 files, 17 tests.
+- `node_modules/.bin/tsc --noEmit` - passed with no diagnostics.
+- `node_modules/.bin/eslint src` - passed with no diagnostics.
+- `node_modules/.bin/next build` - passed; Next.js 16.3.3 compiled, type-checked, generated static pages, and finalized successfully.
+- `git diff --check` - passed.

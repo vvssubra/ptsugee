@@ -373,6 +373,10 @@ p {
     display: none;
   }
 
+  .mobile-menu {
+    gap: clamp(1.5rem, 2.5vw, 2.75rem);
+  }
+
   .mobile-menu__controls {
     order: 2;
   }
