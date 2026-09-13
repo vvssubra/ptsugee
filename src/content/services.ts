@@ -1,14 +1,7 @@
 import type { StaticImageData } from "next/image";
-import type { ServiceContent, ServiceSlug } from "./types";
+import { serviceSlugs, type ServiceContent, type ServiceSlug } from "./types";
 
-export const serviceSlugs = [
-  "machinery-equipment-installation",
-  "machinery-equipment-overhauling",
-  "epocast",
-  "laser-alignment-service",
-  "in-situ-machining",
-  "flange-management",
-] as const;
+export { serviceSlugs };
 
 const heroImage = (src: string): StaticImageData => ({ src, width: 1200, height: 800 });
 
