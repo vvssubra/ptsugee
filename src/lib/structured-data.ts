@@ -18,19 +18,12 @@ export function buildOrganizationJsonLd(locale: Locale) {
     email: "sathish@ptsugee.com",
     telephone: "+65 9100 4649",
     parentOrganization: { "@type": "Organization", name: "New Millenium Group" },
-    address: [
-      {
-        "@type": "PostalAddress",
-        streetAddress: "K-15, Tunas Regency, Tanjung Uncang",
-        addressLocality: "Batam",
-        addressCountry: "ID",
-      },
-      {
-        "@type": "PostalAddress",
-        streetAddress: "164 Tuas South Ave 2, West Point Biz Hub",
-        addressCountry: "SG",
-      },
-    ],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "K-15, Tunas Regency, Tanjung Uncang",
+      addressLocality: "Batam",
+      addressCountry: "ID",
+    },
     areaServed: [
       { "@type": "Country", name: locale === "en" ? "Indonesia" : "Indonesia" },
       { "@type": "Country", name: locale === "en" ? "Singapore" : "Singapura" },

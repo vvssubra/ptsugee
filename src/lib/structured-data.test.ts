@@ -11,8 +11,16 @@ describe("structured data", () => {
       email: "sathish@ptsugee.com",
       telephone: "+65 9100 4649",
       foundingDate: "2000",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "K-15, Tunas Regency, Tanjung Uncang",
+        addressLocality: "Batam",
+        addressCountry: "ID",
+      },
     });
-    expect(JSON.stringify(data)).not.toMatch(/aggregateRating|review|certification/i);
+    const serialized = JSON.stringify(data);
+    expect(serialized).not.toContain("164 Tuas South Ave 2");
+    expect(serialized).not.toMatch(/aggregateRating|review|certification/i);
   });
 
   it("publishes localized Service data tied to PT SUGEE", () => {
