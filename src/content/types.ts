@@ -14,6 +14,12 @@ export const serviceSlugs = [
 
 export type ServiceSlug = (typeof serviceSlugs)[number];
 
+export type TechnicalUnit = "inch" | "millimeter";
+
+export type TechnicalValue =
+  | { kind: "range"; min: number; max: number; unit: TechnicalUnit }
+  | { kind: "maximum"; value: number; unit: TechnicalUnit };
+
 export interface ServiceContent {
   slug: ServiceSlug;
   heroImage: StaticImageData;
@@ -21,7 +27,7 @@ export interface ServiceContent {
   capabilityKeys: string[];
   specificationGroups: Array<{
     labelKey: string;
-    items: Array<{ labelKey: string; value: string }>;
+    items: Array<{ labelKey: string; value: TechnicalValue }>;
   }>;
   relatedServices: ServiceSlug[];
 }

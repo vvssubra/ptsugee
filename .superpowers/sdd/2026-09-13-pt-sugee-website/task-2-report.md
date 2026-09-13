@@ -44,3 +44,20 @@ The three contract test files were written before their implementation. The init
 - `./node_modules/.bin/next build` — passed.
 - `rg -n '4 to 40|1 to 120|6,000|4 hingga 40|1 hingga 120|6\\.000' messages || true` — no matches; technical ranges are not duplicated in locale messages.
 - `git diff --check` — passed.
+
+## Review fix round 2
+
+### Review concern addressed
+
+- Replaced the in-situ machining display strings with structured `range` and `maximum` technical values (`min`, `max` or `value`, and unit identity) in `src/content/services.ts`.
+- Added locale-aware numeric/unit formatting and message-template interpolation through `formatSpecificationGroups`. Numeric values remain in the typed service content only; dictionaries provide sentence templates and localized units.
+- Added focused assertions for the exact rendered English and Bahasa scope sentences, including `6,000` and `6.000` locale-specific number formatting.
+
+### Verification commands and results
+
+- `./node_modules/.bin/vitest run src/content/services.test.ts` — passed: 1 file, 2 tests.
+- `./node_modules/.bin/vitest run src/i18n/routing.test.ts src/content/messages.test.ts src/content/services.test.ts` — passed: 3 files, 5 tests.
+- `./node_modules/.bin/eslint .` — passed.
+- `./node_modules/.bin/next typegen && ./node_modules/.bin/tsc --noEmit` — passed.
+- `./node_modules/.bin/next build` — passed.
+- `git diff --check` — passed.

@@ -1,5 +1,11 @@
 import type { StaticImageData } from "next/image";
-import { serviceSlugs, type ServiceContent, type ServiceSlug } from "./types";
+import {
+  serviceSlugs,
+  type Locale,
+  type ServiceContent,
+  type ServiceSlug,
+  type TechnicalValue,
+} from "./types";
 
 export { serviceSlugs };
 
@@ -44,9 +50,9 @@ export const services: ServiceContent[] = [
     galleryCategory: "in-situ-machining",
     capabilityKeys: ["reducedLogistics", "criticalSurfaceAccess", "surfaceRestoration", "alignmentBoltingCoordination"],
     specificationGroups: [
-      { labelKey: "lineBoring", items: [{ labelKey: "workingRange", value: "4–40 in" }] },
-      { labelKey: "flangeFacing", items: [{ labelKey: "workingRange", value: "1–120 in" }] },
-      { labelKey: "milling", items: [{ labelKey: "workingLength", value: "6,000 mm" }] },
+      { labelKey: "lineBoring", items: [{ labelKey: "workingRange", value: { kind: "range", min: 4, max: 40, unit: "inch" } }] },
+      { labelKey: "flangeFacing", items: [{ labelKey: "workingRange", value: { kind: "range", min: 1, max: 120, unit: "inch" } }] },
+      { labelKey: "milling", items: [{ labelKey: "workingLength", value: { kind: "maximum", value: 6000, unit: "millimeter" } }] },
     ],
     relatedServices: ["machinery-equipment-overhauling", "laser-alignment-service", "flange-management"],
   },
@@ -62,4 +68,42 @@ export const services: ServiceContent[] = [
 
 export function isServiceSlug(value: string): value is ServiceSlug {
   return (serviceSlugs as readonly string[]).includes(value);
+}
+
+type ScopeTemplates = Record<string, string>;
+
+const localizedUnits: Record<Locale, Record<TechnicalValue["unit"], string>> = {
+  en: { inch: "inches", millimeter: "mm" },
+  id: { inch: "inci", millimeter: "mm" },
+};
+
+function formatTechnicalValue(locale: Locale, value: TechnicalValue): Record<string, string> {
+  const number = new Intl.NumberFormat(locale === "id" ? "id-ID" : "en-US");
+  const unit = localizedUnits[locale][value.unit];
+
+  if (value.kind === "range") {
+    return { min: number.format(value.min), max: number.format(value.max), unit };
+  }
+
+  return { value: number.format(value.value), unit };
+}
+
+function interpolate(template: string, values: Record<string, string>): string {
+  return template.replace(/\{(\w+)\}/g, (_match, key: string) => values[key] ?? `{${key}}`);
+}
+
+export function formatSpecificationGroups(
+  service: ServiceContent,
+  locale: Locale,
+  templates: ScopeTemplates,
+): string[] {
+  return service.specificationGroups.flatMap(({ labelKey, items }) => {
+    const template = templates[labelKey];
+
+    if (!template) {
+      throw new Error(`Missing localized template for ${labelKey}`);
+    }
+
+    return items.map(({ value }) => interpolate(template, formatTechnicalValue(locale, value)));
+  });
 }
