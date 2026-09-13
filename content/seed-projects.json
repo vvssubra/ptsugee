@@ -1,0 +1,114 @@
+[
+  {
+    "_id": "project-gallery-chock-fast-projects",
+    "_type": "projectGallery",
+    "title": {"en": "Chock Fast Projects", "id": "Proyek Chock Fast"},
+    "serviceCategory": "epocast",
+    "location": "Location not stated in source profile",
+    "displayOrder": 10,
+    "featured": true,
+    "images": [{
+      "path": "public/images/projects/epocast-profile.webp",
+      "alt": {"en": "Technician applying resin chocking to a machinery foundation", "id": "Teknisi menerapkan resin chocking pada fondasi mesin"},
+      "provenance": "PT SUGEE company profile PDF, page 10 (Chock Fast Projects)"
+    }]
+  },
+  {
+    "_id": "project-gallery-laser-alignment-projects",
+    "_type": "projectGallery",
+    "title": {"en": "Laser Alignment Projects", "id": "Proyek Laser Alignment"},
+    "serviceCategory": "laser-alignment-service",
+    "location": "Location not stated in source profile",
+    "displayOrder": 20,
+    "featured": true,
+    "images": [{
+      "path": "public/images/projects/laser-alignment-profile.webp",
+      "alt": {"en": "Laser alignment equipment measuring a machine bore", "id": "Peralatan laser alignment mengukur bore mesin"},
+      "provenance": "PT SUGEE company profile PDF, page 11 (Laser Alignment Projects)"
+    }]
+  },
+  {
+    "_id": "project-gallery-in-situ-machining-projects",
+    "_type": "projectGallery",
+    "title": {"en": "In-Situ Machining Projects", "id": "Proyek In-Situ Machining"},
+    "serviceCategory": "in-situ-machining",
+    "location": "Location not stated in source profile",
+    "displayOrder": 30,
+    "featured": true,
+    "images": [{
+      "path": "public/images/projects/in-situ-machining-profile.webp",
+      "alt": {"en": "Portable in-situ machining equipment in operation", "id": "Peralatan in-situ machining portabel sedang digunakan"},
+      "provenance": "PT SUGEE company profile PDF, page 12 (In-Situ Machining Projects)"
+    }]
+  },
+  {
+    "_id": "project-gallery-heavy-machinery-installations",
+    "_type": "projectGallery",
+    "title": {"en": "Heavy Machinery Installations", "id": "Instalasi Mesin Berat"},
+    "serviceCategory": "machinery-equipment-installation",
+    "location": "Location not stated in source profile",
+    "displayOrder": 40,
+    "featured": true,
+    "images": [{
+      "path": "public/images/projects/machinery-equipment-installation-profile.webp",
+      "alt": {"en": "Heavy machinery being installed at an industrial yard", "id": "Peralatan berat sedang diinstal di area industri"},
+      "provenance": "PT SUGEE company profile PDF, page 13 (Heavy Machinery Installations)"
+    }]
+  },
+  {
+    "_id": "project-gallery-ship-rig-repair-overhauling",
+    "_type": "projectGallery",
+    "title": {"en": "Ship and Rig Repair, Service and Overhauling", "id": "Perbaikan, Servis, dan Overhaul Kapal serta Rig"},
+    "serviceCategory": "machinery-equipment-overhauling",
+    "location": "Location not stated in source profile",
+    "displayOrder": 50,
+    "featured": true,
+    "images": [{
+      "path": "public/images/projects/machinery-equipment-overhauling-profile.webp",
+      "alt": {"en": "Marine repair equipment in a workshop", "id": "Peralatan perbaikan maritim di workshop"},
+      "provenance": "PT SUGEE company profile PDF, page 14 (Ship/Rig Repair, Service and Over Hauling)"
+    }]
+  },
+  {
+    "_id": "project-gallery-module-installation-torqueing",
+    "_type": "projectGallery",
+    "title": {"en": "Module Installation Torqueing", "id": "Torqueing untuk Instalasi Modul"},
+    "serviceCategory": "flange-management",
+    "location": "Location not stated in source profile",
+    "displayOrder": 60,
+    "featured": true,
+    "images": [{
+      "path": "public/images/projects/flange-management-module-installation.webp",
+      "alt": {"en": "Hydraulic torqueing on a flange during module installation", "id": "Hydraulic torqueing pada flange saat instalasi modul"},
+      "provenance": "PT SUGEE company profile PDF, page 17 (Module Installation)"
+    }]
+  },
+  {
+    "_id": "project-gallery-wasco-yard-batam",
+    "_type": "projectGallery",
+    "title": {"en": "Previous Project — WASCO Yard Batam", "id": "Proyek Sebelumnya — WASCO Yard Batam"},
+    "serviceCategory": "in-situ-machining",
+    "location": "WASCO Yard, Batam",
+    "displayOrder": 70,
+    "featured": false,
+    "images": [{
+      "path": "public/images/projects/wasco-yard-batam-machining.jpg",
+      "alt": {"en": "Portable machining equipment on a circular gear at WASCO Yard Batam", "id": "Peralatan machining portabel pada roda gigi bundar di WASCO Yard Batam"},
+      "provenance": "PT SUGEE company profile PDF, page 20 (Previous Project, WASCO Yard)"
+    }]
+  },
+  {
+    "_id": "project-gallery-asl-yard-batam",
+    "_type": "projectGallery",
+    "title": {"en": "Previous Project — ASL Yard Batam", "id": "Proyek Sebelumnya — ASL Yard Batam"},
+    "serviceCategory": "machinery-equipment-installation",
+    "location": "ASL Yard, Batam",
+    "displayOrder": 80,
+    "featured": false,
+    "images": [{
+      "path": "public/images/projects/asl-yard-batam-installation.jpg",
+      "alt": {"en": "Blue steel structure being lifted at ASL Yard Batam", "id": "Struktur baja biru sedang diangkat di ASL Yard Batam"},
+      "provenance": "PT SUGEE company profile PDF, page 21 (Previous Project, ASL Yard Batam)"
+    }]
+  }
+]

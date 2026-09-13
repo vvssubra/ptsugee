@@ -10,7 +10,8 @@
     "lint": "eslint",
     "test": "vitest",
     "test:e2e": "playwright test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sanity:seed": "node scripts/seed-sanity-projects.mjs"
   },
   "dependencies": {
     "@sanity/image-url": "^2.1.1",
