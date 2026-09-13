@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { Instrument_Sans, Inter } from "next/font/google";
@@ -6,6 +7,12 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { routing } from "@/i18n/routing";
+import "../globals.css";
+
+export const metadata: Metadata = {
+  title: "PT SUGEE",
+  description: "PT SUGEE engineering services",
+};
 
 const instrumentSans = Instrument_Sans({
   display: "swap",
@@ -64,13 +71,15 @@ export default async function LocaleLayout({
   };
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      <div className={`${instrumentSans.variable} ${inter.variable} site-shell`} lang={locale}>
-        <SiteHeader labels={navigationLabels} locale={locale} />
-        {children}
-        <SiteFooter labels={footerLabels} locale={locale} navigation={navigationLabels} />
-        <WhatsAppButton label={navigationLabels.whatsapp} locale={locale} />
-      </div>
-    </NextIntlClientProvider>
+    <html lang={locale}>
+      <body className={`${instrumentSans.variable} ${inter.variable} site-shell`}>
+        <NextIntlClientProvider messages={messages}>
+          <SiteHeader labels={navigationLabels} locale={locale} />
+          {children}
+          <SiteFooter labels={footerLabels} locale={locale} navigation={navigationLabels} />
+          <WhatsAppButton label={navigationLabels.whatsapp} locale={locale} />
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

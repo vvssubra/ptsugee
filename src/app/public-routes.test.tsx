@@ -36,6 +36,9 @@ describe("public company and service-directory routes", () => {
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
     expect(screen.getByRole("heading", { level: 1, name: heading })).toBeInTheDocument();
     expect(path).toMatch(locale === "en" ? /^\/about$/ : /^\/id\/about$/);
+    expect(screen.getAllByTestId("about-capability-link").map((link) => link.getAttribute("href"))).toEqual(
+      serviceSlugs.map((slug) => `${locale === "en" ? "" : "/id"}/${slug}`),
+    );
   });
 
   it.each([

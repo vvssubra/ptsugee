@@ -1,6 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 import { heroAssets } from "@/content/assets";
 import { Container } from "@/components/ui/container";
+import type { ServiceSlug } from "@/content/types";
+import type { Locale } from "@/i18n/routing";
 
 type AboutCopy = {
   intro: { eyebrow: string; heading: string; body: string; industries: string[] };
@@ -13,7 +16,20 @@ type AboutCopy = {
   capabilitiesHeading: string;
 };
 
-export function AboutSections({ alt, copy }: { alt: string; copy: AboutCopy }) {
+export function AboutSections({
+  alt,
+  capabilities,
+  capabilityLabel,
+  copy,
+  locale,
+}: {
+  alt: string;
+  capabilities: Array<{ slug: ServiceSlug; title: string }>;
+  capabilityLabel: string;
+  copy: AboutCopy;
+  locale: Locale;
+}) {
+  const prefix = locale === "en" ? "" : "/id";
   return (
     <>
       <section className="section about-intro" aria-labelledby="about-heading">
@@ -64,9 +80,14 @@ export function AboutSections({ alt, copy }: { alt: string; copy: AboutCopy }) {
         <Container>
           <p className="eyebrow">{copy.capabilitiesEyebrow}</p>
           <h2 id="about-capabilities-heading">{copy.capabilitiesHeading}</h2>
-          <ul className="editorial-list">
-            {copy.intro.industries.map((industry) => <li key={industry}>{industry}</li>)}
-          </ul>
+          <div className="about-capabilities__grid">
+            <div><h3>{copy.intro.eyebrow}</h3><ul className="editorial-list">
+              {copy.intro.industries.map((industry) => <li key={industry}>{industry}</li>)}
+            </ul></div>
+            <div><h3>{capabilityLabel}</h3><ul className="editorial-list editorial-list--links">
+              {capabilities.map(({ slug, title }) => <li key={slug}><Link data-testid="about-capability-link" href={`${prefix}/${slug}`}>{title}<span aria-hidden="true">↗</span></Link></li>)}
+            </ul></div>
+          </div>
         </Container>
       </section>
     </>
