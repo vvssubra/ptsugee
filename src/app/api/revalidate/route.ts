@@ -1,5 +1,6 @@
 import {revalidateTag} from "next/cache";
 import type {NextRequest} from "next/server";
+import {isValidSignature} from "@sanity/webhook";
 import {parseBody} from "next-sanity/webhook";
 
 interface ProjectGalleryWebhookBody {
@@ -12,9 +13,32 @@ export async function POST(request: Request) {
     return Response.json({ok: false, error: "Webhook is not configured."}, {status: 500});
   }
 
-  const {body, isValidSignature} = await parseBody<ProjectGalleryWebhookBody>(request as NextRequest, secret);
+  const verificationRequest = request.clone();
+  let parsed: Awaited<ReturnType<typeof parseBody<ProjectGalleryWebhookBody>>>;
 
-  if (!isValidSignature) {
+  try {
+    parsed = await parseBody<ProjectGalleryWebhookBody>(request as NextRequest, secret);
+  } catch {
+    const signature = verificationRequest.headers.get("sanity-webhook-signature");
+
+    if (!signature) {
+      return Response.json({ok: false, error: "Invalid signature."}, {status: 401});
+    }
+
+    try {
+      const body = await verificationRequest.text();
+      const hasValidSignature = await isValidSignature(body, signature, secret);
+      const status = hasValidSignature ? 400 : 401;
+      const error = hasValidSignature ? "Malformed webhook body." : "Invalid signature.";
+      return Response.json({ok: false, error}, {status});
+    } catch {
+      return Response.json({ok: false, error: "Invalid signature."}, {status: 401});
+    }
+  }
+
+  const {body, isValidSignature: hasValidSignature} = parsed;
+
+  if (!hasValidSignature) {
     return Response.json({ok: false, error: "Invalid signature."}, {status: 401});
   }
 

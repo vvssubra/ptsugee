@@ -14,6 +14,9 @@ importers:
       '@sanity/vision':
         specifier: ^6.13.2
         version: 6.13.2(051839e5c47b6c5798a65161138b9e3f)
+      '@sanity/webhook':
+        specifier: ^4.0.4
+        version: 4.0.4
       motion:
         specifier: ^13.2.0
         version: 13.2.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
