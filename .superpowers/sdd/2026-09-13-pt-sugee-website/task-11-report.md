@@ -16,9 +16,9 @@ Task 11 passes the current, reprioritized public-site acceptance boundary.
 | `npm run lint` | Pass |
 | `npm test -- --run` | Pass — 20 files, 75 tests |
 | `npm run build` | Pass |
-| `npx playwright test` | Pass — 175 passed, 44 intentionally skipped, 0 failed |
+| `npx playwright test` | Pass — 176 passed, 43 intentionally skipped, 0 failed |
 
-The 44 Playwright skips are deliberate duplicate avoidance: 21 viewport-independent SEO/error tests run only in the desktop project (42 skips across mobile and tablet), and the mobile-menu test runs only at 375px (2 skips at tablet and desktop).
+The 43 Playwright skips are deliberate duplicate avoidance: 21 viewport-independent SEO/error tests run only in the desktop project (42 skips across mobile and tablet), and the collapsible-menu test runs at its two active breakpoints while skipping only desktop (1 skip).
 
 ## Public route matrix
 
@@ -50,7 +50,7 @@ Total direct public-route checks: 54/54 pass.
 ## Behavior and accessibility coverage
 
 - Equivalent English/Bahasa switching passes on all nine page types at all three target widths. Explicit locale choice persists after internal navigation.
-- The 375px mobile menu moves focus into the open panel and restores focus to the trigger on Escape.
+- The collapsible menu at 375px and 768px moves focus into the open panel and restores focus to the trigger on Escape.
 - English and Bahasa FAQ controls operate by keyboard at all three widths.
 - The persistent WhatsApp action points to `https://wa.me/6591004649`; the localized contact navigation reaches the existing contact boundary.
 - A test-only, runtime-gated gallery harness exercises three mocked Sanity projects, service filtering, keyboard activation of carousel controls, empty results, and unavailable results at every width. It returns 404 unless `PLAYWRIGHT_TEST_MODE=1`, is marked `noindex`, is excluded from locale proxying, and is disallowed by robots.
@@ -79,3 +79,18 @@ Artifacts:
 ## Deferred Task 8 acceptance
 
 The contact form and Resend action do not exist because the user explicitly reprioritized Tasks 9–11 ahead of Task 8. Task 11 therefore does not claim coverage for invalid-field feedback, retained values after a failed submission, honeypot/timestamp validation, mocked Resend success/failure, or a labelled production enquiry. Those scenarios remain acceptance requirements for Task 8. Current coverage is limited to the implemented bilingual contact boundary, telephone/email copy, contact navigation, and WhatsApp action.
+
+## Fix round 1
+
+Reviewer finding: the collapsible navigation remains active through 1023px, but the focus/expanded/Escape/focus-restoration test originally executed only at 375px.
+
+Correction: the scenario now executes at both active target breakpoints, 375×812 and 768×1024, and skips only at the 1440×900 desktop breakpoint where the collapsible control is hidden.
+
+Verification evidence:
+
+- Focused: `npx playwright test e2e/localization.spec.ts --project=mobile-375 --project=tablet-768 --grep 'mobile menu'` — 2 passed, 0 failed.
+- Full browser suite: `npx playwright test` — 176 passed, 43 intentional skips, 0 failed.
+- Unit: `npm test -- --run` — 20 files, 75 tests passed.
+- `npm run typecheck` — pass.
+- `npm run lint` — pass.
+- `npm run build` — pass.

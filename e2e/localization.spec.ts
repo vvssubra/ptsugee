@@ -33,7 +33,7 @@ test("an explicit locale choice persists through internal navigation", async ({ 
 });
 
 test("mobile menu moves focus into navigation and Escape restores it", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== "mobile-375", "Mobile navigation interaction");
+  test.skip(testInfo.project.name === "desktop-1440", "Collapsible navigation is hidden at the desktop breakpoint");
   await page.goto("/");
   const menuButton = page.locator('button[aria-controls="site-navigation"]');
   await menuButton.click();
