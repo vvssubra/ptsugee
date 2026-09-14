@@ -97,6 +97,9 @@ These wireframes preserve the current site's black header, industrial photograph
 | CONTACT                                                                          |
 | Left: enquiry copy + WhatsApp            Right: bilingual enquiry form          |
 +--------------------------------------------------------------------------------+
+| OUR LOCATIONS                                                                    |
+| Singapore + Batam office cards                | interactive regional map         |
++--------------------------------------------------------------------------------+
 | FOOTER                                                                          |
 +--------------------------------------------------------------------------------+
 ```
@@ -131,6 +134,10 @@ These wireframes preserve the current site's black header, industrial photograph
 | CONTACT COPY                          |
 | WHATSAPP CTA                          |
 | FORM - one column                     |
++---------------------------------------+
+| OUR LOCATIONS                         |
+| Office cards                          |
+| Interactive map                      |
 +---------------------------------------+
 | FOOTER                                |
 +---------------------------------------+

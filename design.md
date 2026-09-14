@@ -107,7 +107,8 @@ Breakpoints are content-driven and validated at 375, 768, and 1440 px.
 - 768-1,023 px: two-column cards where copy length permits; header navigation may remain collapsed.
 - 1,024 px and above: full navigation and the desktop compositions documented in `wireframes.md`.
 - No independent desktop/mobile DOM copies. CSS layout changes a single semantic content tree.
-- Embedded maps are omitted in v1; addresses link to map search without adding a third-party iframe.
+- Home includes a Leaflet/OpenStreetMap office map immediately before the footer. Inner pages retain linked address text without an embedded map.
+- The Singapore marker uses the verified building coordinate. The Batam marker uses the Tunas Regency area coordinate and is visibly identified as approximate until an exact unit pin is available.
 
 ## 6. Component architecture
 
@@ -115,7 +116,7 @@ Server Components are the default. Client boundaries are limited to behavior tha
 
 ### Shared server components
 
-- `SiteHeader`, `SiteFooter`, `SectionHeading`, `Hero`, `ServiceCard`, `ServiceDirectory`, `ServiceDetail`, `QualitySection`, `ClientLogoStrip`, `ProjectGallery`, `ContactSection`, and metadata helpers.
+- `SiteHeader`, `SiteFooter`, `SectionHeading`, `Hero`, `ServiceCard`, `ServiceDirectory`, `ServiceDetail`, `QualitySection`, `ClientLogoStrip`, `ProjectGallery`, `ContactSection`, `LocationSection`, and metadata helpers.
 - All content is received as typed props; components do not contain hard-coded translated strings.
 
 ### Client components
@@ -126,6 +127,7 @@ Server Components are the default. Client boundaries are limited to behavior tha
 - `ProjectCarousel`: optional controls and scroll position; content remains usable without JavaScript.
 - `ContactForm`: `useActionState`, pending state, field errors, and delivery result.
 - `MotionReveal`: progressive enhancement only; no content is hidden when JavaScript fails.
+- `LocationExplorer` and `LocationMap`: office-card selection, browser-only Leaflet loading, marker focus, and accessible popups. Addresses and directions links remain available before hydration and when map tiles fail.
 
 ## 7. Localization
 
@@ -353,4 +355,4 @@ SANITY_REVALIDATE_SECRET
 - No editing of navigation, core copy, contact details, services, or visual tokens through Sanity.
 - No project detail routes in v1; galleries appear on Home, Services, and related service pages.
 - No unverified certification, testimonial, rating, or project-performance claims.
-- No embedded map, analytics, chat bot, payments, or newsletter subscription.
+- No embedded map outside Home, analytics, chat bot, payments, or newsletter subscription.
