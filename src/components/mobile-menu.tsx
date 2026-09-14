@@ -13,6 +13,7 @@ export type NavigationLabels = {
   contact: string;
   language: string;
   whatsapp: string;
+  whatsappShort: string;
   menu: string;
   closeMenu: string;
   primaryNavigation: string;

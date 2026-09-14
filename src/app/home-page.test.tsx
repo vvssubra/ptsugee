@@ -79,8 +79,8 @@ describe("HomePage", () => {
     expect(screen.getAllByRole("button", { name: /^(What|Where|How|Can)/ })).toHaveLength(6);
     expect(screen.queryByText("New project photographs will be added soon. Contact us to discuss relevant experience for your application.")).not.toBeInTheDocument();
     expect(screen.getAllByRole("img", { name: /^PT SUGEE project:/ })).toHaveLength(9);
-    expect(screen.getByRole("link", { name: "Discuss Your Project" })).toHaveAttribute("href", "#contact");
-    expect(screen.getByRole("link", { name: "Chat with Sathish Kumar" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
+    expect(screen.getByRole("link", { name: "Contact Us" })).toHaveAttribute("href", "#contact");
+    expect(screen.getByRole("link", { name: "Contact Us on WhatsApp" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
     expect(screen.getByRole("heading", { level: 2, name: "Our Locations" })).toBeInTheDocument();
     expect(screen.getByText("Approximate location")).toBeInTheDocument();
     expect(screen.getByRole("region", { name: "Office map" })).toBeInTheDocument();
@@ -106,8 +106,8 @@ describe("HomePage", () => {
     expect(screen.getAllByTestId("proof-point")).toHaveLength(4);
     expect(screen.queryByText("Gambar proyek untuk sementara belum tersedia. Hubungi kami untuk membahas pengalaman yang relevan.")).not.toBeInTheDocument();
     expect(screen.getAllByRole("img", { name: /^Proyek PT SUGEE:/ })).toHaveLength(9);
-    expect(screen.getByRole("link", { name: "Diskusikan Proyek Anda" })).toHaveAttribute("href", "#contact");
-    expect(screen.getByRole("link", { name: "Hubungi Sathish Kumar" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
+    expect(screen.getByRole("link", { name: "Hubungi Kami" })).toHaveAttribute("href", "#contact");
+    expect(screen.getByRole("link", { name: "Hubungi Kami via WhatsApp" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
     expect(screen.getByRole("heading", { level: 2, name: "Lokasi Kami" })).toBeInTheDocument();
     expect(screen.getByText("Lokasi perkiraan")).toBeInTheDocument();
   });

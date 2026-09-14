@@ -52,6 +52,7 @@ export default async function LocaleLayout({
     contact: navigation("contact"),
     language: navigation("language"),
     whatsapp: navigation("whatsapp"),
+    whatsappShort: navigation("whatsappShort"),
     menu: navigation("menu"),
     closeMenu: navigation("closeMenu"),
     primaryNavigation: navigation("primaryNavigation"),
@@ -76,7 +77,11 @@ export default async function LocaleLayout({
           <SiteHeader labels={navigationLabels} locale={locale} />
           {children}
           <SiteFooter labels={footerLabels} locale={locale} navigation={navigationLabels} />
-          <WhatsAppButton label={navigationLabels.whatsapp} locale={locale} />
+          <WhatsAppButton
+            accessibleLabel={navigationLabels.whatsapp}
+            label={navigationLabels.whatsappShort}
+            locale={locale}
+          />
         </NextIntlClientProvider>
       </body>
     </html>

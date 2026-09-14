@@ -8,6 +8,7 @@ type ContactCopy = {
   heading: string;
   body: string;
   whatsappCta: string;
+  whatsappCtaLabel: string;
 };
 
 export function ContactBoundary({ contact, locale }: { contact: ContactCopy; locale: Locale }) {
@@ -19,7 +20,7 @@ export function ContactBoundary({ contact, locale }: { contact: ContactCopy; loc
           <h2 id="contact-heading">{contact.heading}</h2>
           <p>{contact.body}</p>
         </div>
-        <ButtonLink href={buildWhatsAppUrl(locale)} target="_blank">
+        <ButtonLink aria-label={contact.whatsappCtaLabel} href={buildWhatsAppUrl(locale)} target="_blank">
           {contact.whatsappCta}
         </ButtonLink>
       </Container>

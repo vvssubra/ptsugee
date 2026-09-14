@@ -26,11 +26,14 @@
 }
 
 html {
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
 body {
+  -webkit-tap-highlight-color: rgb(28 115 1 / 16%);
   margin: 0;
+  overflow-x: clip;
   background: var(--color-white);
   color: var(--color-ink);
   font-family: var(--font-body), Inter, Arial, sans-serif;
@@ -341,6 +344,10 @@ p {
   position: fixed;
   right: var(--page-gutter);
   z-index: 40;
+}
+
+.whatsapp-button__icon {
+  line-height: 1;
 }
 
 .site-footer {
@@ -754,12 +761,25 @@ p {
 }
 
 @media (max-width: 767px) {
-  .button-link {
+  h2 {
+    font-size: clamp(1.75rem, 6.6vw, 2.4rem);
+  }
+
+  .home-hero__actions .button-link,
+  .capabilities-cta,
+  .services-intro .button-link,
+  .service-hero__content .button-link,
+  .contact-boundary .button-link {
     width: 100%;
   }
 
   .locale-switcher a {
+    align-items: center;
+    display: inline-flex;
     font-size: 0;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
   }
 
   .locale-switcher a:first-of-type::after {
@@ -770,6 +790,168 @@ p {
   .locale-switcher a:last-of-type::after {
     content: "ID";
     font-size: 0.8125rem;
+  }
+
+  .site-navigation[data-open] {
+    max-height: calc(100svh - 72px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* Hero: the tallest risk on a 375 x 667 viewport. Tighten type and padding
+     so headline, body, and both actions fit inside one sticky screen. */
+  .home-hero-scene {
+    height: 138svh;
+  }
+
+  .home-hero__content {
+    padding-block: 2.5rem 2rem;
+  }
+
+  .home-hero__content h1 {
+    font-size: clamp(1.85rem, 8.2vw, 2.9rem);
+    max-width: 20ch;
+  }
+
+  .home-hero__body {
+    font-size: 1rem;
+    margin-top: 1.1rem;
+  }
+
+  .home-hero__actions {
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .service-hero {
+    min-height: min(76svh, 560px);
+  }
+
+  .service-hero__content {
+    gap: 1.1rem;
+    padding-block: 3rem 2.5rem;
+  }
+
+  .service-hero__content h1 {
+    font-size: clamp(1.95rem, 8vw, 2.7rem);
+    max-width: 22ch;
+  }
+
+  .services-intro {
+    min-height: auto;
+    padding-block: 4.5rem;
+  }
+
+  .services-intro h1 {
+    font-size: clamp(2.05rem, 8.6vw, 2.9rem);
+    max-width: 20ch;
+  }
+
+  /* Floating action collapses to a thumb-sized circle so it stops covering
+     full-width section CTAs; the label moves to the accessible name. */
+  .whatsapp-button {
+    border-radius: 50%;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    height: 56px;
+    min-height: 56px;
+    padding: 0;
+    right: 16px;
+    width: 56px;
+  }
+
+  .whatsapp-button__icon {
+    font-size: 1.35rem;
+  }
+
+  .whatsapp-button__label {
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .contact-boundary {
+    margin-inline: 12px;
+    min-height: auto;
+    padding-block: 3.5rem 6rem;
+  }
+
+  .contact-boundary__inner {
+    gap: 1.75rem;
+  }
+
+  .service-response article,
+  .vision-mission article {
+    padding: 1.5rem;
+  }
+
+  .technical-specifications dt {
+    font-size: 1.15rem;
+  }
+
+  .editorial-list li {
+    font-size: clamp(1.25rem, 6vw, 1.9rem);
+  }
+
+  .project-gallery {
+    margin-top: 2rem;
+  }
+
+  .project-gallery__controls {
+    justify-content: start;
+  }
+
+  .project-card {
+    flex: 0 0 88vw;
+  }
+
+  .project-card__media {
+    min-height: 200px;
+  }
+
+  .quality-media {
+    min-height: 260px;
+  }
+
+  .map-frame {
+    min-height: 320px;
+  }
+
+  .faq-item__answer {
+    padding-right: 0;
+  }
+
+  /* Touch targets: every inline link or control a thumb has to hit
+     gets a 44px tall hit area without changing how it reads. */
+  .text-link,
+  .directions-link,
+  .site-footer__address a,
+  .site-footer__navigation a {
+    align-items: center;
+    display: inline-flex;
+    min-height: 44px;
+  }
+
+  .editorial-list--links a {
+    min-height: 44px;
+  }
+
+  .wordmark {
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .office-card__select {
+    min-height: 44px;
+  }
+
+  .leaflet-touch .leaflet-bar a,
+  .leaflet-control-zoom a {
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
   }
 }
 

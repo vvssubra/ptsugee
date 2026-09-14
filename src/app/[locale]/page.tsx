@@ -82,7 +82,7 @@ export function HomePage({ locale, gallery }: { locale: Locale; gallery: Project
       </MotionReveal>
       <section className="section contact-boundary" id="contact" aria-labelledby="contact-heading"><Container className="contact-boundary__inner">
         <div><p className="eyebrow">{dictionary.contact.eyebrow}</p><h2 id="contact-heading">{dictionary.contact.heading}</h2><p>{dictionary.contact.body}</p></div>
-        <ButtonLink href={buildWhatsAppUrl(locale)} target="_blank">{dictionary.contact.whatsappCta}</ButtonLink>
+        <ButtonLink aria-label={dictionary.contact.whatsappCtaLabel} href={buildWhatsAppUrl(locale)} target="_blank">{dictionary.contact.whatsappCta}</ButtonLink>
       </Container></section>
       <LocationSection copy={dictionary.locations} />
     </main>

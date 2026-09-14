@@ -79,7 +79,7 @@ export function ServiceDetail({
   serviceLabels,
 }: {
   alt: string;
-  contact: { eyebrow: string; heading: string; body: string; whatsappCta: string };
+  contact: { eyebrow: string; heading: string; body: string; whatsappCta: string; whatsappCtaLabel: string };
   copy: ServicePageCopy;
   detailLabels: DetailLabels;
   gallery: ProjectGalleryResult;
