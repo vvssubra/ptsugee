@@ -6,7 +6,7 @@
 
 **Architecture:** A Next.js 16 App Router application renders localized, typed static marketing content under unprefixed English routes and `/id` Bahasa Indonesia routes. Server Components render pages and Sanity gallery data; small Client Components handle navigation, locale switching, accordions, carousels, motion, and form feedback. Sanity manages only project-gallery media, while a validated Server Action delivers enquiries through Resend.
 
-**Tech Stack:** Next.js 16.3.3, React 19, TypeScript, Tailwind CSS 4, next-intl, Motion, Zod, Resend, Sanity/next-sanity, Vitest, Testing Library, Playwright, axe-core, Vercel
+**Tech Stack:** Next.js 16.3.3, React 19, TypeScript, Tailwind CSS 4, next-intl, Motion, Leaflet/OpenStreetMap, Zod, Resend, Sanity/next-sanity, Vitest, Testing Library, Playwright, axe-core, Vercel
 
 **Spec:** `design.md` with content from `copywriting.md` and layouts from `wireframes.md`
 
@@ -52,8 +52,8 @@ Copy only generated application/configuration files into the repository. Preserv
 Run:
 
 ```bash
-pnpm add next@16.3.3 next-intl motion zod resend next-sanity @sanity/vision sanity @sanity/image-url
-pnpm add -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event @vitejs/plugin-react playwright @axe-core/playwright
+pnpm add next@16.3.3 next-intl motion leaflet zod resend next-sanity @sanity/vision sanity @sanity/image-url
+pnpm add -D @types/leaflet vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event @vitejs/plugin-react playwright @axe-core/playwright
 ```
 
 - [ ] **Step 3: Write the initial failing smoke test**
@@ -311,7 +311,7 @@ git commit -m "feat: add Sanity project gallery studio"
 ### Task 6: Build the Home page
 
 **Files:**
-- Create: `src/components/hero.tsx`, `src/components/service-grid.tsx`, `src/components/project-gallery.tsx`, `src/components/proof-points.tsx`, `src/components/quality-section.tsx`, `src/components/client-logo-strip.tsx`, `src/components/faq-accordion.tsx`, `src/components/motion-reveal.tsx`
+- Create: `src/components/hero.tsx`, `src/components/service-grid.tsx`, `src/components/project-gallery.tsx`, `src/components/proof-points.tsx`, `src/components/quality-section.tsx`, `src/components/client-logo-strip.tsx`, `src/components/faq-accordion.tsx`, `src/components/motion-reveal.tsx`, `src/components/location-section.tsx`, `src/components/location-explorer.tsx`, `src/components/location-map.tsx`, `src/content/locations.ts`
 - Modify: `src/app/[locale]/page.tsx`
 - Test: `src/app/home-page.test.tsx`
 
@@ -329,7 +329,7 @@ Build the black header and full-bleed offshore hero with localized eyebrow, H1, 
 
 - [ ] **Step 3: Implement remaining Home sections**
 
-Compose Capabilities, Featured Projects, proof points, Quality, Clients, FAQ, and the contact-section boundary in the order defined by `wireframes.md`.
+Compose Capabilities, Featured Projects, proof points, Quality, Clients, FAQ, Contact, and the Home-only Location section in the order defined by `wireframes.md`. The Leaflet/OpenStreetMap map shows exact Singapore and approximate Tunas Regency markers; bilingual office cards, address text, and directions links remain usable without JavaScript or map tiles.
 
 - [ ] **Step 4: Add progressive motion**
 

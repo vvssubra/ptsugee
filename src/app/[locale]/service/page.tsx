@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import enMessages from "../../../../messages/en.json";
@@ -12,6 +13,7 @@ import { routing, type Locale } from "@/i18n/routing";
 import { serviceSlugs } from "@/content/types";
 import { getProjectsByService, type ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 import { buildLocalizedMetadata } from "@/lib/metadata";
+import { heroAssets } from "@/content/assets";
 
 const messages = { en: enMessages, id: idMessages } as const;
 
@@ -31,9 +33,13 @@ export function ServicesPage({ locale, gallery }: { locale: Locale; gallery: Pro
     Object.entries(dictionary.services).map(([slug, service]) => [slug, service.title]),
   ) as Record<keyof typeof dictionary.services, string>;
   return <main>
-    <section className="section services-intro" aria-labelledby="services-heading"><Container>
+    <section className="section services-intro" aria-labelledby="services-heading">
+      <Image className="services-intro__image" src={heroAssets.quality} alt={dictionary.images.qualityTeam} fill priority sizes="100vw" />
+      <div className="services-intro__overlay" />
+      <Container className="services-intro__content">
       <h1 id="services-heading">{intro.heading}</h1><p>{intro.body}</p><ButtonLink href="#contact">{intro.cta}</ButtonLink>
-    </Container></section>
+      </Container>
+    </section>
     <section className="section service-directory-section" aria-labelledby="directory-heading"><Container>
       <p className="eyebrow">{intro.directoryEyebrow}</p><h2 id="directory-heading">{intro.directoryHeading}</h2>
       <ServiceDirectory detailsLabel={intro.detailsLabel} labels={dictionary.services} locale={locale} />

@@ -55,6 +55,32 @@ test("mocked Sanity gallery supports filtering and keyboard carousel controls", 
   await expect.poll(() => track.evaluate((element) => element.scrollLeft)).toBeGreaterThan(before);
 });
 
+test("home holds the hero while scrolling reveals the offshore image", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  const scene = page.getByTestId("home-hero-scene");
+  const sticky = scene.locator(".home-hero-sticky");
+  const media = scene.locator(".home-hero__media");
+  const initialTransform = await media.evaluate((element) => getComputedStyle(element).transform);
+  const sceneTop = await scene.evaluate((element) => (element as HTMLElement).offsetTop);
+  const sceneHeight = await scene.evaluate((element) => (element as HTMLElement).offsetHeight);
+
+  await page.evaluate(({ top, height }) => window.scrollTo(0, top + height * 0.55), { top: sceneTop, height: sceneHeight });
+  await expect.poll(() => sticky.boundingBox().then((box) => box?.y ?? -1)).toBeGreaterThanOrEqual(70);
+  await expect.poll(() => media.evaluate((element) => getComputedStyle(element).transform)).not.toBe(initialTransform);
+});
+
+test("the office map appears on Home only", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#locations")).toBeVisible();
+  await expect(page.getByRole("region", { name: "Office map" })).toBeVisible();
+
+  for (const path of ["/about", "/service", "/laser-alignment-service"]) {
+    await page.goto(path);
+    await expect(page.locator("#locations")).toHaveCount(0);
+  }
+});
+
 for (const [state, message] of [
   ["empty", "No published project images are available."],
   ["unavailable", "Project images are temporarily unavailable."],

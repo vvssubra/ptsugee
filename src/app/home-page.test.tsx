@@ -3,6 +3,10 @@ import userEvent from "@testing-library/user-event";
 import Home, { HomePage } from "@/app/[locale]/page";
 import type { ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 
+vi.mock("@/components/location-map", () => ({
+  LocationMap: ({ copy }: { copy: { mapLabel: string } }) => <div role="region" aria-label={copy.mapLabel} />,
+}));
+
 const emptyGallery: ProjectGalleryResult = { status: "empty", projects: [] };
 const unavailableGallery: ProjectGalleryResult = { status: "unavailable", projects: [] };
 const readyGallery: ProjectGalleryResult = {
@@ -76,6 +80,15 @@ describe("HomePage", () => {
     expect(screen.getByText("New project photographs will be added soon. Contact us to discuss relevant experience for your application.")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Discuss Your Project" })).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Chat with Sathish Kumar" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
+    expect(screen.getByRole("heading", { level: 2, name: "Our Locations" })).toBeInTheDocument();
+    expect(screen.getByText("Approximate location")).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Office map" })).toBeInTheDocument();
+
+    const contact = document.querySelector("#contact");
+    const locations = document.querySelector("#locations");
+    expect(contact).not.toBeNull();
+    expect(locations).not.toBeNull();
+    expect(contact!.compareDocumentPosition(locations!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 
     const faq = screen.getByRole("button", { name: "Where does PT SUGEE operate?" });
     expect(faq).toHaveAttribute("aria-expanded", "false");
@@ -93,6 +106,8 @@ describe("HomePage", () => {
     expect(screen.getByText("Gambar proyek untuk sementara belum tersedia. Hubungi kami untuk membahas pengalaman yang relevan.")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Diskusikan Proyek Anda" })).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Hubungi Sathish Kumar" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
+    expect(screen.getByRole("heading", { level: 2, name: "Lokasi Kami" })).toBeInTheDocument();
+    expect(screen.getByText("Lokasi perkiraan")).toBeInTheDocument();
   });
 
   it("renders published Sanity project media with its project details", () => {

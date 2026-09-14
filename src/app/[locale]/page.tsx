@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { ClientLogoStrip } from "@/components/client-logo-strip";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { Hero } from "@/components/hero";
+import { LocationSection } from "@/components/location-section";
 import { MotionReveal } from "@/components/motion-reveal";
 import { ProjectGallery } from "@/components/project-gallery";
 import { ProofPoints } from "@/components/proof-points";
@@ -78,6 +79,7 @@ export function HomePage({ locale, gallery }: { locale: Locale; gallery: Project
         <div><p className="eyebrow">{dictionary.contact.eyebrow}</p><h2 id="contact-heading">{dictionary.contact.heading}</h2><p>{dictionary.contact.body}</p></div>
         <ButtonLink href={buildWhatsAppUrl(locale)} target="_blank">{dictionary.contact.whatsappCta}</ButtonLink>
       </Container></section>
+      <LocationSection copy={dictionary.locations} />
     </main>
   );
 }
