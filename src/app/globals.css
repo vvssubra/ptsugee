@@ -385,7 +385,7 @@ p {
 }
 
 .home-hero-scene {
-  height: 175svh;
+  height: 220svh;
   position: relative;
 }
 
@@ -656,6 +656,177 @@ p {
 .related-services p { color: #666; }
 .related-services span { color: var(--color-green-hover); font-size: 0.875rem; font-weight: 700; }
 
+/* ---------------------------------------------------------------------------
+   Green glass card system
+
+   Every card surface is a translucent green-tinted pane. Glass only reads as
+   glass when something sits behind it, so flat sections get a paired ambience
+   wash (radial green fields) for the panes to refract. Two families:
+   light glass on white/muted grounds, dark glass on ink/black grounds.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --glass-blur: blur(18px) saturate(150%);
+  --glass-light-fill: linear-gradient(145deg, rgb(255 255 255 / 76%) 0%, rgb(236 248 230 / 58%) 52%, rgb(36 145 1 / 12%) 100%);
+  --glass-light-border: rgb(255 255 255 / 62%);
+  --glass-light-edge: inset 0 1px 0 rgb(255 255 255 / 70%);
+  --glass-light-shadow: 0 20px 44px -28px rgb(11 46 5 / 45%);
+  --glass-dark-fill: linear-gradient(145deg, rgb(141 222 114 / 16%) 0%, rgb(20 62 6 / 32%) 48%, rgb(0 0 0 / 42%) 100%);
+  --glass-dark-border: rgb(141 222 114 / 26%);
+  --glass-dark-edge: inset 0 1px 0 rgb(141 222 114 / 22%);
+  --glass-dark-shadow: 0 22px 48px -30px rgb(0 0 0 / 70%);
+}
+
+/* Ambience: the field the light panes refract. */
+.vision-mission,
+.service-response,
+.technical-section,
+.locations-section,
+.related-section,
+.clients-section {
+  isolation: isolate;
+  position: relative;
+}
+
+.vision-mission::before,
+.service-response::before,
+.technical-section::before,
+.locations-section::before,
+.related-section::before,
+.clients-section::before {
+  background:
+    radial-gradient(60% 70% at 12% 8%, rgb(36 145 1 / 16%) 0%, transparent 62%),
+    radial-gradient(52% 64% at 88% 92%, rgb(141 222 114 / 22%) 0%, transparent 58%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.vision-mission article,
+.technical-specifications dl,
+.related-services a,
+.office-card,
+.client-logo,
+.chip-list li,
+.service-response article {
+  backdrop-filter: var(--glass-blur);
+  background: var(--glass-light-fill);
+  border: 1px solid var(--glass-light-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glass-light-shadow), var(--glass-light-edge);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.chip-list li {
+  border-radius: var(--radius-pill);
+}
+
+.office-card {
+  border-radius: var(--radius-md);
+}
+
+.office-card--selected {
+  background: linear-gradient(145deg, rgb(255 255 255 / 86%) 0%, rgb(226 245 216 / 72%) 55%, rgb(36 145 1 / 20%) 100%);
+  border-color: rgb(36 145 1 / 45%);
+}
+
+.technical-specifications dd,
+.faq-item__answer {
+  border-top-color: rgb(36 145 1 / 18%);
+}
+
+.related-services a:hover,
+.technical-specifications dl:hover {
+  border-color: rgb(36 145 1 / 52%);
+}
+
+/* Dark grounds: black project rail, ink story band. */
+.project-card,
+.project-gallery__state,
+.about-facts article {
+  backdrop-filter: var(--glass-blur);
+  background: var(--glass-dark-fill);
+  border: 1px solid var(--glass-dark-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glass-dark-shadow), var(--glass-dark-edge);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.about-facts {
+  background: transparent;
+  gap: 1rem;
+}
+
+.about-facts article {
+  border-radius: var(--radius-md);
+}
+
+.project-section,
+.about-story {
+  isolation: isolate;
+  position: relative;
+}
+
+.project-section::before,
+.about-story::before {
+  background:
+    radial-gradient(58% 62% at 8% 12%, rgb(36 145 1 / 34%) 0%, transparent 60%),
+    radial-gradient(50% 58% at 92% 88%, rgb(141 222 114 / 20%) 0%, transparent 62%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.project-card__media {
+  background: rgb(0 0 0 / 28%);
+}
+
+/* Photo cards: the glass pane sits on the image itself, which is the best
+   backdrop on the page. The shade underneath carries the green. */
+.service-card {
+  border: 1px solid var(--glass-dark-border);
+  box-shadow: var(--glass-dark-shadow);
+}
+
+.service-card__shade {
+  background: linear-gradient(0deg, rgb(11 46 5 / 92%) 0%, rgb(36 145 1 / 34%) 46%, rgb(0 0 0 / 6%) 82%);
+}
+
+.service-card__content {
+  backdrop-filter: blur(10px) saturate(140%);
+  background: linear-gradient(145deg, rgb(141 222 114 / 14%) 0%, rgb(11 46 5 / 30%) 100%);
+  border-top: 1px solid rgb(141 222 114 / 22%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+}
+
+.service-card:hover {
+  border-color: rgb(141 222 114 / 48%);
+}
+
+/* Browsers without backdrop-filter get opaque panes instead of washed-out text. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vision-mission article,
+  .technical-specifications dl,
+  .related-services a,
+  .office-card,
+  .client-logo,
+  .chip-list li,
+  .service-response article {
+    background: linear-gradient(145deg, rgb(255 255 255 / 97%) 0%, rgb(236 248 230 / 97%) 100%);
+  }
+
+  .project-card,
+  .project-gallery__state,
+  .about-facts article,
+  .service-card__content {
+    background: linear-gradient(145deg, rgb(24 56 14 / 96%) 0%, rgb(8 8 8 / 96%) 100%);
+  }
+}
+
 @media (min-width: 768px) {
   :root {
     --page-gutter: 32px;
@@ -801,7 +972,7 @@ p {
   /* Hero: the tallest risk on a 375 x 667 viewport. Tighten type and padding
      so headline, body, and both actions fit inside one sticky screen. */
   .home-hero-scene {
-    height: 138svh;
+    height: 200svh;
   }
 
   .home-hero__content {
