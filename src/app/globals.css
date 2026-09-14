@@ -461,7 +461,8 @@ p {
 .project-gallery__controls button { background: transparent; border: 1px solid #555; border-radius: 50%; color: var(--color-white); cursor: pointer; height: 48px; width: 48px; }
 .project-gallery__track { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; scrollbar-color: #555 transparent; }
 .project-card { background: #111; border: 1px solid #2b2b2b; border-radius: var(--radius-md); flex: 0 0 min(86vw, 720px); overflow: hidden; scroll-snap-align: start; }
-.project-card__media { min-height: 250px; position: relative; }
+.project-card__media { aspect-ratio: 4 / 3; background: #080808; min-height: 250px; position: relative; }
+.project-card__media img { object-fit: contain; }
 .project-card__content { padding: 1.25rem; }
 .project-card__content h3 { font-size: 1.35rem; }
 .project-card__content p { color: rgb(255 255 255 / 65%); font-size: 0.9rem; margin-top: 0.35rem; }

@@ -35,7 +35,7 @@ export function ServiceDetailPage({ locale, serviceSlug, gallery }: { locale: Lo
     copy={dictionary.services[serviceSlug] as ServicePageCopy}
     detailLabels={dictionary.serviceDetail}
     gallery={gallery}
-    galleryLabels={{ empty: dictionary.system.noRelatedProjects, unavailable: dictionary.system.galleryUnavailable, previous: dictionary.home.featuredProjects.previous, next: dictionary.home.featuredProjects.next, filters: dictionary.home.featuredProjects.filtersLabel, all: dictionary.home.featuredProjects.allServices }}
+    galleryLabels={{ empty: dictionary.system.noRelatedProjects, unavailable: dictionary.system.galleryUnavailable, previous: dictionary.home.featuredProjects.previous, next: dictionary.home.featuredProjects.next, pause: dictionary.home.featuredProjects.pause, play: dictionary.home.featuredProjects.play, slideshow: dictionary.home.featuredProjects.slideshowLabel, filters: dictionary.home.featuredProjects.filtersLabel, all: dictionary.home.featuredProjects.allServices }}
     locale={locale}
     service={service}
     serviceLabels={dictionary.services}

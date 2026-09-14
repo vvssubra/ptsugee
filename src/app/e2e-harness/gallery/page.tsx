@@ -95,6 +95,9 @@ export default async function GalleryHarness({ searchParams }: { searchParams: P
         unavailableMessage="Project images are temporarily unavailable."
         previousLabel="Previous projects"
         nextLabel="Next projects"
+        pauseLabel="Pause slideshow"
+        playLabel="Play slideshow"
+        slideshowLabel="Project slideshow"
         filtersLabel="Filter project gallery"
         allServicesLabel="All services"
         serviceLabels={serviceLabels}

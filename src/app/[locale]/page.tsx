@@ -18,6 +18,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { routing, type Locale } from "@/i18n/routing";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { buildLocalizedMetadata } from "@/lib/metadata";
+import { withUploadedProject } from "@/content/uploaded-projects";
 import { getFeaturedProjects, type ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 
 const messages = { en: enMessages, id: idMessages } as const;
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export function HomePage({ locale, gallery }: { locale: Locale; gallery: ProjectGalleryResult }) {
   const dictionary = messages[locale];
   const home = dictionary.home;
+  const featuredGallery = withUploadedProject(gallery, locale);
 
   return (
     <main>
@@ -47,11 +49,14 @@ export function HomePage({ locale, gallery }: { locale: Locale; gallery: Project
         <section className="section project-section" id="projects" aria-labelledby="projects-heading">
           <Container><SectionHeading headingId="projects-heading" eyebrow={home.featuredProjects.eyebrow} heading={home.featuredProjects.heading} body={home.featuredProjects.body} />
             <ProjectGallery
-              gallery={gallery}
+              gallery={featuredGallery}
               emptyMessage={home.featuredProjects.empty}
               unavailableMessage={dictionary.system.galleryUnavailable}
               previousLabel={home.featuredProjects.previous}
               nextLabel={home.featuredProjects.next}
+              pauseLabel={home.featuredProjects.pause}
+              playLabel={home.featuredProjects.play}
+              slideshowLabel={home.featuredProjects.slideshowLabel}
               filtersLabel={home.featuredProjects.filtersLabel}
               allServicesLabel={home.featuredProjects.allServices}
               serviceLabels={{

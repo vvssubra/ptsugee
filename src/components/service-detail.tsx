@@ -50,6 +50,9 @@ type GalleryLabels = {
   unavailable: string;
   previous: string;
   next: string;
+  pause: string;
+  play: string;
+  slideshow: string;
   filters: string;
   all: string;
 };
@@ -126,7 +129,7 @@ export function ServiceDetail({
 
       <section className="section project-section service-projects" data-testid="service-gallery" aria-labelledby="service-projects-heading">
         <Container><p className="eyebrow">{detailLabels.projectsEyebrow}</p><h2 id="service-projects-heading">{detailLabels.projectsHeading}</h2>
-          <ProjectGallery gallery={gallery} emptyMessage={galleryLabels.empty} unavailableMessage={galleryLabels.unavailable} previousLabel={galleryLabels.previous} nextLabel={galleryLabels.next} filtersLabel={galleryLabels.filters} allServicesLabel={galleryLabels.all} serviceLabels={galleryServiceLabels} />
+          <ProjectGallery gallery={gallery} emptyMessage={galleryLabels.empty} unavailableMessage={galleryLabels.unavailable} previousLabel={galleryLabels.previous} nextLabel={galleryLabels.next} pauseLabel={galleryLabels.pause} playLabel={galleryLabels.play} slideshowLabel={galleryLabels.slideshow} filtersLabel={galleryLabels.filters} allServicesLabel={galleryLabels.all} serviceLabels={galleryServiceLabels} />
         </Container>
       </section>
 

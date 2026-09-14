@@ -77,7 +77,8 @@ describe("HomePage", () => {
     expect(screen.queryByText(/ISO certified/i)).not.toBeInTheDocument();
     expect(screen.getByText("Selected Companies We Have Supported")).toBeInTheDocument();
     expect(screen.getAllByRole("button", { name: /^(What|Where|How|Can)/ })).toHaveLength(6);
-    expect(screen.getByText("New project photographs will be added soon. Contact us to discuss relevant experience for your application.")).toBeInTheDocument();
+    expect(screen.queryByText("New project photographs will be added soon. Contact us to discuss relevant experience for your application.")).not.toBeInTheDocument();
+    expect(screen.getAllByRole("img", { name: /^PT SUGEE project:/ })).toHaveLength(9);
     expect(screen.getByRole("link", { name: "Discuss Your Project" })).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Chat with Sathish Kumar" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
     expect(screen.getByRole("heading", { level: 2, name: "Our Locations" })).toBeInTheDocument();
@@ -103,7 +104,8 @@ describe("HomePage", () => {
     expect(screen.getByRole("heading", { level: 1, name: "Solusi Engineering dan Maritim Terdepan di Indonesia dan Singapura" })).toBeInTheDocument();
     expect(screen.getAllByTestId("service-link")).toHaveLength(6);
     expect(screen.getAllByTestId("proof-point")).toHaveLength(4);
-    expect(screen.getByText("Gambar proyek untuk sementara belum tersedia. Hubungi kami untuk membahas pengalaman yang relevan.")).toBeInTheDocument();
+    expect(screen.queryByText("Gambar proyek untuk sementara belum tersedia. Hubungi kami untuk membahas pengalaman yang relevan.")).not.toBeInTheDocument();
+    expect(screen.getAllByRole("img", { name: /^Proyek PT SUGEE:/ })).toHaveLength(9);
     expect(screen.getByRole("link", { name: "Diskusikan Proyek Anda" })).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Hubungi Sathish Kumar" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
     expect(screen.getByRole("heading", { level: 2, name: "Lokasi Kami" })).toBeInTheDocument();
@@ -115,7 +117,7 @@ describe("HomePage", () => {
 
     expect(screen.getByRole("heading", { level: 3, name: "Propeller shaft alignment" })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "Laser alignment equipment measuring a propeller shaft" })).toBeInTheDocument();
-    expect(screen.getByText("Batam, Indonesia · 2025")).toBeInTheDocument();
+    expect(screen.getAllByText("Batam, Indonesia · 2025")).toHaveLength(10);
     expect(screen.getByRole("img", { name: "Laser alignment equipment measuring a propeller shaft" })).not.toHaveAttribute("src", expect.stringContaining("https://cdn.sanity.io"));
   });
 

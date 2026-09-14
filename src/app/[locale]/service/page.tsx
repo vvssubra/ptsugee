@@ -46,7 +46,7 @@ export function ServicesPage({ locale, gallery }: { locale: Locale; gallery: Pro
     </Container></section>
     <section className="section project-section" id="projects" aria-labelledby="services-projects-heading"><Container>
       <p className="eyebrow">{intro.projectsEyebrow}</p><h2 id="services-projects-heading">{intro.projectsHeading}</h2><p className="section-heading__body">{intro.projectsBody}</p>
-      <ProjectGallery gallery={gallery} emptyMessage={dictionary.system.noRelatedProjects} unavailableMessage={dictionary.system.galleryUnavailable} previousLabel={dictionary.home.featuredProjects.previous} nextLabel={dictionary.home.featuredProjects.next} filtersLabel={dictionary.home.featuredProjects.filtersLabel} allServicesLabel={dictionary.home.featuredProjects.allServices} serviceLabels={serviceLabels} />
+      <ProjectGallery gallery={gallery} emptyMessage={dictionary.system.noRelatedProjects} unavailableMessage={dictionary.system.galleryUnavailable} previousLabel={dictionary.home.featuredProjects.previous} nextLabel={dictionary.home.featuredProjects.next} pauseLabel={dictionary.home.featuredProjects.pause} playLabel={dictionary.home.featuredProjects.play} slideshowLabel={dictionary.home.featuredProjects.slideshowLabel} filtersLabel={dictionary.home.featuredProjects.filtersLabel} allServicesLabel={dictionary.home.featuredProjects.allServices} serviceLabels={serviceLabels} />
     </Container></section>
     <ContactBoundary contact={dictionary.contact} locale={locale} />
   </main>;
