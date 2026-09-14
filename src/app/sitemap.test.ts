@@ -19,9 +19,13 @@ describe("search discovery files", () => {
     }
   });
 
-  it("allows public pages and excludes Studio and API routes", () => {
+  it("allows public pages and excludes administrative and test-only routes", () => {
     expect(robots()).toEqual({
-      rules: { userAgent: "*", allow: "/", disallow: ["/studio", "/studio/", "/api", "/api/"] },
+      rules: {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/studio", "/studio/", "/api", "/api/", "/e2e-harness", "/e2e-harness/"],
+      },
       sitemap: "https://ptsugee.com/sitemap.xml",
       host: "https://ptsugee.com",
     });

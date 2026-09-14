@@ -30,16 +30,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export function HomePage({ locale, gallery }: { locale: Locale; gallery: ProjectGalleryResult }) {
   const dictionary = messages[locale];
   const home = dictionary.home;
-  const routePrefix = locale === "en" ? "" : "/id";
 
   return (
     <main>
-      <Hero alt={dictionary.images.homeHero} body={home.hero.body} eyebrow={home.hero.eyebrow} heading={home.hero.heading} primaryCta={home.hero.primaryCta} secondaryCta={home.hero.secondaryCta} serviceHref={`${routePrefix}/service`} />
+      <Hero alt={dictionary.images.homeHero} body={home.hero.body} eyebrow={home.hero.eyebrow} heading={home.hero.heading} primaryCta={home.hero.primaryCta} secondaryCta={home.hero.secondaryCta} serviceHref="/service" />
       <MotionReveal>
         <section className="section capabilities-section" aria-labelledby="capabilities-heading">
           <Container><div className="capabilities-layout"><div>
             <SectionHeading headingId="capabilities-heading" eyebrow={home.capabilities.eyebrow} heading={home.capabilities.heading} body={home.capabilities.body} />
-            <ButtonLink className="capabilities-cta" href={`${routePrefix}/service`}>{home.capabilities.cta}</ButtonLink>
+            <ButtonLink className="capabilities-cta" href="/service">{home.capabilities.cta}</ButtonLink>
           </div><ServiceGrid locale={locale} services={dictionary.services} /></div></Container>
         </section>
       </MotionReveal>

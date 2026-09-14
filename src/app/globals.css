@@ -6,8 +6,8 @@
   --color-white: #ffffff;
   --color-muted: #f5f5f3;
   --color-line: #dadad6;
-  --color-green: #249101;
-  --color-green-hover: #1c7301;
+  --color-green: #1c7301;
+  --color-green-hover: #155901;
   --color-error: #b42318;
   --color-success: #166534;
   --radius-sm: 8px;
@@ -182,6 +182,10 @@ p {
 
 .wordmark span {
   color: #70c852;
+}
+
+.site-footer .wordmark span {
+  color: var(--color-green);
 }
 
 .mobile-menu,
@@ -425,6 +429,8 @@ p {
 .service-card:hover .service-card__image { transform: scale(1.02); }
 
 .project-section { background: var(--color-black); color: var(--color-white); scroll-margin-top: 80px; }
+.project-section .eyebrow,
+.contact-boundary .eyebrow { color: #8dde72; }
 .project-section .section-heading__body { color: rgb(255 255 255 / 70%); }
 .project-gallery { margin-top: 3rem; }
 .project-gallery__state { border: 1px solid #333; border-radius: var(--radius-md); color: rgb(255 255 255 / 72%); margin-top: 3rem; padding: clamp(2rem, 5vw, 4rem); }
@@ -499,6 +505,7 @@ p {
 .chip-list { display: flex; flex-wrap: wrap; gap: 0.55rem; list-style: none; margin: 1.5rem 0 0; padding: 0; }
 .chip-list li { border: 1px solid var(--color-line); border-radius: var(--radius-pill); font-size: 0.875rem; padding: 0.55rem 0.9rem; }
 .about-story { background: var(--color-ink); color: var(--color-white); }
+.about-story .eyebrow { color: #8dde72; }
 .about-story h2 { max-width: 14ch; }
 .about-facts { display: grid; gap: 1px; margin-top: 3rem; background: #444; }
 .about-facts article { background: var(--color-ink); padding: clamp(1.5rem, 4vw, 2.5rem); }
@@ -556,8 +563,8 @@ p {
 .service-hero__media { aspect-ratio: 4 / 3; }
 .service-response { background: var(--color-muted); }
 .service-response__grid { display: grid; gap: 1rem; }
-.service-response article { background: var(--color-white); border: 1px solid var(--color-line); border-radius: var(--radius-md); padding: clamp(1.75rem, 5vw, 3.5rem); }
-.service-response h2 { font-size: clamp(1.7rem, 3vw, 2.7rem); }
+.service-response article { background: var(--color-white); border: 1px solid var(--color-line); border-radius: var(--radius-md); min-width: 0; padding: clamp(1.75rem, 5vw, 3.5rem); }
+.service-response h2 { font-size: clamp(1.7rem, 3vw, 2.7rem); overflow-wrap: anywhere; }
 .service-response article > p:last-child:not(.eyebrow) { color: #555; margin-top: 1.25rem; }
 .service-capabilities ol { grid-template-columns: 1fr; }
 .technical-section { background: var(--color-muted); }

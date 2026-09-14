@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/i18n/routing";
 import { LocaleSwitcher } from "@/components/locale-switcher";
@@ -22,13 +22,6 @@ type MobileMenuProps = {
   locale: Locale;
   labels: NavigationLabels;
 };
-
-function localizeHref(locale: Locale, href: string) {
-  if (locale === "en") return href;
-  if (href === "/") return "/id";
-  if (href.startsWith("/#")) return `/id${href.slice(1)}`;
-  return `/id${href}`;
-}
 
 export function MobileMenu({ locale, labels }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
@@ -85,7 +78,7 @@ export function MobileMenu({ locale, labels }: MobileMenuProps) {
         <ul className="site-navigation__links">
           {navItems.map(([label, href]) => (
             <li key={label}>
-              <Link href={localizeHref(locale, href)} onClick={() => setOpen(false)}>
+              <Link href={href} locale={locale === "id" ? "id" : undefined} onClick={() => setOpen(false)}>
                 {label}
               </Link>
             </li>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import type { NavigationLabels } from "@/components/mobile-menu";
 import { Container } from "@/components/ui/container";
@@ -16,13 +16,6 @@ type SiteFooterProps = {
   navigation: NavigationLabels;
   labels: FooterLabels;
 };
-
-function prefix(locale: Locale, href: string) {
-  if (locale === "en") return href;
-  if (href === "/") return "/id";
-  if (href.startsWith("/#")) return `/id${href.slice(1)}`;
-  return `/id${href}`;
-}
 
 export function SiteFooter({ locale, navigation, labels }: SiteFooterProps) {
   const year = new Date().getFullYear();
@@ -50,11 +43,11 @@ export function SiteFooter({ locale, navigation, labels }: SiteFooterProps) {
             </a>
           </address>
           <nav aria-label={navigation.primaryNavigation} className="site-footer__navigation">
-            <Link href={prefix(locale, "/")}>{navigation.home}</Link>
-            <Link href={prefix(locale, "/about")}>{navigation.about}</Link>
-            <Link href={prefix(locale, "/service")}>{navigation.services}</Link>
-            <Link href={prefix(locale, "/#projects")}>{navigation.projects}</Link>
-            <Link href={prefix(locale, "/#contact")}>{navigation.contact}</Link>
+            <Link href="/" locale={locale === "id" ? "id" : undefined}>{navigation.home}</Link>
+            <Link href="/about" locale={locale === "id" ? "id" : undefined}>{navigation.about}</Link>
+            <Link href="/service" locale={locale === "id" ? "id" : undefined}>{navigation.services}</Link>
+            <Link href="/#projects" locale={locale === "id" ? "id" : undefined}>{navigation.projects}</Link>
+            <Link href="/#contact" locale={locale === "id" ? "id" : undefined}>{navigation.contact}</Link>
           </nav>
         </div>
         <p className="site-footer__legal">© {year} PT SUGEE. {labels.rights}</p>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { Container } from "@/components/ui/container";
 import { MobileMenu, type NavigationLabels } from "@/components/mobile-menu";
@@ -12,7 +12,7 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
   return (
     <header className="site-header">
       <Container className="site-header__inner">
-        <Link className="wordmark" href={locale === "en" ? "/" : "/id"}>
+        <Link className="wordmark" href="/" locale={locale === "id" ? "id" : undefined}>
           <span>PT</span> SUGEE
         </Link>
         <MobileMenu labels={labels} locale={locale} />

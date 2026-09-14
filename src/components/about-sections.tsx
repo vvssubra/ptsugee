@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { heroAssets } from "@/content/assets";
 import { Container } from "@/components/ui/container";
 import type { ServiceSlug } from "@/content/types";
@@ -29,7 +29,6 @@ export function AboutSections({
   copy: AboutCopy;
   locale: Locale;
 }) {
-  const prefix = locale === "en" ? "" : "/id";
   return (
     <>
       <section className="section about-intro" aria-labelledby="about-heading">
@@ -85,7 +84,7 @@ export function AboutSections({
               {copy.intro.industries.map((industry) => <li key={industry}>{industry}</li>)}
             </ul></div>
             <div><h3>{capabilityLabel}</h3><ul className="editorial-list editorial-list--links">
-              {capabilities.map(({ slug, title }) => <li key={slug}><Link data-testid="about-capability-link" href={`${prefix}/${slug}`}>{title}<span aria-hidden="true">↗</span></Link></li>)}
+              {capabilities.map(({ slug, title }) => <li key={slug}><Link data-testid="about-capability-link" href={`/${slug}`} locale={locale === "id" ? "id" : undefined}>{title}<span aria-hidden="true">↗</span></Link></li>)}
             </ul></div>
           </div>
         </Container>

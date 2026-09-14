@@ -12,13 +12,12 @@ function publicPath(pathname: string) {
   return pathname;
 }
 
-function addLocaleHeaders(response: NextResponse, request: NextRequest, locale: "en" | "id") {
+function addLocaleHeaders(response: NextResponse, request: NextRequest) {
   const origin = externalOrigin(request);
   const pathname = publicPath(request.nextUrl.pathname);
   const english = `${origin}${pathname}`;
   const indonesian = `${origin}/id${pathname === "/" ? "" : pathname}`;
   response.headers.set("link", `<${english}>; rel="alternate"; hreflang="en", <${indonesian}>; rel="alternate"; hreflang="id", <${english}>; rel="alternate"; hreflang="x-default"`);
-  response.cookies.set("NEXT_LOCALE", locale, { path: "/", sameSite: "lax" });
   return response;
 }
 
@@ -33,22 +32,22 @@ export default function proxy(request: NextRequest) {
 
     const destination = new URL(publicPath(pathname), externalOrigin(request));
     destination.search = request.nextUrl.search;
-    return addLocaleHeaders(NextResponse.redirect(destination, 308), request, "en");
+    return addLocaleHeaders(NextResponse.redirect(destination, 308), request);
   }
 
   if (pathname === "/id" || pathname.startsWith("/id/")) {
     const headers = new Headers(request.headers);
     headers.set("x-next-intl-locale", "id");
-    return addLocaleHeaders(NextResponse.next({ request: { headers } }), request, "id");
+    return addLocaleHeaders(NextResponse.next({ request: { headers } }), request);
   }
 
   const destination = new URL(`/en${pathname === "/" ? "" : pathname}`, externalOrigin(request));
   destination.search = request.nextUrl.search;
   const headers = new Headers(request.headers);
   headers.set("x-next-intl-locale", "en");
-  return addLocaleHeaders(NextResponse.rewrite(destination, { request: { headers } }), request, "en");
+  return addLocaleHeaders(NextResponse.rewrite(destination, { request: { headers } }), request);
 }
 
 export const config = {
-  matcher: "/((?!api|studio|_next|.*\\..*).*)",
+  matcher: "/((?!api|studio|e2e-harness|_next|.*\\..*).*)",
 };

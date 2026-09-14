@@ -1,11 +1,18 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { createElement, type AnchorHTMLAttributes } from "react";
 import { vi } from "vitest";
 import { SiteHeader } from "@/components/site-header";
 
 const pathname = vi.hoisted(() => ({ value: "/about" }));
 
 vi.mock("@/i18n/navigation", () => ({
+  Link: ({ href, locale, ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; locale?: string }) => {
+    const localizedHref = locale === "id"
+      ? href === "/" ? "/id" : href.startsWith("/#") ? `/id${href.slice(1)}` : `/id${href}`
+      : href;
+    return createElement("a", { ...props, href: localizedHref });
+  },
   usePathname: () => pathname.value,
 }));
 

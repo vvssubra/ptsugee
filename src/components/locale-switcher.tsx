@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 
@@ -9,16 +8,13 @@ type LocaleSwitcherProps = {
   label: string;
 };
 
-function localeHref(pathname: string, locale: Locale) {
-  if (locale === "en") {
-    return pathname;
-  }
-
-  return pathname === "/" ? "/id" : `/id${pathname}`;
-}
-
 function rememberLocale(locale: Locale) {
   document.cookie = `NEXT_LOCALE=${locale};path=/;max-age=31536000;samesite=lax`;
+}
+
+function localeHref(pathname: string, locale: Locale) {
+  if (locale === "en") return pathname;
+  return pathname === "/" ? "/id" : `/id${pathname}`;
 }
 
 export function LocaleSwitcher({ locale, label }: LocaleSwitcherProps) {
@@ -26,7 +22,7 @@ export function LocaleSwitcher({ locale, label }: LocaleSwitcherProps) {
 
   return (
     <div aria-label={label} className="locale-switcher" role="group">
-      <Link
+      <a
         aria-current={locale === "en" ? "page" : undefined}
         href={localeHref(pathname, "en")}
         hrefLang="en"
@@ -34,9 +30,9 @@ export function LocaleSwitcher({ locale, label }: LocaleSwitcherProps) {
         onClick={() => rememberLocale("en")}
       >
         English
-      </Link>
+      </a>
       <span aria-hidden="true">/</span>
-      <Link
+      <a
         aria-current={locale === "id" ? "page" : undefined}
         href={localeHref(pathname, "id")}
         hrefLang="id"
@@ -44,7 +40,7 @@ export function LocaleSwitcher({ locale, label }: LocaleSwitcherProps) {
         onClick={() => rememberLocale("id")}
       >
         Bahasa Indonesia
-      </Link>
+      </a>
     </div>
   );
 }
