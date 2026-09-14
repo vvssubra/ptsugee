@@ -28,5 +28,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 .vercel
+.netlify
+/deno.lock
 *.tsbuildinfo
 next-env.d.ts
