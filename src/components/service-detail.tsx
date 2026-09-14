@@ -96,15 +96,16 @@ export function ServiceDetail({
 
   return (
     <div data-testid="service-detail-sequence">
-      <section className="section service-hero" aria-labelledby="service-heading">
-        <Container className="service-hero__layout">
-          <div className="service-hero__copy">
-            <p className="eyebrow">{detailLabels.eyebrow}</p>
-            <h1 id="service-heading">{copy.hero}</h1>
-            <p>{copy.heroBody}</p>
-            <ButtonLink href="#contact">{copy.cta}</ButtonLink>
-          </div>
-          <div className="service-hero__media"><Image src={service.heroImage} alt={alt} priority sizes="(min-width: 1024px) 48vw, 100vw" /></div>
+      <section className="service-hero" aria-labelledby="service-heading">
+        <div className="service-hero__media">
+          <Image className="service-hero__image" src={service.heroImage} alt={alt} fill priority sizes="100vw" />
+        </div>
+        <div className="service-hero__overlay" />
+        <Container className="service-hero__content">
+          <p className="eyebrow service-hero__eyebrow">{detailLabels.eyebrow}</p>
+          <h1 id="service-heading">{copy.hero}</h1>
+          <p className="service-hero__body">{copy.heroBody}</p>
+          <ButtonLink href="#contact">{copy.cta}</ButtonLink>
         </Container>
       </section>
 
