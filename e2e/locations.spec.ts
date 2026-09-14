@@ -35,6 +35,15 @@ test('the map is Home-only and Bahasa content is equivalent', async ({page}) => 
   await expect(page.getByText('Lokasi perkiraan')).toBeVisible();
 });
 
+test('the map is immediately visible from the locations anchor on a narrow preview', async ({page}) => {
+  await page.setViewportSize({width: 375, height: 812});
+  await page.goto('/#locations');
+
+  const mapBox = await page.getByRole('region', {name: 'Office map'}).boundingBox();
+  expect(mapBox).not.toBeNull();
+  expect(mapBox?.y).toBeLessThan(500);
+});
+
 test.describe('without JavaScript', () => {
   test.use({javaScriptEnabled: false});
 
