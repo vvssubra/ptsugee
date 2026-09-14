@@ -189,7 +189,7 @@ p {
 }
 
 .site-footer .wordmark span {
-  color: var(--color-green);
+  color: #8dde72;
 }
 
 .mobile-menu,
@@ -351,37 +351,168 @@ p {
 }
 
 .site-footer {
-  background: var(--color-muted);
-  border-top: 1px solid var(--color-line);
-  padding-block: 64px 96px;
+  background: var(--color-black);
+  color: var(--color-white);
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: 56px 32px;
+  position: relative;
+}
+
+/* Deep green wash so the footer reads as the same material as the
+   glass surfaces above it rather than a flat black slab. */
+.site-footer::before {
+  background:
+    radial-gradient(62% 72% at 8% 0%, rgb(36 145 1 / 34%) 0%, transparent 64%),
+    radial-gradient(48% 62% at 96% 18%, rgb(141 222 114 / 16%) 0%, transparent 62%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.site-footer__masthead {
+  align-items: start;
+  border-bottom: 1px solid rgb(255 255 255 / 12%);
+  display: grid;
+  gap: 1.75rem;
+  padding-bottom: 2.5rem;
+}
+
+.wordmark--footer {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin-bottom: 0.4rem;
+}
+
+.site-footer__established {
+  color: rgb(255 255 255 / 62%);
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+}
+
+.site-footer__masthead .button-link--primary {
+  justify-self: start;
 }
 
 .site-footer__grid {
   display: grid;
   gap: 2.5rem;
+  padding-block: 2.75rem;
 }
 
-.wordmark--footer {
-  margin-bottom: 0.75rem;
+.site-footer__column {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.site-footer__heading {
+  color: #8dde72;
+  font-family: var(--font-body), Inter, Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .site-footer__address,
 .site-footer__navigation {
   display: grid;
   font-style: normal;
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
-.site-footer__address a,
-.site-footer__navigation a {
+.site-footer__name {
+  font-weight: 600;
+}
+
+.site-footer__link,
+.site-footer__office,
+.site-footer__top {
+  color: rgb(255 255 255 / 78%);
+  text-decoration: none;
+  transition: color 180ms ease;
   width: fit-content;
 }
 
+.site-footer__link:hover,
+.site-footer__office:hover,
+.site-footer__top:hover {
+  color: var(--color-white);
+}
+
+/* Underline grows from the left on hover instead of a static one. */
+.site-footer__link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  padding-bottom: 2px;
+  transition: background-size 220ms ease, color 180ms ease;
+}
+
+.site-footer__link:hover {
+  background-size: 100% 1px;
+}
+
+.site-footer__office {
+  display: grid;
+  font-size: 0.9375rem;
+  gap: 0.35rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  line-height: 1.5;
+  max-width: 34ch;
+}
+
+.site-footer__office span {
+  color: #8dde72;
+  transition: transform 180ms ease;
+}
+
+.site-footer__office:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* Oversized outlined wordmark anchors the footer visually. */
+.site-footer__monogram {
+  color: transparent;
+  font-family: var(--font-display), "Instrument Sans", Arial, sans-serif;
+  font-size: clamp(3.5rem, 17vw, 13rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+  margin-block: 0.5rem 1.5rem;
+  -webkit-text-stroke: 1px rgb(141 222 114 / 30%);
+  user-select: none;
+  white-space: nowrap;
+}
+
 .site-footer__legal {
-  border-top: 1px solid var(--color-line);
+  align-items: center;
+  border-top: 1px solid rgb(255 255 255 / 12%);
+  color: rgb(255 255 255 / 55%);
+  display: flex;
+  flex-wrap: wrap;
   font-size: 0.8125rem;
-  margin-top: 3rem;
+  gap: 1rem;
+  justify-content: space-between;
   padding-top: 1.5rem;
+}
+
+.site-footer__top {
+  align-items: center;
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.4rem;
+}
+
+.site-footer__top span {
+  transition: transform 180ms ease;
+}
+
+.site-footer__top:hover span {
+  transform: translateY(-3px);
 }
 
 .home-hero-scene {
@@ -903,8 +1034,14 @@ p {
     --section-space: 88px;
   }
 
+  .site-footer__masthead {
+    align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
   .site-footer__grid {
-    grid-template-columns: 0.8fr 1.4fr 0.7fr;
+    gap: 3rem;
+    grid-template-columns: 0.9fr 1.3fr 0.7fr;
   }
 
   .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -971,7 +1108,11 @@ p {
   }
 
   .site-footer {
-    padding-block: 80px 112px;
+    padding-block: 72px 40px;
+  }
+
+  .site-footer__grid {
+    padding-block: 3.5rem;
   }
 
   .location-explorer { grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.55fr); }
@@ -1162,11 +1303,20 @@ p {
      gets a 44px tall hit area without changing how it reads. */
   .text-link,
   .directions-link,
-  .site-footer__address a,
-  .site-footer__navigation a {
+  .site-footer__address a:not(.site-footer__office),
+  .site-footer__navigation a,
+  .site-footer__top {
     align-items: center;
     display: inline-flex;
     min-height: 44px;
+  }
+
+  .site-footer__office {
+    padding-block: 0.4rem;
+  }
+
+  .site-footer__masthead .button-link--primary {
+    justify-self: stretch;
   }
 
   .editorial-list--links a {

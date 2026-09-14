@@ -64,6 +64,10 @@ export default async function LocaleLayout({
     indonesia: footer("indonesia"),
     established: footer("established"),
     rights: footer("rights"),
+    contactHeading: footer("contactHeading"),
+    officesHeading: footer("officesHeading"),
+    navigateHeading: footer("navigateHeading"),
+    backToTop: footer("backToTop"),
   };
 
   return (
