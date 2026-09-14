@@ -19,8 +19,8 @@ test("reduced-motion preference disables smooth scrolling and marquee animation"
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   const behavior = await page.locator("html").evaluate((element) => getComputedStyle(element).scrollBehavior);
-  const animation = await page.locator(".client-logo-grid").evaluate((element) => getComputedStyle(element).animationName);
-  const transform = await page.locator(".client-logo-grid").evaluate((element) => getComputedStyle(element).transform);
+  const animation = await page.locator(".client-logo-track").evaluate((element) => getComputedStyle(element).animationName);
+  const transform = await page.locator(".client-logo-track").evaluate((element) => getComputedStyle(element).transform);
   expect(behavior).toBe("auto");
   expect(animation).toBe("none");
   expect(["none", "matrix(1, 0, 0, 1, 0, 0)"]).toContain(transform);

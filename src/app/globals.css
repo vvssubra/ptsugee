@@ -467,15 +467,16 @@ p {
 .clients-heading h2 { font-size: clamp(1.8rem, 3vw, 3rem); }
 .clients-heading p { color: #666; }
 .client-logo-window { margin-top: 3rem; overflow: hidden; }
-.client-logo-grid { animation: client-logo-marquee 18s linear infinite alternate; display: grid; gap: 1px; grid-auto-columns: minmax(150px, 42vw); grid-auto-flow: column; grid-template-rows: repeat(2, 130px); list-style: none; margin: 0; padding: 0; width: max-content; }
-.client-logo-window:hover .client-logo-grid,
-.client-logo-window:focus-within .client-logo-grid { animation-play-state: paused; }
-.client-logo { align-items: center; background: var(--color-muted); display: flex; justify-content: center; min-height: 130px; min-width: 0; padding: 1rem; }
-.client-logo img { filter: grayscale(1); height: auto; max-height: 56px; max-width: min(150px, 100%); object-fit: contain; width: auto; }
+.client-logo-track { animation: client-logo-marquee 28s linear infinite; display: flex; width: max-content; }
+.client-logo-window:hover .client-logo-track,
+.client-logo-window:focus-within .client-logo-track { animation-play-state: paused; }
+.client-logo-group { display: flex; flex: none; gap: 1rem; list-style: none; margin: 0; padding: 0 1rem 0 0; }
+.client-logo { align-items: center; background: var(--color-muted); display: flex; flex: 0 0 clamp(170px, 16vw, 220px); height: 130px; justify-content: center; min-width: 0; padding: 1.25rem; }
+.client-logo img { filter: none; height: auto; max-height: 64px; max-width: 100%; object-fit: contain; width: auto; }
 
 @keyframes client-logo-marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(calc(-100% + 100vw - (2 * var(--page-gutter)))); }
+  to { transform: translateX(-50%); }
 }
 
 .faq-layout { display: grid; gap: 3rem; }
@@ -604,8 +605,6 @@ p {
   .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .proof-grid li:nth-child(odd) { padding-right: 2rem; }
   .proof-grid li:nth-child(even) { border-left: 1px solid var(--color-line); padding-left: 2rem; }
-  .client-logo-grid { animation: none; grid-auto-columns: auto; grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, 130px); width: 100%; }
-  .client-logo { padding: 1.25rem; }
 }
 
 @media (min-width: 1024px) {
@@ -629,9 +628,6 @@ p {
   .mobile-menu__controls {
     order: 2;
   }
-
-  .client-logo-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); grid-template-rows: 130px; }
-  .client-logo { padding: 0.75rem; }
 
   .site-navigation,
   .site-navigation[data-open] {
@@ -725,5 +721,7 @@ p {
 
   .client-logo-window { overflow-x: auto; }
 
-  .client-logo-grid { animation: none; transform: none; }
+  .client-logo-track { animation: none; transform: none; }
+
+  .client-logo-group[aria-hidden="true"] { display: none; }
 }
