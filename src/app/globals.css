@@ -470,8 +470,8 @@ p {
 .client-logo-grid { animation: client-logo-marquee 18s linear infinite alternate; display: grid; gap: 1px; grid-auto-columns: minmax(150px, 42vw); grid-auto-flow: column; grid-template-rows: repeat(2, 130px); list-style: none; margin: 0; padding: 0; width: max-content; }
 .client-logo-window:hover .client-logo-grid,
 .client-logo-window:focus-within .client-logo-grid { animation-play-state: paused; }
-.client-logo { align-items: center; background: var(--color-muted); display: flex; justify-content: center; min-height: 130px; padding: 1.5rem; }
-.client-logo img { filter: grayscale(1); height: auto; max-height: 56px; max-width: 150px; object-fit: contain; width: auto; }
+.client-logo { align-items: center; background: var(--color-muted); display: flex; justify-content: center; min-height: 130px; min-width: 0; padding: 1rem; }
+.client-logo img { filter: grayscale(1); height: auto; max-height: 56px; max-width: min(150px, 100%); object-fit: contain; width: auto; }
 
 @keyframes client-logo-marquee {
   from { transform: translateX(0); }
@@ -604,8 +604,8 @@ p {
   .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .proof-grid li:nth-child(odd) { padding-right: 2rem; }
   .proof-grid li:nth-child(even) { border-left: 1px solid var(--color-line); padding-left: 2rem; }
-  .client-logo-grid { animation: none; display: flex; width: 100%; }
-  .client-logo { flex: 1 1 0; min-width: 0; }
+  .client-logo-grid { animation: none; grid-auto-columns: auto; grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, 130px); width: 100%; }
+  .client-logo { padding: 1.25rem; }
 }
 
 @media (min-width: 1024px) {
@@ -629,6 +629,9 @@ p {
   .mobile-menu__controls {
     order: 2;
   }
+
+  .client-logo-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); grid-template-rows: 130px; }
+  .client-logo { padding: 0.75rem; }
 
   .site-navigation,
   .site-navigation[data-open] {
