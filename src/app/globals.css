@@ -68,6 +68,49 @@ a {
   background: var(--ink);
 }
 
+.contact-section {
+  position: relative;
+  display: flex;
+  min-height: clamp(500px, 68vh, 680px);
+  margin: clamp(0.75rem, 1.6vw, 1.5rem);
+  overflow: hidden;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: clamp(1.25rem, 2.4vw, 2rem);
+  background-color: #29984f;
+  background-image: linear-gradient(112deg, #d3b56e 0%, #8dab69 34%, #42a260 60%, #24994f 100%);
+  text-align: center;
+}
+
+.contact-section::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='174' viewBox='0 0 300 174'%3E%3Cg fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M25 2h50l25 43-25 43H25L0 45zM125 2h50l25 43-25 43h-50l-25-43zM225 2h50l25 43-25 43h-50l-25-43zM75 88h50l25 43-25 43H75l-25-43zM175 88h50l25 43-25 43h-50l-25-43z'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Ccircle cx='25' cy='2' r='4'/%3E%3Ccircle cx='100' cy='45' r='4'/%3E%3Ccircle cx='150' cy='131' r='4'/%3E%3Ccircle cx='275' cy='88' r='4'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 300px 174px;
+  content: "";
+  mask-image:
+    radial-gradient(circle at 100% 0%, #000 0 27%, transparent 53%),
+    radial-gradient(circle at 0% 100%, #000 0 24%, transparent 50%);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.contact-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-section .eyebrow {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.contact-section h1 {
+  margin-inline: auto;
+  text-wrap: balance;
+}
+
 .contact-section h1,
 .inner-page h1 {
   max-width: 850px;
@@ -79,7 +122,8 @@ a {
 
 .contact-section > p:not(.eyebrow) {
   max-width: 620px;
-  color: #d2d2d2;
+  margin-inline: auto;
+  color: rgba(255, 255, 255, 0.9);
   font-size: 1.125rem;
   line-height: 1.65;
 }
@@ -97,14 +141,16 @@ a {
   display: inline-block;
   margin-top: 1rem;
   padding: 0.9rem 1.2rem;
-  color: var(--white);
-  background: var(--green);
+  min-width: 180px;
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--white);
   font-weight: 750;
   text-decoration: none;
 }
 
 .primary-link:hover {
-  background: var(--green-dark);
+  background: #f0f0ed;
 }
 
 .locations-section {

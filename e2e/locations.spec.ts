@@ -35,6 +35,35 @@ test('the map is Home-only and Bahasa content is equivalent', async ({page}) => 
   await expect(page.getByText('Lokasi perkiraan')).toBeVisible();
 });
 
+test('the contact panel uses the approved gradient call-to-action design', async ({page}) => {
+  await page.setViewportSize({width: 1440, height: 1000});
+  await page.goto('/');
+
+  const contact = page.locator('#contact');
+  const cta = contact.getByRole('link', {name: 'Contact our team'});
+  const contactStyles = await contact.evaluate((element) => {
+    const styles = getComputedStyle(element);
+    return {
+      backgroundImage: styles.backgroundImage,
+      borderRadius: styles.borderRadius,
+      textAlign: styles.textAlign
+    };
+  });
+  const ctaStyles = await cta.evaluate((element) => {
+    const styles = getComputedStyle(element);
+    return {
+      backgroundColor: styles.backgroundColor,
+      borderRadius: styles.borderRadius
+    };
+  });
+
+  expect(contactStyles.backgroundImage).toContain('linear-gradient');
+  expect(contactStyles.borderRadius).not.toBe('0px');
+  expect(contactStyles.textAlign).toBe('center');
+  expect(ctaStyles.backgroundColor).toBe('rgb(255, 255, 255)');
+  expect(ctaStyles.borderRadius).toBe('999px');
+});
+
 test('the map is immediately visible from the locations anchor on a narrow preview', async ({page}) => {
   await page.setViewportSize({width: 375, height: 812});
   await page.goto('/#locations');

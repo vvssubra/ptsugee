@@ -55,6 +55,8 @@ English is the default locale and has no prefix. Bahasa Indonesia uses `/id`. `/
 
 Industrial confidence with editorial restraint: large direct headlines, real field photography, a predominantly black/white canvas, and green used only for action, status, and small navigational accents.
 
+The Home contact call-to-action is the intentional exception: an inset rounded panel with a warm gold-to-PT-SUGEE-green gradient, a low-contrast molecular lattice at the corners, centered white copy, and a white pill action.
+
 ### Tokens
 
 | Token | Value | Use |
