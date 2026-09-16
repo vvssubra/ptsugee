@@ -35,7 +35,7 @@ export function SiteFooter({ locale, navigation, labels }: SiteFooterProps) {
     { href: "/", label: navigation.home },
     { href: "/about", label: navigation.about },
     { href: "/service", label: navigation.services },
-    { href: "/#projects", label: navigation.projects },
+    { href: "/gallery", label: locale === "id" ? "Galeri" : "Gallery" },
     { href: "/#contact", label: navigation.contact },
   ] as const;
 

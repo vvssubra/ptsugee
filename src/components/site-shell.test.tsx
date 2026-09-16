@@ -47,7 +47,7 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "Home" })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
     expect(screen.getByRole("link", { name: "Services" })).toHaveAttribute("href", "/service");
-    expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute("href", "/#projects");
+    expect(screen.getByRole("link", { name: "Gallery" })).toHaveAttribute("href", "/gallery");
     expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/#contact");
     expect(screen.getByRole("link", { name: "English" })).toHaveAttribute("aria-current", "page");
     expect(screen.getByRole("link", { name: "Bahasa Indonesia" })).toBeInTheDocument();

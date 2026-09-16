@@ -50,7 +50,7 @@ export function MobileMenu({ locale, labels }: MobileMenuProps) {
     [labels.home, "/"],
     [labels.about, "/about"],
     [labels.services, "/service"],
-    [labels.projects, "/#projects"],
+    [locale === "id" ? "Galeri" : "Gallery", "/gallery"],
     [labels.contact, "/#contact"],
   ] as const;
 

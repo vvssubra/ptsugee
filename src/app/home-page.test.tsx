@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Home, { HomePage } from "@/app/[locale]/page";
+import Home from "@/app/[locale]/page";
+import { HomePage } from "@/app/[locale]/home-view";
 import type { ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 
 vi.mock("@/components/location-map", () => ({

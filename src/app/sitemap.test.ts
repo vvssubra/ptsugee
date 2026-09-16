@@ -2,11 +2,11 @@ import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
 
 describe("search discovery files", () => {
-  it("lists all 18 localized public URLs with language alternates", () => {
+  it("lists all 20 localized public URLs with language alternates", () => {
     const entries = sitemap();
 
-    expect(entries).toHaveLength(18);
-    expect(new Set(entries.map(({ url }) => url)).size).toBe(18);
+    expect(entries).toHaveLength(20);
+    expect(new Set(entries.map(({ url }) => url)).size).toBe(20);
     expect(entries.map(({ url }) => url)).not.toContain(expect.stringContaining("/studio"));
     expect(entries.map(({ url }) => url)).not.toContain(expect.stringContaining("/api"));
     for (const entry of entries) {

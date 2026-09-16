@@ -3,44 +3,14 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import enMessages from "../../../../messages/en.json";
 import idMessages from "../../../../messages/id.json";
-import { ServiceDetail, type ServicePageCopy } from "@/components/service-detail";
-import { isServiceSlug, services } from "@/content/services";
-import { serviceSlugs, type ServiceSlug } from "@/content/types";
-import { routing, type Locale } from "@/i18n/routing";
-import { getProjectsByService, type ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
+import { isServiceSlug } from "@/content/services";
+import { serviceSlugs } from "@/content/types";
+import { routing } from "@/i18n/routing";
 import { buildLocalizedMetadata } from "@/lib/metadata";
-import { buildServiceJsonLd, serializeJsonLd } from "@/lib/structured-data";
+import { getProjectsByService } from "@/sanity/lib/fetch-projects";
+import { ServiceDetailPage } from "./service-detail-view";
 
 const messages = { en: enMessages, id: idMessages } as const;
-
-const serviceAltKeys: Record<ServiceSlug, keyof typeof enMessages.images> = {
-  "machinery-equipment-installation": "serviceMachineryInstallation",
-  "machinery-equipment-overhauling": "serviceMachineryOverhauling",
-  epocast: "serviceEpocast",
-  "laser-alignment-service": "serviceLaserAlignment",
-  "in-situ-machining": "serviceInSituMachining",
-  "flange-management": "serviceFlangeManagement",
-};
-
-export function ServiceDetailPage({ locale, serviceSlug, gallery }: { locale: Locale; serviceSlug: ServiceSlug; gallery: ProjectGalleryResult }) {
-  const dictionary = messages[locale];
-  const service = services.find((item) => item.slug === serviceSlug);
-  if (!service) notFound();
-
-  return <main>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildServiceJsonLd(locale, serviceSlug)) }} />
-    <ServiceDetail
-    alt={dictionary.images[serviceAltKeys[serviceSlug]]}
-    contact={dictionary.contact}
-    copy={dictionary.services[serviceSlug] as ServicePageCopy}
-    detailLabels={dictionary.serviceDetail}
-    gallery={gallery}
-    galleryLabels={{ empty: dictionary.system.noRelatedProjects, unavailable: dictionary.system.galleryUnavailable, previous: dictionary.home.featuredProjects.previous, next: dictionary.home.featuredProjects.next, pause: dictionary.home.featuredProjects.pause, play: dictionary.home.featuredProjects.play, slideshow: dictionary.home.featuredProjects.slideshowLabel, filters: dictionary.home.featuredProjects.filtersLabel, all: dictionary.home.featuredProjects.allServices }}
-    locale={locale}
-    service={service}
-    serviceLabels={dictionary.services}
-  /></main>;
-}
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => serviceSlugs.map((serviceSlug) => ({ locale, serviceSlug })));

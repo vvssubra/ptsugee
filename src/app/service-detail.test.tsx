@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import ServicePage, {
-  ServiceDetailPage,
   generateMetadata,
   generateStaticParams,
 } from "@/app/[locale]/[serviceSlug]/page";
+import { ServiceDetailPage } from "@/app/[locale]/[serviceSlug]/service-detail-view";
 import { serviceSlugs } from "@/content/types";
 import type { ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 

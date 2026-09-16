@@ -4,7 +4,7 @@ import type { Locale } from "@/i18n/routing";
 
 export const siteOrigin = "https://ptsugee.com" as const;
 
-export const publicRoutePaths = ["/", "/about", "/service", ...serviceSlugs.map((slug) => `/${slug}` as const)] as const;
+export const publicRoutePaths = ["/", "/about", "/service", "/gallery", ...serviceSlugs.map((slug) => `/${slug}` as const)] as const;
 export type PublicRoutePath = (typeof publicRoutePaths)[number];
 
 type MetadataCopy = { title: string; description: string };
@@ -12,6 +12,7 @@ type MetadataCopy = { title: string; description: string };
 const socialImageByPath: Record<PublicRoutePath, string> = {
   "/": "/images/hero/home-offshore-rig.webp",
   "/about": "/images/hero/about-offshore-team.webp",
+  "/gallery": "/images/projects/heavy-equipment-installation-04.jpeg",
   "/service": "/images/hero/home-offshore-rig.webp",
   "/machinery-equipment-installation": "/images/services/machinery-equipment-installation.webp",
   "/machinery-equipment-overhauling": "/images/services/machinery-equipment-overhauling.webp",

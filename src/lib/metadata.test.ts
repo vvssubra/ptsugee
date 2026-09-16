@@ -4,11 +4,11 @@ import { serviceSlugs } from "@/content/types";
 import { buildLocalizedMetadata, publicRoutePaths } from "@/lib/metadata";
 
 describe("localized metadata", () => {
-  it("defines the nine public route paths", () => {
-    expect(publicRoutePaths).toEqual(["/", "/about", "/service", ...serviceSlugs.map((slug) => `/${slug}`)]);
+  it("defines the ten public route paths", () => {
+    expect(publicRoutePaths).toEqual(["/", "/about", "/service", "/gallery", ...serviceSlugs.map((slug) => `/${slug}`)]);
   });
 
-  it("builds unique localized metadata for all 18 public URLs", () => {
+  it("builds unique localized metadata for all 20 public URLs", () => {
     const dictionaries = { en: enMessages, id: idMessages } as const;
     const results = (["en", "id"] as const).flatMap((locale) => publicRoutePaths.map((path) => {
       const dictionary = dictionaries[locale];
@@ -16,14 +16,16 @@ describe("localized metadata", () => {
         ? dictionary.home.metadata
         : path === "/about"
           ? dictionary.about.metadata
+          : path === "/gallery"
+            ? { title: "Field Gallery | PT SUGEE", description: "Field photography" }
           : path === "/service"
             ? dictionary.servicesIndex.metadata
             : dictionary.services[path.slice(1) as keyof typeof dictionary.services].metadata;
       return buildLocalizedMetadata(locale, path, copy);
     }));
 
-    expect(results).toHaveLength(18);
-    expect(new Set(results.map(({ alternates }) => alternates?.canonical?.toString())).size).toBe(18);
+    expect(results).toHaveLength(20);
+    expect(new Set(results.map(({ alternates }) => alternates?.canonical?.toString())).size).toBe(20);
     expect(results.every(({ title, description }) => Boolean(title && description))).toBe(true);
   });
 

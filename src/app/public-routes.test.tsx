@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import { AboutPage } from "@/app/[locale]/about/page";
-import ServiceIndex, { ServicesPage } from "@/app/[locale]/service/page";
+import { AboutPage } from "@/app/[locale]/about/about-view";
+import ServiceIndex from "@/app/[locale]/service/page";
+import { ServicesPage } from "@/app/[locale]/service/services-view";
 import { serviceSlugs } from "@/content/types";
 import type { ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 
