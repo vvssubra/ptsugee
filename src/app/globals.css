@@ -288,12 +288,14 @@ p {
   position: relative;
 }
 
+/* Inside the slide-down panel this is a plain nested list; the desktop
+   breakpoint turns it into an absolutely positioned dropdown. */
 .site-navigation__service-links {
   background: var(--color-black);
   border: 1px solid #333;
   display: grid;
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 0.75rem;
   min-width: 250px;
   padding: 0.5rem;
 }
@@ -1151,12 +1153,19 @@ p {
     padding-block: 1rem;
   }
 
-  .site-navigation__services-item:hover .site-navigation__service-links,
-  .site-navigation__services-item:focus-within .site-navigation__service-links {
-    display: block;
+  /* Out of flow at all times, or the panel stretches the header bar;
+     only its visibility toggles on hover/focus. */
+  .site-navigation__service-links {
+    display: none;
     left: -0.75rem;
     position: absolute;
     top: 100%;
+    z-index: 60;
+  }
+
+  .site-navigation__services-item:hover .site-navigation__service-links,
+  .site-navigation__services-item:focus-within .site-navigation__service-links {
+    display: grid;
   }
 
   .site-navigation__service-links a {
