@@ -103,9 +103,34 @@ export function SiteFooter({ locale, navigation, labels }: SiteFooterProps) {
           </nav>
         </div>
 
-        <p aria-hidden="true" className="site-footer__monogram">
-          PT SUGEE
-        </p>
+        <svg
+          aria-hidden="true"
+          className="site-footer__monogram"
+          focusable="false"
+          preserveAspectRatio="xMidYMid meet"
+          viewBox="0 0 1000 190"
+        >
+          {/* Two passes of the same glyphs: a static outline, then a dashed
+              copy whose offset animates so a light appears to sketch the edge. */}
+          <text
+            className="site-footer__monogram-base"
+            lengthAdjust="spacingAndGlyphs"
+            textLength="960"
+            x="500"
+            y="145"
+          >
+            PT SUGEE
+          </text>
+          <text
+            className="site-footer__monogram-trail"
+            lengthAdjust="spacingAndGlyphs"
+            textLength="960"
+            x="500"
+            y="145"
+          >
+            PT SUGEE
+          </text>
+        </svg>
 
         <div className="site-footer__legal">
           <p>
