@@ -28,6 +28,14 @@ const labels = {
   menu: "Menu",
   closeMenu: "Close menu",
   primaryNavigation: "Primary",
+  serviceItems: [
+    { href: "/machinery-equipment-installation", label: "Machinery installation" },
+    { href: "/machinery-equipment-overhauling", label: "Machinery overhaul" },
+    { href: "/epocast", label: "EPOCAST 36" },
+    { href: "/laser-alignment-service", label: "Laser alignment" },
+    { href: "/in-situ-machining", label: "In-situ machining" },
+    { href: "/flange-management", label: "Flange management" },
+  ],
 };
 
 describe("SiteHeader", () => {

@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { routing } from "@/i18n/routing";
+import { serviceSlugs } from "@/content/types";
 import { buildOrganizationJsonLd, serializeJsonLd } from "@/lib/structured-data";
 import "../globals.css";
 
@@ -43,6 +44,10 @@ export default async function LocaleLayout({
     getTranslations("navigation"),
     getTranslations("footer"),
   ]);
+  const serviceItems = serviceSlugs.map((slug) => ({
+    href: `/${slug}`,
+    label: (messages as { services: Record<string, { title: string }> }).services[slug].title,
+  }));
 
   const navigationLabels = {
     home: navigation("home"),
@@ -56,6 +61,7 @@ export default async function LocaleLayout({
     menu: navigation("menu"),
     closeMenu: navigation("closeMenu"),
     primaryNavigation: navigation("primaryNavigation"),
+    serviceItems,
   };
 
   const footerLabels = {

@@ -17,6 +17,7 @@ export type NavigationLabels = {
   menu: string;
   closeMenu: string;
   primaryNavigation: string;
+  serviceItems: Array<{ href: string; label: string }>;
 };
 
 type MobileMenuProps = {
@@ -78,10 +79,21 @@ export function MobileMenu({ locale, labels }: MobileMenuProps) {
       >
         <ul className="site-navigation__links">
           {navItems.map(([label, href]) => (
-            <li key={label}>
+            <li className={label === labels.services ? "site-navigation__services-item" : undefined} key={label}>
               <Link href={href} locale={locale === "id" ? "id" : undefined} onClick={() => setOpen(false)}>
                 {label}
               </Link>
+              {label === labels.services && (
+                <ul className="site-navigation__service-links">
+                  {labels.serviceItems.map((service) => (
+                    <li key={service.href}>
+                      <Link href={service.href} locale={locale === "id" ? "id" : undefined} onClick={() => setOpen(false)}>
+                        {service.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>

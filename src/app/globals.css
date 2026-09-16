@@ -284,6 +284,26 @@ p {
   color: #70c852;
 }
 
+.site-navigation__links > li {
+  position: relative;
+}
+
+.site-navigation__service-links {
+  background: var(--color-black);
+  border: 1px solid #333;
+  display: grid;
+  list-style: none;
+  margin: 0;
+  min-width: 250px;
+  padding: 0.5rem;
+}
+
+.site-navigation__service-links a {
+  border: 0;
+  font-size: 0.875rem;
+  padding: 0.65rem 0.75rem;
+}
+
 .locale-switcher {
   align-items: center;
   display: flex;
@@ -1129,6 +1149,19 @@ p {
     font-family: var(--font-body), Inter, Arial, sans-serif;
     font-size: 0.875rem;
     padding-block: 1rem;
+  }
+
+  .site-navigation__services-item:hover .site-navigation__service-links,
+  .site-navigation__services-item:focus-within .site-navigation__service-links {
+    display: block;
+    left: -0.75rem;
+    position: absolute;
+    top: 100%;
+  }
+
+  .site-navigation__service-links a {
+    padding: 0.65rem 0.75rem;
+    white-space: nowrap;
   }
 
   .site-footer {
