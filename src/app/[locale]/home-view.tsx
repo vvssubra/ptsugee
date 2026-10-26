@@ -27,6 +27,7 @@ export function HomePage({ locale, gallery }: { locale: Locale; gallery: Project
   return (
     <main>
       <Hero alt={dictionary.images.homeHero} body={home.hero.body} eyebrow={home.hero.eyebrow} heading={home.hero.heading} primaryCta={home.hero.primaryCta} secondaryCta={home.hero.secondaryCta} serviceHref="/service" />
+      <MotionReveal><ClientLogoStrip altLabels={dictionary.images} body={home.clients.body} heading={home.clients.heading} marqueeLabel={home.clients.marqueeLabel} /></MotionReveal>
       <MotionReveal>
         <section className="section capabilities-section" aria-labelledby="capabilities-heading">
           <Container><div className="capabilities-layout"><div>
@@ -64,18 +65,19 @@ export function HomePage({ locale, gallery }: { locale: Locale; gallery: Project
       </MotionReveal>
       <MotionReveal><ProofPoints eyebrow={home.why.eyebrow} heading={home.why.heading} points={[home.why.experience, home.why.regional, home.why.capability, home.why.priority]} /></MotionReveal>
       <MotionReveal><QualitySection alt={dictionary.images.qualityTeam} body={home.quality.body} eyebrow={home.quality.eyebrow} heading={home.quality.heading} points={home.quality.points} /></MotionReveal>
-      <MotionReveal><ClientLogoStrip altLabels={dictionary.images} body={home.clients.body} heading={home.clients.heading} marqueeLabel={home.clients.marqueeLabel} /></MotionReveal>
-      <MotionReveal>
-        <section className="section faq-section" aria-labelledby="faq-heading"><Container className="faq-layout">
-          <div><p className="eyebrow">{home.faqIntro.eyebrow}</p><h2 id="faq-heading">{home.faqIntro.heading}</h2><p className="faq-intro__body">{home.faqIntro.body}</p><a className="text-link" href="#contact">{dictionary.navigation.contact}</a></div>
-          <FaqAccordion items={home.faq} />
-        </Container></section>
-      </MotionReveal>
+      <div className="home-split"><Container className="home-split__inner">
+        <MotionReveal>
+          <section className="faq-section" aria-labelledby="faq-heading">
+            <div className="faq-intro"><p className="eyebrow">{home.faqIntro.eyebrow}</p><h2 id="faq-heading">{home.faqIntro.heading}</h2><p className="faq-intro__body">{home.faqIntro.body}</p><a className="text-link" href="#contact">{dictionary.navigation.contact}</a></div>
+            <FaqAccordion items={home.faq} />
+          </section>
+        </MotionReveal>
+        <LocationSection copy={dictionary.locations} />
+      </Container></div>
       <section className="section contact-boundary" id="contact" aria-labelledby="contact-heading"><Container className="contact-boundary__inner">
         <div><p className="eyebrow">{dictionary.contact.eyebrow}</p><h2 id="contact-heading">{dictionary.contact.heading}</h2><p>{dictionary.contact.body}</p></div>
         <ButtonLink aria-label={dictionary.contact.whatsappCtaLabel} href={buildWhatsAppUrl(locale)} target="_blank">{dictionary.contact.whatsappCta}</ButtonLink>
       </Container></section>
-      <LocationSection copy={dictionary.locations} />
     </main>
   );
 }

@@ -42,23 +42,23 @@ export function SiteFooter({ locale, navigation, labels }: SiteFooterProps) {
   return (
     <footer className="site-footer">
       <Container>
-        <div className="site-footer__masthead">
-          <div>
-            <p className="wordmark wordmark--footer">
-              <span>PT</span> SUGEE
-            </p>
-            <p className="site-footer__established">{labels.established}</p>
-          </div>
-          <Link
-            className="button-link button-link--primary"
-            href="/#contact"
-            locale={localeProp}
-          >
-            {navigation.contact}
-          </Link>
-        </div>
-
         <div className="site-footer__grid">
+          <div className="site-footer__masthead">
+            <div>
+              <p className="wordmark wordmark--footer">
+                <span>PT</span> SUGEE
+              </p>
+              <p className="site-footer__established">{labels.established}</p>
+            </div>
+            <Link
+              className="button-link button-link--primary"
+              href="/#contact"
+              locale={localeProp}
+            >
+              {navigation.contact}
+            </Link>
+          </div>
+
           <section className="site-footer__column">
             <h2 className="site-footer__heading">{labels.contactHeading}</h2>
             <address className="site-footer__address">

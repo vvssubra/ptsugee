@@ -90,7 +90,7 @@ describe("HomePage", () => {
     const locations = document.querySelector("#locations");
     expect(contact).not.toBeNull();
     expect(locations).not.toBeNull();
-    expect(contact!.compareDocumentPosition(locations!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(locations!.compareDocumentPosition(contact!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 
     const faq = screen.getByRole("button", { name: "Where does PT SUGEE operate?" });
     expect(faq).toHaveAttribute("aria-expanded", "false");

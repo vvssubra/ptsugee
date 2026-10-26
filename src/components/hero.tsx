@@ -20,10 +20,13 @@ export function Hero({ alt, eyebrow, heading, body, primaryCta, secondaryCta, se
   return <div className="home-hero-scene" data-testid="home-hero-scene" ref={sceneRef}>
     <div className="home-hero-sticky">
       <section className="home-hero" aria-labelledby="home-hero-heading">
-        <motion.div className="home-hero__media" style={{ scale: reduceMotion ? 1 : imageScale }}>
-          <Image className="home-hero__image" src={heroAssets.home.src} alt={alt} fill priority sizes="100vw" />
-        </motion.div>
-        <motion.div className="home-hero__overlay" style={{ opacity: reduceMotion ? 1 : overlayOpacity }} />
+        {/* Frame clips the scaled media; full-bleed on mobile, a framed panel beside the copy on desktop. */}
+        <div className="home-hero__frame">
+          <motion.div className="home-hero__media" style={{ scale: reduceMotion ? 1 : imageScale }}>
+            <Image className="home-hero__image" src={heroAssets.home.src} alt={alt} fill priority sizes="(min-width: 1024px) 50vw, 100vw" />
+          </motion.div>
+          <motion.div className="home-hero__overlay" style={{ opacity: reduceMotion ? 1 : overlayOpacity }} />
+        </div>
         <Container className="home-hero__content"><p className="eyebrow home-hero__eyebrow">{eyebrow}</p><h1 id="home-hero-heading">{heading}</h1><p className="home-hero__body">{body}</p>
           <div className="home-hero__actions"><ButtonLink href="#contact">{primaryCta}</ButtonLink><ButtonLink href={serviceHref} variant="secondary">{secondaryCta}</ButtonLink></div>
         </Container>
