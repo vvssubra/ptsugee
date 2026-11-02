@@ -30,3 +30,29 @@ export const featuredProjectsQuery = defineQuery(
 export const projectsByServiceQuery = defineQuery(
   `*[_type == "projectGallery" && serviceCategory == $service] | order(displayOrder asc) ${projectProjection}`,
 );
+
+const siteImageProjection = `{
+  "src": asset->url,
+  "width": asset->metadata.dimensions.width,
+  "height": asset->metadata.dimensions.height,
+  "alt": coalesce(alt[$locale], alt.en)
+}`;
+
+const serviceImageFields = ["machineryEquipmentInstallation", "machineryEquipmentOverhauling", "epocast", "laserAlignmentService", "inSituMachining", "flangeManagement"]
+  .map((field) => `${field} ${siteImageProjection}`)
+  .join(", ");
+
+export const siteImagesQuery = defineQuery(
+  `*[_id == "siteImages"][0]{
+    homeHero ${siteImageProjection},
+    aboutHero ${siteImageProjection},
+    qualityTeam ${siteImageProjection},
+    services{ ${serviceImageFields} },
+    clientLogos[]{
+      "src": logo.asset->url,
+      "width": logo.asset->metadata.dimensions.width,
+      "height": logo.asset->metadata.dimensions.height,
+      "alt": name + " logo"
+    }
+  }`,
+);

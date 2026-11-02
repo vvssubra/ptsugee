@@ -3,13 +3,13 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { heroAssets } from "@/content/assets";
+import type { SiteImage } from "@/content/site-images";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 
-type HeroProps = { alt: string; eyebrow: string; heading: string; body: string; primaryCta: string; secondaryCta: string; serviceHref: string };
+type HeroProps = { image: SiteImage; eyebrow: string; heading: string; body: string; primaryCta: string; secondaryCta: string; serviceHref: string };
 
-export function Hero({ alt, eyebrow, heading, body, primaryCta, secondaryCta, serviceHref }: HeroProps) {
+export function Hero({ image, eyebrow, heading, body, primaryCta, secondaryCta, serviceHref }: HeroProps) {
   const sceneRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: sceneRef, offset: ["start start", "end end"] });
@@ -23,7 +23,7 @@ export function Hero({ alt, eyebrow, heading, body, primaryCta, secondaryCta, se
         {/* Frame clips the scaled media; full-bleed on mobile, a framed panel beside the copy on desktop. */}
         <div className="home-hero__frame">
           <motion.div className="home-hero__media" style={{ scale: reduceMotion ? 1 : imageScale }}>
-            <Image className="home-hero__image" src={heroAssets.home.src} alt={alt} fill priority sizes="(min-width: 1024px) 50vw, 100vw" />
+            <Image className="home-hero__image" src={image.src} alt={image.alt} fill priority sizes="(min-width: 1024px) 50vw, 100vw" />
           </motion.div>
           <motion.div className="home-hero__overlay" style={{ opacity: reduceMotion ? 1 : overlayOpacity }} />
         </div>

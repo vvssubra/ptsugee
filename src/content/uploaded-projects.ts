@@ -43,10 +43,7 @@ function uploadedProject(locale: Locale): ProjectGallery {
 }
 
 export function withUploadedProject(gallery: ProjectGalleryResult, locale: Locale): ProjectGalleryResult {
-  const project = uploadedProject(locale);
-  const projects = gallery.status === "ready"
-    ? gallery.projects.filter((item) => item.id !== project.id)
-    : [];
-
-  return { status: "ready", projects: [project, ...projects] };
+  // Once Sanity serves projects, `pnpm sanity:seed --write` has copied this one there too.
+  if (gallery.status === "ready") return gallery;
+  return { status: "ready", projects: [uploadedProject(locale)] };
 }

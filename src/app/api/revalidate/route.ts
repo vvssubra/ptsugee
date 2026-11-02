@@ -42,10 +42,11 @@ export async function POST(request: Request) {
     return Response.json({ok: false, error: "Invalid signature."}, {status: 401});
   }
 
-  if (body?._type !== "projectGallery") {
+  const tag = body?._type;
+  if (tag !== "projectGallery" && tag !== "siteImages") {
     return Response.json({ok: false, error: "Unsupported webhook body."}, {status: 400});
   }
 
-  revalidateTag("projectGallery", "max");
-  return Response.json({ok: true, revalidated: "projectGallery"});
+  revalidateTag(tag, "max");
+  return Response.json({ok: true, revalidated: tag});
 }

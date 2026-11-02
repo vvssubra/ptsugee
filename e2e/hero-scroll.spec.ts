@@ -6,7 +6,7 @@ for (const route of ["/", "/id"]) {
     const hero = page.locator(".home-hero-sticky");
     const media = page.locator(".home-hero__media");
     const scene = page.locator(".home-hero-scene");
-    const next = page.locator(".capabilities-section");
+    const next = page.locator(".clients-section");
     const initial = (await hero.boundingBox())!;
     const travel = await scene.evaluate((element) => element.getBoundingClientRect().bottom + window.scrollY - window.innerHeight);
     const scale = () => media.evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).a);

@@ -22,6 +22,38 @@ if (args.has("--dry-run") && args.has("--write")) {
 }
 
 const write = args.has("--write");
+
+// Pre-fills Studio's "Site Images" with the photos that ship in /public, so admins see what is live.
+const siteImageSeeds = {
+  homeHero: "public/images/hero/home-offshore-rig.webp",
+  aboutHero: "public/images/hero/about-offshore-team.webp",
+  qualityTeam: "public/images/hero/quality-machine-team.webp",
+  services: {
+    machineryEquipmentInstallation: "public/images/services/machinery-equipment-installation.webp",
+    machineryEquipmentOverhauling: "public/images/services/machinery-equipment-overhauling.webp",
+    epocast: "public/images/services/epocast.webp",
+    laserAlignmentService: "public/images/services/laser-alignment-service.webp",
+    inSituMachining: "public/images/services/in-situ-machining.webp",
+    flangeManagement: "public/images/services/flange-management.webp",
+  },
+  clientLogos: [
+    ["ASL", "public/images/clients/asl.png"],
+    ["Siemens", "public/images/clients/siemens.png"],
+    ["ST Engineering", "public/images/clients/st-engineering.png"],
+    ["Keppel FELS", "public/images/clients/keppel-fels.png"],
+    ["Seadrill", "public/images/clients/seadrill.png"],
+    ["PaxOcean", "public/images/clients/pax-ocean.png"],
+    ["Shell", "public/images/clients/shell.png"],
+    ["Sembcorp Marine", "public/images/clients/sembcorp-marine.png"],
+  ],
+};
+const siteImagePaths = [
+  siteImageSeeds.homeHero,
+  siteImageSeeds.aboutHero,
+  siteImageSeeds.qualityTeam,
+  ...Object.values(siteImageSeeds.services),
+  ...siteImageSeeds.clientLogos.map(([, path]) => path),
+];
 const seeds = JSON.parse(readFileSync(seedFile, "utf8"));
 const seenHashes = new Set();
 
@@ -50,6 +82,7 @@ function describePlan() {
   const mode = write ? "WRITE" : "DRY RUN — no network requests or writes";
   console.log(`Sanity project-gallery seed: ${mode}`);
   console.log(`Documents: ${prepared.length}; unique assets: ${seenHashes.size}`);
+  console.log(`Site Images (only if missing): ${siteImagePaths.length} assets`);
 
   for (const {seed, images} of prepared) {
     console.log(`- ${seed._id} | ${seed.serviceCategory} | ${seed.location}`);
@@ -89,26 +122,30 @@ const contentTypes = {
   ".webp": "image/webp",
 };
 
+async function uploadImage(path) {
+  const absolutePath = resolve(root, path);
+  const hash = createHash("sha1").update(readFileSync(absolutePath)).digest("hex");
+  const existingId = await client.fetch('*[_type == "sanity.imageAsset" && sha1hash == $hash][0]._id', {hash});
+  const asset = existingId
+    ? {_id: existingId}
+    : await client.assets.upload("image", createReadStream(absolutePath), {
+        filename: path.split("/").at(-1),
+        contentType: contentTypes[extname(absolutePath).toLowerCase()],
+      });
+
+  console.log(`${existingId ? "Reused" : "Uploaded"} ${asset._id} for ${path}`);
+  return {_type: "image", asset: {_type: "reference", _ref: asset._id}};
+}
+
 for (const {seed, images} of prepared) {
   const uploadedImages = [];
 
   for (const image of images) {
-    const existingId = await client.fetch(
-      '*[_type == "sanity.imageAsset" && sha1hash == $hash][0]._id',
-      {hash: image.hash},
-    );
-    const asset = existingId
-      ? {_id: existingId}
-      : await client.assets.upload("image", createReadStream(image.absolutePath), {
-          filename: image.path.split("/").at(-1),
-          contentType: contentTypes[extname(image.absolutePath).toLowerCase()],
-        });
-
-    console.log(`${existingId ? "Reused" : "Uploaded"} ${asset._id} for ${image.path}`);
+    const {asset} = await uploadImage(image.path);
     uploadedImages.push({
       _key: `image-${image.hash.slice(0, 16)}`,
       _type: "image",
-      asset: {_type: "reference", _ref: asset._id},
+      asset,
       alt: image.alt,
       ...(image.caption ? {caption: image.caption} : {}),
     });
@@ -126,8 +163,33 @@ for (const {seed, images} of prepared) {
     images: uploadedImages,
   };
 
-  await client.createOrReplace(document);
-  console.log(`Created or replaced ${seed._id}`);
+  // Never overwrite a project an admin may have edited in Studio.
+  await client.createIfNotExists(document);
+  console.log(`Created ${seed._id} (skipped if it already existed)`);
+}
+
+if (await client.fetch('defined(*[_id == "siteImages"][0]._id)')) {
+  console.log("Site Images already exists; left untouched.");
+} else {
+  const services = {};
+  for (const [field, path] of Object.entries(siteImageSeeds.services)) {
+    services[field] = {...(await uploadImage(path)), _type: "siteImage"};
+  }
+  const clientLogos = [];
+  for (const [name, path] of siteImageSeeds.clientLogos) {
+    clientLogos.push({_key: name.toLowerCase().replace(/\W+/g, "-"), _type: "clientLogo", name, logo: await uploadImage(path)});
+  }
+
+  await client.createIfNotExists({
+    _id: "siteImages",
+    _type: "siteImages",
+    homeHero: {...(await uploadImage(siteImageSeeds.homeHero)), _type: "siteImage"},
+    aboutHero: {...(await uploadImage(siteImageSeeds.aboutHero)), _type: "siteImage"},
+    qualityTeam: {...(await uploadImage(siteImageSeeds.qualityTeam)), _type: "siteImage"},
+    services,
+    clientLogos,
+  });
+  console.log("Created Site Images");
 }
 
 console.log("Sanity project-gallery seed completed.");

@@ -91,4 +91,14 @@ describe("POST /api/revalidate", () => {
     expect(mocks.parseBody).toHaveBeenCalledWith(expect.any(Request), "test-secret");
     expect(mocks.revalidateTag).toHaveBeenCalledWith("projectGallery", "max");
   });
+
+  it("revalidates the site images tag after a valid signed event", async () => {
+    mocks.parseBody.mockResolvedValue({isValidSignature: true, body: {_type: "siteImages"}});
+
+    const response = await POST(request());
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ok: true, revalidated: "siteImages"});
+    expect(mocks.revalidateTag).toHaveBeenCalledWith("siteImages", "max");
+  });
 });

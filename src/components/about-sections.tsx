@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { heroAssets } from "@/content/assets";
+import type { SiteImage } from "@/content/site-images";
 import { Container } from "@/components/ui/container";
 import type { ServiceSlug } from "@/content/types";
 import type { Locale } from "@/i18n/routing";
@@ -17,13 +17,13 @@ type AboutCopy = {
 };
 
 export function AboutSections({
-  alt,
+  image,
   capabilities,
   capabilityLabel,
   copy,
   locale,
 }: {
-  alt: string;
+  image: SiteImage;
   capabilities: Array<{ slug: ServiceSlug; title: string }>;
   capabilityLabel: string;
   copy: AboutCopy;
@@ -43,7 +43,7 @@ export function AboutSections({
             <h1 id="about-heading">{copy.intro.heading}</h1>
             <p>{copy.intro.body}</p>
             <div className="about-intro__media">
-              <Image src={heroAssets.about} alt={alt} sizes="(min-width: 1024px) 54vw, 100vw" priority />
+              <Image src={image.src} width={image.width} height={image.height} alt={image.alt} sizes="(min-width: 1024px) 54vw, 100vw" priority />
             </div>
           </div>
         </Container>

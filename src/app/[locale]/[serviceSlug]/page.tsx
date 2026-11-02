@@ -8,6 +8,7 @@ import { serviceSlugs } from "@/content/types";
 import { routing } from "@/i18n/routing";
 import { buildLocalizedMetadata } from "@/lib/metadata";
 import { getProjectsByService } from "@/sanity/lib/fetch-projects";
+import { getSiteImages } from "@/sanity/lib/fetch-site-images";
 import { ServiceDetailPage } from "./service-detail-view";
 
 const messages = { en: enMessages, id: idMessages } as const;
@@ -25,5 +26,5 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function ServicePage({ params }: { params: Promise<{ locale: string; serviceSlug: string }> }) {
   const { locale, serviceSlug } = await params;
   if (!hasLocale(routing.locales, locale) || !isServiceSlug(serviceSlug)) notFound();
-  return <ServiceDetailPage locale={locale} serviceSlug={serviceSlug} gallery={await getProjectsByService(serviceSlug, locale)} />;
+  return <ServiceDetailPage locale={locale} serviceSlug={serviceSlug} gallery={await getProjectsByService(serviceSlug, locale)} images={await getSiteImages(locale)} />;
 }

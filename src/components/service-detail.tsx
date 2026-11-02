@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { SiteImage } from "@/content/site-images";
 import type { ServiceContent, ServiceSlug } from "@/content/types";
 import { formatSpecificationGroups } from "@/content/services";
 import type { Locale } from "@/i18n/routing";
@@ -68,7 +69,7 @@ function technicalGroups(service: ServiceContent, copy: ServicePageCopy, labels:
 }
 
 export function ServiceDetail({
-  alt,
+  image,
   contact,
   copy,
   detailLabels,
@@ -78,7 +79,7 @@ export function ServiceDetail({
   service,
   serviceLabels,
 }: {
-  alt: string;
+  image: SiteImage;
   contact: { eyebrow: string; heading: string; body: string; whatsappCta: string; whatsappCtaLabel: string };
   copy: ServicePageCopy;
   detailLabels: DetailLabels;
@@ -98,7 +99,7 @@ export function ServiceDetail({
     <div data-testid="service-detail-sequence">
       <section className="service-hero" aria-labelledby="service-heading">
         <div className="service-hero__media">
-          <Image className="service-hero__image" src={service.heroImage} alt={alt} fill priority sizes="100vw" />
+          <Image className="service-hero__image" src={image.src} alt={image.alt} fill priority sizes="100vw" />
         </div>
         <div className="service-hero__overlay" />
         <Container className="service-hero__content">

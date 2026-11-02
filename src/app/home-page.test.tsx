@@ -118,7 +118,7 @@ describe("HomePage", () => {
 
     expect(screen.getByRole("heading", { level: 3, name: "Propeller shaft alignment" })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "Laser alignment equipment measuring a propeller shaft" })).toBeInTheDocument();
-    expect(screen.getAllByText("Batam, Indonesia · 2025")).toHaveLength(10);
+    expect(screen.getAllByText("Batam, Indonesia · 2025")).toHaveLength(1);
     expect(screen.getByRole("img", { name: "Laser alignment equipment measuring a propeller shaft" })).not.toHaveAttribute("src", expect.stringContaining("https://cdn.sanity.io"));
   });
 

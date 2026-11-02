@@ -27,7 +27,7 @@ describe("Sanity project seed data", () => {
       for (const image of seed.images) {
         expect(image.alt.en.trim()).not.toBe("");
         expect(image.alt.id.trim()).not.toBe("");
-        expect(image.provenance).toMatch(/^PT SUGEE company profile PDF, page \d+/);
+        expect(image.provenance).toMatch(/^(PT SUGEE company profile PDF, page \d+|Client-supplied field photo)/);
 
         const assetPath = resolve(process.cwd(), image.path);
         expect(existsSync(assetPath), `${image.path} must exist`).toBe(true);
@@ -43,8 +43,9 @@ describe("Sanity project seed data", () => {
     expect(new Set(seeds.map(({serviceCategory}) => serviceCategory))).toEqual(new Set(serviceSlugs));
   });
 
-  it("does not invent completion years", () => {
-    expect(seeds.every((seed) => !("completionYear" in seed))).toBe(true);
+  it("does not invent completion years for profile-sourced projects", () => {
+    const profileSeeds = seeds.filter((seed) => seed.images.every((image) => image.provenance.startsWith("PT SUGEE company profile PDF")));
+    expect(profileSeeds.every((seed) => !("completionYear" in seed))).toBe(true);
   });
 
   it("defaults to a credential-free dry run", () => {
@@ -60,7 +61,8 @@ describe("Sanity project seed data", () => {
 
     expect(result.status).toBe(0);
     expect(result.stdout).toContain("DRY RUN — no network requests or writes");
-    expect(result.stdout).toContain("Documents: 8; unique assets: 8");
+    expect(result.stdout).toContain("Documents: 9; unique assets: 17");
+    expect(result.stdout).toContain("Site Images (only if missing): 17 assets");
   });
 
   it("requires explicit credentials before write mode can initialize a client", () => {

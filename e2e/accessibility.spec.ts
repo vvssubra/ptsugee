@@ -29,7 +29,8 @@ test("reduced-motion preference disables smooth scrolling and marquee animation"
 test("gallery failure is localized and does not remove its section", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#projects")).toBeVisible();
-  await expect(page.locator(".project-gallery__state")).toContainText(/project images are temporarily unavailable/i);
+  await expect(page.locator(".project-gallery")).toBeVisible();
+  await expect(page.getByRole("link", { name: /view all field photos/i })).toBeVisible();
 
   await page.goto("/id/laser-alignment-service");
   await expect(page.getByTestId("service-gallery")).toBeVisible();

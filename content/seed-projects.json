@@ -1,5 +1,71 @@
 [
   {
+    "_id": "project-gallery-heavy-equipment-installation-2025",
+    "_type": "projectGallery",
+    "title": {"en": "Heavy Equipment Installation Project", "id": "Proyek Instalasi Peralatan Berat"},
+    "serviceCategory": "machinery-equipment-installation",
+    "location": "Batam, Indonesia",
+    "completionYear": 2025,
+    "displayOrder": 0,
+    "featured": true,
+    "images": [
+    {
+      "path": "public/images/projects/heavy-equipment-installation-01.jpeg",
+      "alt": {"en": "PT SUGEE project: Gearbox lifting and positioning", "id": "Proyek PT SUGEE: Pengangkatan dan penempatan gearbox"},
+      "caption": {"en": "Gearbox lifting and positioning", "id": "Pengangkatan dan penempatan gearbox"},
+      "provenance": "Client-supplied field photo, heavy equipment installation project 2025"
+    },
+    {
+      "path": "public/images/projects/heavy-equipment-installation-02.jpeg",
+      "alt": {"en": "PT SUGEE project: Marine propulsion installation", "id": "Proyek PT SUGEE: Instalasi sistem propulsi maritim"},
+      "caption": {"en": "Marine propulsion installation", "id": "Instalasi sistem propulsi maritim"},
+      "provenance": "Client-supplied field photo, heavy equipment installation project 2025"
+    },
+    {
+      "path": "public/images/projects/heavy-equipment-installation-03.jpeg",
+      "alt": {"en": "PT SUGEE project: Lifting a fabricated equipment module", "id": "Proyek PT SUGEE: Pengangkatan modul peralatan fabrikasi"},
+      "caption": {"en": "Lifting a fabricated equipment module", "id": "Pengangkatan modul peralatan fabrikasi"},
+      "provenance": "Client-supplied field photo, heavy equipment installation project 2025"
+    },
+    {
+      "path": "public/images/projects/heavy-equipment-installation-04.jpeg",
+      "alt": {"en": "PT SUGEE project: Machinery assembly and alignment", "id": "Proyek PT SUGEE: Perakitan dan penyelarasan mesin"},
+      "caption": {"en": "Machinery assembly and alignment", "id": "Perakitan dan penyelarasan mesin"},
+      "provenance": "Client-supplied field photo, heavy equipment installation project 2025"
+    },
+    {
+      "path": "public/images/projects/heavy-equipment-installation-05.jpeg",
+      "alt": {"en": "PT SUGEE project: Large rotating equipment assembly", "id": "Proyek PT SUGEE: Perakitan peralatan berputar berukuran besar"},
+      "caption": {"en": "Large rotating equipment assembly", "id": "Perakitan peralatan berputar berukuran besar"},
+      "provenance": "Client-supplied field photo, heavy equipment installation project 2025"
+    },
+    {
+      "path": "public/images/projects/heavy-equipment-installation-06.jpeg",
+      "alt": {"en": "PT SUGEE project: Heavy component lifting operation", "id": "Proyek PT SUGEE: Operasi pengangkatan komponen berat"},
+      "caption": {"en": "Heavy component lifting operation", "id": "Operasi pengangkatan komponen berat"},
+      "provenance": "Client-supplied field photo, heavy equipment installation project 2025"
+    },
+    {
+      "path": "public/images/projects/heavy-equipment-installation-07.jpeg",
+      "alt": {"en": "PT SUGEE project: Winch assembly installation", "id": "Proyek PT SUGEE: Instalasi rakitan winch"},
+      "caption": {"en": "Winch assembly installation", "id": "Instalasi rakitan winch"},
+      "provenance": "Client-supplied field photo, heavy equipment installation project 2025"
+    },
+    {
+      "path": "public/images/projects/heavy-equipment-installation-08.jpeg",
+      "alt": {"en": "PT SUGEE project: On-site flange machining", "id": "Proyek PT SUGEE: Machining flange di lokasi"},
+      "caption": {"en": "On-site flange machining", "id": "Machining flange di lokasi"},
+      "provenance": "Client-supplied field photo, heavy equipment installation project 2025"
+    },
+    {
+      "path": "public/images/projects/heavy-equipment-installation-09.jpeg",
+      "alt": {"en": "PT SUGEE project: Dimensional inspection after machining", "id": "Proyek PT SUGEE: Inspeksi dimensi setelah machining"},
+      "caption": {"en": "Dimensional inspection after machining", "id": "Inspeksi dimensi setelah machining"},
+      "provenance": "Client-supplied field photo, heavy equipment installation project 2025"
+    }
+    ]
+  },
+  {
     "_id": "project-gallery-chock-fast-projects",
     "_type": "projectGallery",
     "title": {"en": "Chock Fast Projects", "id": "Proyek Chock Fast"},

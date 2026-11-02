@@ -15,6 +15,9 @@ export const structure: StructureResolver = (S) =>
     .title("PT SUGEE Content")
     .items([
       S.listItem()
+        .title("Site Images")
+        .child(S.document().schemaType("siteImages").documentId("siteImages").title("Site Images")),
+      S.listItem()
         .title("Project Galleries")
         .child(
           S.list()

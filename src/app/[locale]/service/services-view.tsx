@@ -6,13 +6,13 @@ import { ProjectGallery } from "@/components/project-gallery";
 import { ServiceDirectory } from "@/components/service-directory";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
-import { heroAssets } from "@/content/assets";
+import { localSiteImages, type SiteImages } from "@/content/site-images";
 import type { Locale } from "@/i18n/routing";
 import type { ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 
 const messages = { en: enMessages, id: idMessages } as const;
 
-export function ServicesPage({ locale, gallery }: { locale: Locale; gallery: ProjectGalleryResult }) {
+export function ServicesPage({ locale, gallery, images = localSiteImages(locale) }: { locale: Locale; gallery: ProjectGalleryResult; images?: SiteImages }) {
   const dictionary = messages[locale];
   const intro = dictionary.servicesIndex;
   const serviceLabels = Object.fromEntries(
@@ -20,7 +20,7 @@ export function ServicesPage({ locale, gallery }: { locale: Locale; gallery: Pro
   ) as Record<keyof typeof dictionary.services, string>;
   return <main>
     <section className="section services-intro" aria-labelledby="services-heading">
-      <Image className="services-intro__image" src={heroAssets.quality} alt={dictionary.images.qualityTeam} fill priority sizes="100vw" />
+      <Image className="services-intro__image" src={images.qualityTeam.src} alt={images.qualityTeam.alt} fill priority sizes="100vw" />
       <div className="services-intro__overlay" />
       <Container className="services-intro__content">
       <h1 id="services-heading">{intro.heading}</h1><p>{intro.body}</p><ButtonLink href="#contact">{intro.cta}</ButtonLink>

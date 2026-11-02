@@ -13,6 +13,7 @@ export const englishRoutes = [
   "/",
   "/about",
   "/service",
+  "/gallery",
   ...serviceSlugs.map((slug) => `/${slug}` as const),
 ] as const;
 

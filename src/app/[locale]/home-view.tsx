@@ -12,6 +12,7 @@ import { ServiceGrid } from "@/components/service-grid";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { localSiteImages, type SiteImages } from "@/content/site-images";
 import { withUploadedProject } from "@/content/uploaded-projects";
 import type { Locale } from "@/i18n/routing";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
@@ -19,21 +20,21 @@ import type { ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 
 const messages = { en: enMessages, id: idMessages } as const;
 
-export function HomePage({ locale, gallery }: { locale: Locale; gallery: ProjectGalleryResult }) {
+export function HomePage({ locale, gallery, images = localSiteImages(locale) }: { locale: Locale; gallery: ProjectGalleryResult; images?: SiteImages }) {
   const dictionary = messages[locale];
   const home = dictionary.home;
   const featuredGallery = withUploadedProject(gallery, locale);
 
   return (
     <main>
-      <Hero alt={dictionary.images.homeHero} body={home.hero.body} eyebrow={home.hero.eyebrow} heading={home.hero.heading} primaryCta={home.hero.primaryCta} secondaryCta={home.hero.secondaryCta} serviceHref="/service" />
-      <MotionReveal><ClientLogoStrip altLabels={dictionary.images} body={home.clients.body} heading={home.clients.heading} marqueeLabel={home.clients.marqueeLabel} /></MotionReveal>
+      <Hero image={images.homeHero} body={home.hero.body} eyebrow={home.hero.eyebrow} heading={home.hero.heading} primaryCta={home.hero.primaryCta} secondaryCta={home.hero.secondaryCta} serviceHref="/service" />
+      <MotionReveal><ClientLogoStrip logos={images.clientLogos} body={home.clients.body} heading={home.clients.heading} marqueeLabel={home.clients.marqueeLabel} /></MotionReveal>
       <MotionReveal>
         <section className="section capabilities-section" aria-labelledby="capabilities-heading">
           <Container><div className="capabilities-layout"><div>
             <SectionHeading headingId="capabilities-heading" eyebrow={home.capabilities.eyebrow} heading={home.capabilities.heading} body={home.capabilities.body} />
             <ButtonLink className="capabilities-cta" href="/service">{home.capabilities.cta}</ButtonLink>
-          </div><ServiceGrid locale={locale} services={dictionary.services} /></div></Container>
+          </div><ServiceGrid images={images.services} locale={locale} services={dictionary.services} /></div></Container>
         </section>
       </MotionReveal>
       <MotionReveal>
@@ -64,7 +65,7 @@ export function HomePage({ locale, gallery }: { locale: Locale; gallery: Project
         </section>
       </MotionReveal>
       <MotionReveal><ProofPoints eyebrow={home.why.eyebrow} heading={home.why.heading} points={[home.why.experience, home.why.regional, home.why.capability, home.why.priority]} /></MotionReveal>
-      <MotionReveal><QualitySection alt={dictionary.images.qualityTeam} body={home.quality.body} eyebrow={home.quality.eyebrow} heading={home.quality.heading} points={home.quality.points} /></MotionReveal>
+      <MotionReveal><QualitySection image={images.qualityTeam} body={home.quality.body} eyebrow={home.quality.eyebrow} heading={home.quality.heading} points={home.quality.points} /></MotionReveal>
       <div className="home-split"><Container className="home-split__inner">
         <MotionReveal>
           <section className="faq-section" aria-labelledby="faq-heading">
