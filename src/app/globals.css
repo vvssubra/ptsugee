@@ -1692,10 +1692,10 @@ p {
   .site-navigation, .site-navigation[data-open] { margin-inline: auto; }
   .mobile-menu { flex: 1; margin-left: clamp(1.5rem, 3vw, 3rem); }
 
-  .home-hero { align-items: center; }
-  .home-hero__frame { border-radius: var(--radius-md); inset: clamp(2rem, 7vh, 4.5rem) max(var(--page-gutter), calc((100% - var(--content-max)) / 2)) clamp(2rem, 7vh, 4.5rem) 55%; overflow: hidden; position: absolute; }
-  .home-hero__overlay { display: none; }
-  .home-hero__content > * { max-width: min(46%, 600px); }
+  /* Hero runs full bleed on desktop: the image fills the frame and the copy
+     sits over it, held off the right half by the overlay's left-dark wash. */
+  .home-hero__frame { inset: 0; }
+  .home-hero__content > * { max-width: min(58%, 46rem); }
   .home-hero__content h1 { font-size: clamp(2.75rem, 4.4vw, 4.5rem); }
 
   .clients-section .container { align-items: center; display: grid; gap: 3rem; grid-template-columns: minmax(220px, 0.32fr) minmax(0, 1fr); }

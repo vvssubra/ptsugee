@@ -20,10 +20,10 @@ export function Hero({ image, eyebrow, heading, body, primaryCta, secondaryCta, 
   return <div className="home-hero-scene" data-testid="home-hero-scene" ref={sceneRef}>
     <div className="home-hero-sticky">
       <section className="home-hero" aria-labelledby="home-hero-heading">
-        {/* Frame clips the scaled media; full-bleed on mobile, a framed panel beside the copy on desktop. */}
+        {/* Frame clips the scaled media; full-bleed at every width, with the copy overlaid. */}
         <div className="home-hero__frame">
           <motion.div className="home-hero__media" style={{ scale: reduceMotion ? 1 : imageScale }}>
-            <Image className="home-hero__image" src={image.src} alt={image.alt} fill priority sizes="(min-width: 1024px) 50vw, 100vw" />
+            <Image className="home-hero__image" src={image.src} alt={image.alt} fill priority sizes="100vw" />
           </motion.div>
           <motion.div className="home-hero__overlay" style={{ opacity: reduceMotion ? 1 : overlayOpacity }} />
         </div>
