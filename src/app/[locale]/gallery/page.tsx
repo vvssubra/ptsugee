@@ -8,7 +8,7 @@ import { ContactBoundary } from "@/components/contact-boundary";
 import { Container } from "@/components/ui/container";
 import { localFieldImages, type FieldImage } from "@/content/field-images";
 import { serviceSlugs } from "@/content/types";
-import { withUploadedProject } from "@/content/uploaded-projects";
+import { fieldPhotoProjectsMissingFrom, withUploadedProject } from "@/content/uploaded-projects";
 import { routing, type Locale } from "@/i18n/routing";
 import { buildLocalizedMetadata } from "@/lib/metadata";
 import { getProjectsByService } from "@/sanity/lib/fetch-projects";
@@ -37,7 +37,8 @@ async function GalleryContent({ locale }: { locale: Locale }) {
   const text = copy[locale];
   const categories = Object.fromEntries([...serviceSlugs.map((slug) => [slug, dictionary.services[slug].title]), ["team", text.team]]);
   const [results, siteImages] = await Promise.all([Promise.all(serviceSlugs.map((slug) => getProjectsByService(slug, locale))), getSiteImages(locale)]);
-  const studioProjects = results.flatMap((result) => result.projects).sort((a, b) => a.displayOrder - b.displayOrder);
+  const sanityProjects = results.flatMap((result) => result.projects);
+  const studioProjects = sanityProjects.length ? [...sanityProjects, ...fieldPhotoProjectsMissingFrom(sanityProjects, locale)].sort((a, b) => a.displayOrder - b.displayOrder) : [];
   const images: FieldImage[] = [];
   if (studioProjects.length) {
     // Studio is the source of truth: its projects, plus the service covers and team photos from Site Images.
