@@ -5,6 +5,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { serviceSlugs, type ServiceSlug } from "@/content/types";
 import type { ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
 
+const AUTOPLAY_MS = 5_000;
+const RESUME_AFTER_MS = 8_000;
+
 type Props = {
   gallery: ProjectGalleryResult;
   emptyMessage: string;
@@ -23,7 +26,11 @@ export function ProjectGallery({ gallery, emptyMessage, unavailableMessage, prev
   const track = useRef<HTMLDivElement>(null);
   const [activeService, setActiveService] = useState<ServiceSlug | "all">("all");
   const [manuallyPaused, setManuallyPaused] = useState(false);
-  const [interactionPaused, setInteractionPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  // A tap, swipe, key press or arrow click pauses autoplay briefly; only the pause button stops it.
+  const resumeAt = useRef(0);
+  const touched = useRef(false);
+  const holdAutoplay = useCallback(() => { resumeAt.current = Date.now() + RESUME_AFTER_MS; }, []);
   const categories = useMemo(() => gallery.status === "ready"
     ? serviceSlugs.filter((slug) => gallery.projects.some((project) => project.serviceCategory === slug))
     : [], [gallery]);
@@ -45,24 +52,27 @@ export function ProjectGallery({ gallery, emptyMessage, unavailableMessage, prev
   }, []);
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
-    if (gallery.status !== "ready" || slideCount < 2 || manuallyPaused || interactionPaused || reducedMotion) return;
-    const timer = window.setInterval(() => scroll(1), 5_000);
+    // With reduced motion the slides still advance, but jump instead of gliding (see `scroll`).
+    if (gallery.status !== "ready" || slideCount < 2 || manuallyPaused || hovered) return;
+    const timer = window.setInterval(() => {
+      if (Date.now() < resumeAt.current || document.hidden) return;
+      scroll(1);
+    }, AUTOPLAY_MS);
     return () => window.clearInterval(timer);
-  }, [gallery.status, interactionPaused, manuallyPaused, scroll, slideCount]);
+  }, [gallery.status, hovered, manuallyPaused, scroll, slideCount]);
 
   if (gallery.status !== "ready") return <p className="project-gallery__state">{gallery.status === "empty" ? emptyMessage : unavailableMessage}</p>;
 
-  return <div className="project-gallery" role="region" aria-label={slideshowLabel} onMouseEnter={() => setInteractionPaused(true)} onMouseLeave={() => setInteractionPaused(false)}><div className="project-gallery__toolbar">
+  return <div className="project-gallery" role="region" aria-label={slideshowLabel} onTouchStart={() => { touched.current = true; }} onMouseEnter={() => { if (!touched.current) setHovered(true); }} onMouseLeave={() => setHovered(false)}><div className="project-gallery__toolbar">
     <div className="project-gallery__filters" role="group" aria-label={filtersLabel}>
       <button type="button" aria-pressed={activeService === "all"} onClick={() => setActiveService("all")}>{allServicesLabel}</button>
       {categories.map((category) => <button type="button" aria-pressed={activeService === category} key={category} onClick={() => setActiveService(category)}>{serviceLabels[category]}</button>)}
     </div>
     <div className="project-gallery__controls">
     <motion.button whileTap={{ scale: 0.96 }} type="button" aria-label={manuallyPaused ? playLabel : pauseLabel} aria-pressed={manuallyPaused} onClick={() => setManuallyPaused((paused) => !paused)}>{manuallyPaused ? "▶" : "Ⅱ"}</motion.button>
-    <motion.button whileTap={{ scale: 0.96 }} type="button" aria-label={previousLabel} onClick={() => { setManuallyPaused(true); scroll(-1); }}>←</motion.button><motion.button whileTap={{ scale: 0.96 }} type="button" aria-label={nextLabel} onClick={() => { setManuallyPaused(true); scroll(1); }}>→</motion.button>
+    <motion.button whileTap={{ scale: 0.96 }} type="button" aria-label={previousLabel} onClick={() => { holdAutoplay(); scroll(-1); }}>←</motion.button><motion.button whileTap={{ scale: 0.96 }} type="button" aria-label={nextLabel} onClick={() => { holdAutoplay(); scroll(1); }}>→</motion.button>
     </div>
-  </div><div className="project-gallery__track" ref={track} tabIndex={0} aria-live="off" onFocus={() => setInteractionPaused(true)} onBlur={() => setInteractionPaused(false)} onPointerDown={() => setManuallyPaused(true)}>{visibleProjects.flatMap((project) => project.images.map((item) =>
+  </div><div className="project-gallery__track" ref={track} tabIndex={0} aria-live="off" onPointerDown={holdAutoplay} onTouchStart={holdAutoplay} onWheel={holdAutoplay} onKeyDown={holdAutoplay}>{visibleProjects.flatMap((project) => project.images.map((item) =>
     <article className="project-card" key={`${project.id}-${item.key}`}><div className="project-card__media"><Image src={item.asset.url} alt={item.alt} fill sizes="(min-width: 1024px) 55vw, 85vw" placeholder={item.asset.lqip ? "blur" : "empty"} blurDataURL={item.asset.lqip} /></div><div className="project-card__content"><h3>{project.title}</h3><p>{project.location}{project.completionYear ? ` · ${project.completionYear}` : ""}</p>{item.caption ? <p className="project-card__caption">{item.caption}</p> : null}</div></article>
   ))}</div></div>;
 }

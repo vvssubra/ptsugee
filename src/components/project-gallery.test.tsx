@@ -106,13 +106,40 @@ describe("ProjectGallery autoplay", () => {
     expect(scrollBy).toHaveBeenCalledOnce();
   });
 
-  it("does not autoplay when reduced motion is requested", () => {
+  it("keeps autoplaying with reduced motion, jumping instead of gliding", () => {
     vi.mocked(window.matchMedia).mockReturnValue({ matches: true } as MediaQueryList);
     render(<ProjectGallery gallery={gallery} {...labels} />);
     const { scrollBy } = prepareTrack();
 
-    act(() => vi.advanceTimersByTime(10_000));
+    act(() => vi.advanceTimersByTime(5_000));
 
+    expect(scrollBy).toHaveBeenCalledWith({ left: 720, behavior: "auto" });
+  });
+
+  it("resumes autoplay a few seconds after the arrows are used", () => {
+    render(<ProjectGallery gallery={gallery} {...labels} />);
+    const { scrollBy } = prepareTrack();
+
+    fireEvent.click(screen.getByRole("button", { name: "Next projects" }));
+    expect(scrollBy).toHaveBeenCalledOnce();
+    act(() => vi.advanceTimersByTime(5_000));
+    expect(scrollBy).toHaveBeenCalledOnce();
+
+    act(() => vi.advanceTimersByTime(5_000));
+    expect(scrollBy).toHaveBeenCalledTimes(2);
+  });
+
+  it("resumes after a swipe and is not held paused by the tap's emulated hover", () => {
+    render(<ProjectGallery gallery={gallery} {...labels} />);
+    const { track, scrollBy } = prepareTrack();
+    const galleryRegion = screen.getByRole("region", { name: "Project slideshow" });
+
+    fireEvent.touchStart(track);
+    fireEvent.mouseEnter(galleryRegion);
+    act(() => vi.advanceTimersByTime(5_000));
     expect(scrollBy).not.toHaveBeenCalled();
+
+    act(() => vi.advanceTimersByTime(5_000));
+    expect(scrollBy).toHaveBeenCalledOnce();
   });
 });
