@@ -40,7 +40,7 @@ export const fieldPhotos: ReadonlyArray<{ file: string; category: ServiceSlug; w
   { file: "29", category: "machinery-equipment-overhauling", width: 1200, height: 1599, en: "Crane slewing bearing inspection and maintenance", id: "Inspeksi dan perawatan slewing bearing crane" },
   { file: "31", category: "machinery-equipment-installation", width: 1200, height: 1599, en: "Lifting crane pedestal with gear ring", id: "Pengangkatan pedestal crane dengan ring gigi" },
   { file: "33", category: "machinery-equipment-installation", width: 532, height: 1152, en: "Azimuth thruster lifting and rigging", id: "Pengangkatan dan rigging azimuth thruster" },
-  { file: "36", category: "machinery-equipment-installation", width: 1280, height: 640, en: "Lifting Cummins marine diesel engine", id: "Pengangkatan mesin diesel marine Cummins" },
+  { file: "36", category: "machinery-equipment-installation", width: 1280, height: 640, en: "Lifting marine diesel engine", id: "Pengangkatan mesin diesel marine" },
   { file: "37", category: "in-situ-machining", width: 1600, height: 1200, en: "On-site machining of crane slewing seat", id: "Machining di lokasi dudukan slewing crane" },
   { file: "38", category: "in-situ-machining", width: 960, height: 1280, en: "Linear milling of engine foundation pads", id: "Linear milling dudukan pondasi mesin" },
   { file: "39", category: "in-situ-machining", width: 1280, height: 960, en: "Portable linear milling machine on foundation", id: "Mesin linear milling portabel di pondasi" },
