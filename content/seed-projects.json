@@ -258,21 +258,21 @@
     "_id": "project-gallery-wasco-yard-batam",
     "_type": "projectGallery",
     "title": {
-      "en": "Previous Project — WASCO Yard Batam",
-      "id": "Proyek Sebelumnya — WASCO Yard Batam"
+      "en": "Previous Project — Portable Machining, Batam",
+      "id": "Proyek Sebelumnya — Machining Portabel, Batam"
     },
     "serviceCategory": "in-situ-machining",
-    "location": "WASCO Yard, Batam",
+    "location": "Batam, Indonesia",
     "displayOrder": 70,
     "featured": false,
     "images": [
       {
-        "path": "public/images/projects/wasco-yard-batam-machining.jpg",
+        "path": "public/images/projects/batam-portable-machining.jpg",
         "alt": {
-          "en": "Portable machining equipment on a circular gear at WASCO Yard Batam",
-          "id": "Peralatan machining portabel pada roda gigi bundar di WASCO Yard Batam"
+          "en": "Portable machining equipment on a circular gear at a Batam shipyard",
+          "id": "Peralatan machining portabel pada roda gigi bundar di galangan kapal Batam"
         },
-        "provenance": "PT SUGEE company profile PDF, page 20 (Previous Project, WASCO Yard)"
+        "provenance": "PT SUGEE company profile PDF, page 20 (Previous Project)"
       }
     ]
   },
@@ -280,21 +280,21 @@
     "_id": "project-gallery-asl-yard-batam",
     "_type": "projectGallery",
     "title": {
-      "en": "Previous Project — ASL Yard Batam",
-      "id": "Proyek Sebelumnya — ASL Yard Batam"
+      "en": "Previous Project — Structure Lift and Installation, Batam",
+      "id": "Proyek Sebelumnya — Pengangkatan dan Instalasi Struktur, Batam"
     },
     "serviceCategory": "machinery-equipment-installation",
-    "location": "ASL Yard, Batam",
+    "location": "Batam, Indonesia",
     "displayOrder": 80,
     "featured": false,
     "images": [
       {
-        "path": "public/images/projects/asl-yard-batam-installation.jpg",
+        "path": "public/images/projects/batam-structure-lift-installation.jpg",
         "alt": {
-          "en": "Blue steel structure being lifted at ASL Yard Batam",
-          "id": "Struktur baja biru sedang diangkat di ASL Yard Batam"
+          "en": "Blue steel structure being lifted at a Batam shipyard",
+          "id": "Struktur baja biru sedang diangkat di galangan kapal Batam"
         },
-        "provenance": "PT SUGEE company profile PDF, page 21 (Previous Project, ASL Yard Batam)"
+        "provenance": "PT SUGEE company profile PDF, page 21 (Previous Project)"
       }
     ]
   },
@@ -649,12 +649,12 @@
       {
         "path": "public/images/projects/field-photo-36.jpg",
         "alt": {
-          "en": "PT SUGEE project: Lifting Cummins marine diesel engine",
-          "id": "Proyek PT SUGEE: Pengangkatan mesin diesel marine Cummins"
+          "en": "PT SUGEE project: Lifting marine diesel engine",
+          "id": "Proyek PT SUGEE: Pengangkatan mesin diesel marine"
         },
         "caption": {
-          "en": "Lifting Cummins marine diesel engine",
-          "id": "Pengangkatan mesin diesel marine Cummins"
+          "en": "Lifting marine diesel engine",
+          "id": "Pengangkatan mesin diesel marine"
         },
         "provenance": "Client-supplied field photo, Google Drive upload 2026-11-19"
       },

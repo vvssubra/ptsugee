@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
 import type { ServiceSlug } from "@/content/types";
 export type FieldImage = { id: string; src: string | StaticImageData; alt: string; title: string; category: ServiceSlug | "team"; location?: string };
-import photo0 from "../../public/images/projects/asl-yard-batam-installation.jpg";
+import photo0 from "../../public/images/projects/batam-structure-lift-installation.jpg";
 import photo1 from "../../public/images/projects/epocast-profile.webp";
 import photo2 from "../../public/images/projects/flange-management-module-installation.webp";
 import photo3 from "../../public/images/projects/heavy-equipment-installation-01.jpeg";
@@ -17,7 +17,7 @@ import photo12 from "../../public/images/projects/in-situ-machining-profile.webp
 import photo13 from "../../public/images/projects/laser-alignment-profile.webp";
 import photo14 from "../../public/images/projects/machinery-equipment-installation-profile.webp";
 import photo15 from "../../public/images/projects/machinery-equipment-overhauling-profile.webp";
-import photo16 from "../../public/images/projects/wasco-yard-batam-machining.jpg";
+import photo16 from "../../public/images/projects/batam-portable-machining.jpg";
 import photo17 from "../../public/images/services/epocast.webp";
 import photo18 from "../../public/images/services/flange-management.webp";
 import photo19 from "../../public/images/services/in-situ-machining.webp";
@@ -102,7 +102,7 @@ import photo96 from "../../public/images/projects/field-photo-79.jpg";
 import photo97 from "../../public/images/projects/field-photo-80.jpg";
 // end field-photo imports
 export const localFieldImages: Array<{ image: StaticImageData; file: string; category: ServiceSlug | "team" }> = [
-  { image: photo0, file: "asl-yard-batam-installation", category: "machinery-equipment-installation" },
+  { image: photo0, file: "batam-structure-lift-installation", category: "machinery-equipment-installation" },
   { image: photo1, file: "epocast-profile", category: "epocast" },
   { image: photo2, file: "flange-management-module-installation", category: "flange-management" },
   { image: photo3, file: "heavy-equipment-installation-01", category: "machinery-equipment-installation" },
@@ -118,7 +118,7 @@ export const localFieldImages: Array<{ image: StaticImageData; file: string; cat
   { image: photo13, file: "laser-alignment-profile", category: "laser-alignment-service" },
   { image: photo14, file: "machinery-equipment-installation-profile", category: "machinery-equipment-installation" },
   { image: photo15, file: "machinery-equipment-overhauling-profile", category: "machinery-equipment-overhauling" },
-  { image: photo16, file: "wasco-yard-batam-machining", category: "in-situ-machining" },
+  { image: photo16, file: "batam-portable-machining", category: "in-situ-machining" },
   { image: photo17, file: "epocast", category: "epocast" },
   { image: photo18, file: "flange-management", category: "flange-management" },
   { image: photo19, file: "in-situ-machining", category: "in-situ-machining" },
