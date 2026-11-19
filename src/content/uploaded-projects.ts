@@ -1,5 +1,7 @@
 import type { Locale } from "@/i18n/routing";
 import type { ProjectGallery, ProjectGalleryResult } from "@/sanity/lib/fetch-projects";
+import { fieldPhotoProjects, fieldPhotos } from "@/content/field-photos";
+import type { ServiceSlug } from "@/content/types";
 
 const images = [
   { file: "01", width: 532, height: 1152, en: "Gearbox lifting and positioning", id: "Pengangkatan dan penempatan gearbox" },
@@ -42,8 +44,52 @@ function uploadedProject(locale: Locale): ProjectGallery {
   };
 }
 
+function fieldPhotoProject(locale: Locale, category: ServiceSlug, meta: { order: number; en: string; id: string }): ProjectGallery {
+  const isIndonesian = locale === "id";
+  return {
+    id: `field-photos-${category}`,
+    title: isIndonesian ? meta.id : meta.en,
+    serviceCategory: category,
+    location: "Batam, Indonesia",
+    displayOrder: meta.order,
+    featured: true,
+    images: fieldPhotos.filter((photo) => photo.category === category).map((photo) => {
+      const caption = isIndonesian ? photo.id : photo.en;
+      return {
+        key: `field-photo-${photo.file}`,
+        alt: `${isIndonesian ? "Proyek PT SUGEE" : "PT SUGEE project"}: ${caption}`,
+        caption,
+        asset: {
+          id: `uploaded-field-photo-${photo.file}`,
+          url: `/images/projects/field-photo-${photo.file}.jpg`,
+          width: photo.width,
+          height: photo.height,
+          aspectRatio: photo.width / photo.height,
+        },
+      };
+    }),
+  };
+}
+
+/** Every built-in project: the 2025 heavy-equipment set, then the field photos grouped by service. */
+export function uploadedProjects(locale: Locale): ProjectGallery[] {
+  const fieldProjects = (Object.entries(fieldPhotoProjects) as Array<[ServiceSlug, { order: number; en: string; id: string }]>)
+    .map(([category, meta]) => fieldPhotoProject(locale, category, meta))
+    .filter((project) => project.images.length > 0);
+  return [uploadedProject(locale), ...fieldProjects].sort((a, b) => a.displayOrder - b.displayOrder);
+}
+
+/** Field-photo projects that Studio does not have yet (`pnpm sanity:seed --write` copies them as `project-gallery-<id>`). */
+export function fieldPhotoProjectsMissingFrom(projects: ProjectGallery[], locale: Locale): ProjectGallery[] {
+  const inStudio = new Set(projects.map((project) => project.id));
+  return uploadedProjects(locale).filter((project) => project.id.startsWith("field-photos-") && !inStudio.has(`project-gallery-${project.id}`));
+}
+
 export function withUploadedProject(gallery: ProjectGalleryResult, locale: Locale): ProjectGalleryResult {
-  // Once Sanity serves projects, `pnpm sanity:seed --write` has copied this one there too.
-  if (gallery.status === "ready") return gallery;
-  return { status: "ready", projects: [uploadedProject(locale)] };
+  // Once Sanity serves projects, `pnpm sanity:seed --write` has copied these there too; until then the field photos are added on top.
+  if (gallery.status === "ready") {
+    const missing = fieldPhotoProjectsMissingFrom(gallery.projects, locale);
+    return missing.length ? { status: "ready", projects: [...gallery.projects, ...missing].sort((a, b) => a.displayOrder - b.displayOrder) } : gallery;
+  }
+  return { status: "ready", projects: uploadedProjects(locale) };
 }

@@ -79,7 +79,7 @@ describe("HomePage", () => {
     expect(screen.getByText("Selected Companies We Have Supported")).toBeInTheDocument();
     expect(screen.getAllByRole("button", { name: /^(What|Where|How|Can)/ })).toHaveLength(6);
     expect(screen.queryByText("New project photographs will be added soon. Contact us to discuss relevant experience for your application.")).not.toBeInTheDocument();
-    expect(screen.getAllByRole("img", { name: /^PT SUGEE project:/ })).toHaveLength(9);
+    expect(screen.getAllByRole("img", { name: /^PT SUGEE project:/ })).toHaveLength(81);
     expect(screen.getByRole("link", { name: "Contact Us" })).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Contact Us on WhatsApp" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
     expect(screen.getByRole("heading", { level: 2, name: "Our Locations" })).toBeInTheDocument();
@@ -106,7 +106,7 @@ describe("HomePage", () => {
     expect(screen.getAllByTestId("service-link")).toHaveLength(6);
     expect(screen.getAllByTestId("proof-point")).toHaveLength(4);
     expect(screen.queryByText("Gambar proyek untuk sementara belum tersedia. Hubungi kami untuk membahas pengalaman yang relevan.")).not.toBeInTheDocument();
-    expect(screen.getAllByRole("img", { name: /^Proyek PT SUGEE:/ })).toHaveLength(9);
+    expect(screen.getAllByRole("img", { name: /^Proyek PT SUGEE:/ })).toHaveLength(81);
     expect(screen.getByRole("link", { name: "Hubungi Kami" })).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Hubungi Kami via WhatsApp" })).toHaveAttribute("href", expect.stringContaining("wa.me/6591004649"));
     expect(screen.getByRole("heading", { level: 2, name: "Lokasi Kami" })).toBeInTheDocument();

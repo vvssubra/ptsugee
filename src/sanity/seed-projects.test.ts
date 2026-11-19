@@ -61,7 +61,7 @@ describe("Sanity project seed data", () => {
 
     expect(result.status).toBe(0);
     expect(result.stdout).toContain("DRY RUN — no network requests or writes");
-    expect(result.stdout).toContain("Documents: 9; unique assets: 17");
+    expect(result.stdout).toContain("Documents: 13; unique assets: 89");
     expect(result.stdout).toContain("Site Images (only if missing): 17 assets");
   });
 
